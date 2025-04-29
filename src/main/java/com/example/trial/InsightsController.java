@@ -59,9 +59,9 @@ public class InsightsController {
     @FXML
     public void initialize() {
         this.insightTip.setText("\ud83d\udca1 Insight: Your weekly spending is 5% lower than last month!");
-        this.avgDailyLabel.setText("Daily Avg: ₹650");
-        this.avgWeeklyLabel.setText("Weekly Avg: ₹4200");
-        this.avgMonthlyLabel.setText("Monthly Avg: ₹16800");
+        this.avgDailyLabel.setText("Daily Avg: $250");
+        this.avgWeeklyLabel.setText("Weekly Avg: $800");
+        this.avgMonthlyLabel.setText("Monthly Avg: $4240");
         this.colCategory.setCellValueFactory((data) -> ((CategoryData)data.getValue()).categoryProperty());
         this.colAmount.setCellValueFactory((data) -> ((CategoryData)data.getValue()).amountProperty().asObject());
         this.colPercentage.setCellValueFactory((data) -> ((CategoryData)data.getValue()).percentageProperty());
