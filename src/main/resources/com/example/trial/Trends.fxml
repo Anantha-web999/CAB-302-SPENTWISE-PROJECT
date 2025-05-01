@@ -23,7 +23,7 @@
             <CategoryAxis label="Time" />
         </xAxis>
         <yAxis>
-            <NumberAxis label="Spending (₹)" />
+            <NumberAxis label="Spending ($)" />
         </yAxis>
     </LineChart>
 

@@ -15,7 +15,7 @@
 
 <BorderPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trial.Home_add_account.AddAccountController">
     <center>
-        <VBox alignment="CENTER" prefHeight="500" prefWidth="600" spacing="30" style="-fx-background-color: #e6f0ff;">
+        <VBox alignment="CENTER" prefHeight="600.0" prefWidth="1000.0" spacing="30" style="-fx-background-color: #e6f0ff;">
             <padding>
                 <Insets bottom="50" left="100" right="100" top="50" />
             </padding>
@@ -51,16 +51,18 @@
                         </FXCollections>
                     </items>
                 </ComboBox>
+            <Button mnemonicParsing="false" style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 16px; -fx-padding: 8 20; -fx-background-radius: 8;" text="Back" GridPane.rowIndex="5" onAction="#goToHomePage" />
+   
+                     <Button onAction="#handleSaveAccount" style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 16px; -fx-padding: 8 20; -fx-background-radius: 8;" text="Save Account" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <rowConstraints>
                <RowConstraints />
                <RowConstraints />
                <RowConstraints />
                <RowConstraints />
                <RowConstraints />
+               <RowConstraints minHeight="10.0" prefHeight="30.0" />
             </rowConstraints>
             </GridPane>
-
-            <Button onAction="#handleSaveAccount" style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 16px; -fx-padding: 12 30; -fx-background-radius: 8;" text="Save Account" />
         </VBox>
     </center>
 </BorderPane>
