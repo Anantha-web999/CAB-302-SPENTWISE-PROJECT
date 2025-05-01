@@ -9,7 +9,9 @@ module com.example.trial {
 
     opens com.example.trial to javafx.fxml;
     opens com.example.trial.Home_add_account to javafx.fxml, javafx.graphics;
+    opens com.example.trial.settings to javafx.fxml;
 
     exports com.example.trial;
     exports com.example.trial.Home_add_account;
+    exports com.example.trial.settings;
 }

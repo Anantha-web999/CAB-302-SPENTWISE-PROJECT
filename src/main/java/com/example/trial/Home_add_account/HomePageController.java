@@ -113,20 +113,18 @@ public class HomePageController implements Initializable {
 
     @FXML
     private void handleSettingsClick(ActionEvent event) {
-        SwingNode swingNode = new SwingNode();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/hellofx/SettingsPanel.fxml"));
+            Parent root = loader.load();
 
-        SwingUtilities.invokeLater(() -> {
-            SettingsPanel settingsPanel = new SettingsPanel();
-            swingNode.setContent(settingsPanel);
-        });
-
-        VBox root = new VBox(swingNode);
-        Scene scene = new Scene(root, 800, 600);
-
-        Stage stage = new Stage();
-        stage.setTitle("Settings");
-        stage.setScene(scene);
-        stage.show();
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setTitle("Settings");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
