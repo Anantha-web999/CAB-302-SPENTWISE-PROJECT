@@ -14,7 +14,7 @@ public class SignupController {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/com/example/views/login.fxml"));
             Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root, 800, 600));
+            stage.setScene(new Scene(root, 1000, 600));
             stage.setResizable(false);
         } catch (Exception e) {
             e.printStackTrace();
