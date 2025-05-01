@@ -27,7 +27,7 @@
             <CategoryAxis label="Category" />
         </xAxis>
         <yAxis>
-            <NumberAxis label="Amount (₹)" />
+            <NumberAxis label="Amount ($)" />
         </yAxis>
     </BarChart>
 
@@ -35,8 +35,8 @@
     <TableView fx:id="comparisonTable" layoutX="165.0" layoutY="359.0" prefHeight="140" prefWidth="500" style="-fx-background-color: white; -fx-border-color: #1e90ff;">
         <columns>
             <TableColumn fx:id="colCategory" prefWidth="140" text="Category" />
-            <TableColumn fx:id="colMonth1" prefWidth="120" text="Month 1 (₹)" />
-            <TableColumn fx:id="colMonth2" prefWidth="120" text="Month 2 (₹)" />
+            <TableColumn fx:id="colMonth1" prefWidth="120" text="Month 1 ($)" />
+            <TableColumn fx:id="colMonth2" prefWidth="120" text="Month 2 ($)" />
             <TableColumn fx:id="colDifference" prefWidth="120" text="Difference" />
         </columns>
     </TableView>
