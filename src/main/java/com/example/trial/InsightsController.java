@@ -19,6 +19,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class InsightsController {
     @FXML
     private PieChart categoryPieChart;
@@ -97,4 +99,13 @@ public class InsightsController {
 
         this.categoryPieChart.setData(pieChartData);
     }
+
+    public void goToHomePage(ActionEvent event) throws IOException {
+        Parent homeRoot = FXMLLoader.load(getClass().getResource("/com/example/hellofx/homepage.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(homeRoot));
+        stage.show();
+    }
 }
+
+

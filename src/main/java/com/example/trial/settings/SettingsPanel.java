@@ -1,4 +1,8 @@
 package com.example.trial.settings;
+import java.awt.FontFormatException;
+import java.awt.GraphicsEnvironment;
+import java.io.File;
+import java.io.IOException;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -54,17 +58,17 @@ import javax.swing.border.MatteBorder;
  */
 public class SettingsPanel extends JPanel {
     //Color palette for the application
-    private static final Color LIGHT_BLUE = new Color(235, 245, 251);
-    private static final Color ACCENT_BLUE = new Color(100, 181, 246);
-    private static final Color DARK_BLUE = new Color(30, 136, 229);
-    private static final Color BLACK = new Color(33, 33, 33);
-    private static final Color LIGHT_GRAY = new Color(245, 245, 245);
-    private static final Color TEXT_COLOR = new Color(33, 33, 33);
+    private static final Color LIGHT_BLUE = new Color(251, 252, 252); // #fbfcfc
+    private static final Color ACCENT_BLUE = new Color(41, 128, 185); // #2980b9
+    private static final Color DARK_BLUE = new Color(23, 32, 42);    // #17202a
+    private static final Color BLACK = new Color(26, 82, 118);       // #1a5276
+    private static final Color LIGHT_GRAY = new Color(245, 245, 245); // Keep light gray for contrast
+    private static final Color TEXT_COLOR = new Color(31, 97, 141);  // #1f618d
 
     //Typography definitions
-    private static final Font HEADER_FONT = new Font("Segoe UI", 1, 24);
-    private static final Font SUBHEADER_FONT = new Font("Segoe UI", 1, 16);
-    private static final Font REGULAR_FONT = new Font("Segoe UI", 0, 14);
+    private static Font HEADER_FONT;
+    private static Font SUBHEADER_FONT;
+    private static Font REGULAR_FONT;
 
     //User preferences storage
     private Preferences prefs = Preferences.userNodeForPackage(SettingsPanel.class);
@@ -88,7 +92,9 @@ public class SettingsPanel extends JPanel {
      * Creates a new settings panel with default configuration.
      */
     public SettingsPanel() {
-        this.initializeUI();
+        prefs = Preferences.userNodeForPackage(SettingsPanel.class);
+        loadCustomFonts(); // Add this line before initializeUI
+        initializeUI();
     }
 
     /**
@@ -101,6 +107,41 @@ public class SettingsPanel extends JPanel {
         this.createContentPanel();
         this.add(sidebarPanel, "West");
         this.add(this.contentPanel, "Center");
+    }
+
+    /**
+     * Loads and registers the Lato font family from resources.
+     */
+    private void loadCustomFonts() {
+        try {
+            //Font file paths
+            String fontPath = "src/main/resources/fonts/";
+
+            //Load Lato font files
+            Font latoRegular = Font.createFont(Font.TRUETYPE_FONT, new File(fontPath + "Lato-Regular.ttf"));
+            Font latoBold = Font.createFont(Font.TRUETYPE_FONT, new File(fontPath + "Lato-Bold.ttf"));
+            Font latoLight = Font.createFont(Font.TRUETYPE_FONT, new File(fontPath + "Lato-Light.ttf"));
+
+            //Register with the Graphics Environment
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            ge.registerFont(latoRegular);
+            ge.registerFont(latoBold);
+            ge.registerFont(latoLight);
+
+            //Update font constants
+            HEADER_FONT = latoBold.deriveFont(24f);
+            SUBHEADER_FONT = latoBold.deriveFont(16f);
+            REGULAR_FONT = latoRegular.deriveFont(14f);
+
+            System.out.println("Lato fonts loaded successfully");
+
+        } catch (IOException | FontFormatException e) {
+            System.out.println("Error loading Lato fonts: " + e.getMessage());
+            //Fall back to system fonts if Lato can't be loaded
+            HEADER_FONT = new Font("Segoe UI", Font.BOLD, 24);
+            SUBHEADER_FONT = new Font("Segoe UI", Font.BOLD, 16);
+            REGULAR_FONT = new Font("Segoe UI", Font.PLAIN, 14);
+        }
     }
 
     /**
@@ -132,11 +173,6 @@ public class SettingsPanel extends JPanel {
         navPanel.add(this.aboutBtn);
         navPanel.add(Box.createVerticalGlue());
         sidebar.add(navPanel, "Center");
-        JLabel versionLabel = new JLabel("v1.2.0");
-        versionLabel.setForeground(Color.LIGHT_GRAY);
-        versionLabel.setHorizontalAlignment(0);
-        versionLabel.setBorder(new EmptyBorder(10, 10, 10, 10));
-        sidebar.add(versionLabel, "South");
         return sidebar;
     }
 
@@ -535,7 +571,7 @@ public class SettingsPanel extends JPanel {
         defaultViewLabel.setFont(REGULAR_FONT);
         prefsPanel.add(defaultViewLabel, gbc);
         gbc.gridx = 1;
-        String[] views = new String[]{"Monthly", "Weekly", "Yearly", "Custom"};
+        String[] views = new String[]{"Monthly", "Weekly", "Yearly"};
         JComboBox<String> viewCombo = new JComboBox(views);
         viewCombo.setFont(REGULAR_FONT);
         prefsPanel.add(viewCombo, gbc);
@@ -926,11 +962,11 @@ public class SettingsPanel extends JPanel {
         versionLabel.setAlignmentX(0.5F);
         versionLabel.setBorder(new EmptyBorder(5, 0, 20, 0));
         aboutContent.add(versionLabel);
-        String aboutText = "SpentWise is a comprehensive personal finance application designed to help you take control of your finances. Whether you're saving for a big purchase, trying to pay off debt, or just want to know where your money is going, SpentWise provides the tools you need to succeed.";
+        String aboutText = "SpentWise is a personal budgeting application that we designed to help you take control of your finances. Whether you're saving for a big purchase, trying to pay off a debt, or just want to know where your money is going, SpentWise provides the tools you need to achieve success.";
         JLabel aboutLabel = this.createWrappedTextLabel(aboutText);
         aboutLabel.setAlignmentX(0.5F);
         aboutContent.add(aboutLabel);
-        String[][] sections = new String[][]{{"Our Mission", "At SpentWise, our mission is to demystify personal finance and empower individuals to achieve financial wellness through intuitive tools, education, and actionable insights. We believe everyone deserves access to simple yet powerful financial management tools that adapt to their unique needs and goals."}, {"Our Story", "SpentWise began in 2022 when our founder, frustrated with existing budgeting tools, decided to build something better. What started as a simple expense tracker has evolved into a comprehensive financial management platform used by over 100,000 people worldwide. Our team of finance experts and software engineers continues to innovate and improve the platform based on user feedback and emerging financial trends."}, {"Our Team", "Our diverse team brings together expertise in finance, technology, and user experience design. Led by CEO Jane Smith, former financial advisor and tech entrepreneur, our team is committed to building tools that make financial management accessible and stress-free. We're based in Seattle with remote team members across North America and Europe."}, {"Privacy & Security", "Your financial data is sensitive, and we treat it with the utmost care. SpentWise uses bank-level encryption (256-bit AES) for all data storage and transfer. We never sell your personal information to third parties, and you maintain complete control over your data at all times. Our security practices are regularly audited by independent experts to ensure compliance with industry standards."}};
+        String[][] sections = new String[][]{{"Our Mission", "At SpentWise, our mission is to simplify budgeting and help users take control of their finances through intuitive tools, personalized insights, and accessible education. We believe everyone should have an easy, powerful way to manage their money and achieve their financial goals."}, {"Our Story", "SpentWise was founded in 2022 out of a frustration with complicated and rigid budgeting apps. What began as a basic expense tracker has grown into a full-featured budgeting platform trusted by over 100,000 users worldwide. Our team continuously evolves SpentWise based on real user feedback and the latest financial trends."}, {"Our Team", "Our team brings together specialists in finance, technology, and user-centered design. Led by CEO Jane Smith, a former financial advisor and tech entrepreneur, we are passionate about making budgeting simple, effective, and stress-free. We're headquartered in Seattle, with remote contributors across North America and Europe."}, {"Privacy & Security", "Protecting your financial information is our top priority. SpentWise uses 256-bit AES encryption to secure all data, both in storage and in transit. We never sell your personal data to third parties, and you always have full control over your information. Our systems are regularly audited by independent security experts to maintain the highest standards of protection."}};
 
         for(String[] section : sections) {
             JPanel sectionPanel = this.createCollapsiblePanel(section[0], section[1]);

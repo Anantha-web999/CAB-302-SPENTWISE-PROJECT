@@ -15,7 +15,7 @@ public class HomePage extends Application {
         // Initialize database
         DatabaseHelper.initializeDatabase();
 
-        FXMLLoader fxmlLoader = new FXMLLoader(HomePage.class.getResource("/com/example/hellofx/hello-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HomePage.class.getResource("/com/example/hellofx/homepage.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         Image icon = new Image("Logo.png");
         stage.getIcons().add(icon);
