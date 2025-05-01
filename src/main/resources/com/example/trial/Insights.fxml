@@ -47,7 +47,7 @@
            -fx-padding: 6 14;
            -fx-font-size: 12px;
            -fx-cursor: hand;"
-            text="Back" />
+            text="Back" onAction="#goToHomePage" />
 
     <Button layoutX="563.0" layoutY="528.0" onAction="#goToCompareExpenses"
             style="-fx-background-color: #1e90ff;
