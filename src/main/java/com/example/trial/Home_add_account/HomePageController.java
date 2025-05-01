@@ -1,6 +1,8 @@
 package com.example.trial.Home_add_account;
 
-import com.example.hellofx.BankAccount;
+import com.example.trial.settings.SettingsPanel;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import javafx.embed.swing.SwingNode;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,11 +11,15 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -36,7 +42,7 @@ public class HomePageController implements Initializable {
             accountsContainer.getChildren().clear();
 
             for (BankAccount account : accounts) {
-                VBox accountCard = createAccountCard(account);
+                AnchorPane accountCard = createAccountCard(account);
                 accountsContainer.getChildren().add(accountCard);
             }
 
@@ -48,33 +54,86 @@ public class HomePageController implements Initializable {
         }
     }
 
-    private VBox createAccountCard(BankAccount account) {
-        VBox card = new VBox();
-        card.setSpacing(8);
-        card.setStyle("-fx-background-color: white; -fx-border-radius: 10; -fx-background-radius: 10; " +
-                "-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 2);");
-        card.setPrefWidth(200);
+    private AnchorPane createAccountCard(BankAccount account) {
+        // Create an AnchorPane for the account card
+        AnchorPane accountPane = new AnchorPane();
+        accountPane.setPrefHeight(150);
+        accountPane.setPrefWidth(295);
+        accountPane.getStyleClass().addAll("account", "account_gradient");
 
-        card.setPadding(new javafx.geometry.Insets(15));
-
-        Label bankNameLabel = new Label(account.getBankName());
-        bankNameLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
-
-        Label accountTypeLabel = new Label(account.getAccountType());
-        accountTypeLabel.setStyle("-fx-text-fill: gray;");
-
-        // Use the actual balance from the account
+        // Balance Label
         Label balanceLabel = new Label(account.getFormattedBalance());
-        balanceLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
+        balanceLabel.getStyleClass().add("account_balance");
+        AnchorPane.setLeftAnchor(balanceLabel, 14.0);
+        AnchorPane.setTopAnchor(balanceLabel, 25.0);
 
-        card.getChildren().addAll(bankNameLabel, accountTypeLabel, balanceLabel);
-        return card;
+        // Account Number (Masked + Last 4 Digits)
+        String accountNum = account.getAccountNumber();
+        String maskedAccount = "**** **** **** ";  // Mask the first part
+        String lastFourDigits = accountNum.substring(accountNum.length() - 4);  // Extract the last 4 digits
+        Label accountNumberLabel = new Label(maskedAccount + lastFourDigits);  // Combine both parts
+        accountNumberLabel.getStyleClass().add("account_number");
+        AnchorPane.setLeftAnchor(accountNumberLabel, 14.0);
+        AnchorPane.setBottomAnchor(accountNumberLabel, 45.0);
+
+        // Bank Icon (FontAwesome)
+        FontAwesomeIconView bankIcon = new FontAwesomeIconView();
+        bankIcon.setGlyphName("BANK");
+        bankIcon.setSize("30");
+        AnchorPane.setRightAnchor(bankIcon, 14.0);
+        AnchorPane.setTopAnchor(bankIcon, 7.0);
+
+        // Bank Name (instead of "Checking Account")
+        Text bankNameText = new Text(account.getBankName());  // Display bank name here
+        AnchorPane.setLeftAnchor(bankNameText, 14.0);
+        AnchorPane.setBottomAnchor(bankNameText, 10.0);  // Position at the bottom left
+
+        // Add all elements to the AnchorPane
+        accountPane.getChildren().addAll(balanceLabel, accountNumberLabel, bankIcon, bankNameText);
+
+        // Set click event for the AnchorPane to show account details
+        accountPane.setOnMouseClicked(e -> showAlert(AlertType.INFORMATION, "Account Info", null,
+                "Bank: " + account.getBankName() + "\n" +
+                        "Type: " + account.getAccountType() + "\n" +
+                        "Balance: " + account.getFormattedBalance()));
+
+        return accountPane;
     }
 
-    public void handleAddAccount(ActionEvent event) throws IOException {
+
+
+
+
+    @FXML
+    private void handleAddAccount(ActionEvent event) throws IOException {
         Parent addAccountView = FXMLLoader.load(getClass().getResource("/com/example/hellofx/add-account.fxml"));
         Scene currentScene = ((Node) event.getSource()).getScene();
         currentScene.setRoot(addAccountView);
+    }
+
+    @FXML
+    private void handleSettingsClick(ActionEvent event) {
+        SwingNode swingNode = new SwingNode();
+
+        SwingUtilities.invokeLater(() -> {
+            SettingsPanel settingsPanel = new SettingsPanel();
+            swingNode.setContent(settingsPanel);
+        });
+
+        VBox root = new VBox(swingNode);
+        Scene scene = new Scene(root, 800, 600);
+
+        Stage stage = new Stage();
+        stage.setTitle("Settings");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    private void handleInsightsClick(ActionEvent event) throws IOException {
+        Parent insightsView = FXMLLoader.load(getClass().getResource("/com/example/trial/Insights.fxml"));
+        Scene currentScene = ((Node) event.getSource()).getScene();
+        currentScene.setRoot(insightsView);
     }
 
     public void refreshAccounts() {

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" styleClass="main_dashboard_container" stylesheets="@../../../Styles/Dashboard.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trial.Home_add_account.HomePageController">
+
+    <!-- Left Menu Section -->
+    <VBox prefHeight="605.0" prefWidth="180.0" styleClass="main_menu_container" stylesheets="@../../../Styles/ClientMenu.css" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <AnchorPane prefHeight="410.0" prefWidth="180.0" styleClass="left_container">
+            <VBox layoutY="-5.0" prefHeight="80.0" prefWidth="180.0" styleClass="title_container" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-5.0">
+                <ImageView fitHeight="80.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../../../Logo.png" />
+                </ImageView>
+            </VBox>
+            <VBox layoutY="96.8" prefHeight="498.0" prefWidth="180.0" styleClass="menu_container" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="97.0">
+                <Button fx:id="dashbord_btn" mnemonicParsing="false" text="Dashboard">
+                    <graphic>
+                        <FontAwesomeIconView glyphName="HOME" size="20" />
+                    </graphic>
+                </Button>
+
+                <Button fx:id="add_acc_btn" mnemonicParsing="false" text="Add Account" onAction="#handleAddAccount">
+                    <graphic>
+                        <FontAwesomeIconView glyphName="PLUS" size="20" />
+                    </graphic>
+                </Button>
+
+                <Button fx:id="Budget_btn" mnemonicParsing="false" text="Budget">
+                    <graphic>
+                        <FontAwesomeIconView glyphName="DOLLAR" size="20" />
+                    </graphic>
+                </Button>
+                <Button fx:id="Insights_btn" mnemonicParsing="false" onAction="#handleInsightsClick" text="Insights">
+                    <graphic>
+                        <FontAwesomeIconView glyphName="DEAF" size="20" />
+                    </graphic>
+                </Button>
+                <Button fx:id="reminders_btn" mnemonicParsing="false" text="Reminders">
+                    <graphic>
+                        <FontAwesomeIconView glyphName="BELL" size="20" />
+                    </graphic>
+                </Button>
+
+                <Button fx:id="child_acc_btn" mnemonicParsing="false" text="Kids Account">
+                    <graphic>
+                        <FontAwesomeIconView glyphName="CHILD" size="20" />
+                    </graphic>
+                </Button>
+
+
+                <Line endX="120.0" />
+                <Button fx:id="settingsButton" mnemonicParsing="false" onAction="#handleSettingsClick" styleClass="alt_menu_btn" text="Settings">
+                    <graphic>
+                        <FontAwesomeIconView glyphName="COG" size="20" />
+                    </graphic>
+                </Button>
+                <Button fx:id="logout_btn" mnemonicParsing="false" styleClass="alt_menu_btn" text="Logout">
+                    <graphic>
+                        <FontAwesomeIconView glyphName="EXTERNAL_LINK" size="20" />
+                    </graphic>
+                </Button>
+            </VBox>
+        </AnchorPane>
+    </VBox>
+
+    <!-- Right Dashboard Section -->
+    <AnchorPane prefHeight="606.0" prefWidth="817.0" styleClass="dashboard" stylesheets="@../../../Styles/Dashboard.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="0.0">
+        <Text fx:id="user_name" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="user_name" text="Hi, Nizaaq" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="30.0" />
+        <Label fx:id="login_date" styleClass="date_lbl" text="Today, 2025,04,24" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="27.0" />
+        <Text styleClass="section_title" text="My Acconts" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="90.0" />
+        <Text styleClass="section_title" text="Add Accounts" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="90.0" />
+
+        <HBox fx:id="accountsContainer" layoutX="20.0" layoutY="107.0" prefHeight="180.0" prefWidth="600.0" styleClass="accounts_view" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="107.0">
+            <!-- Checking Account -->
+            <AnchorPane prefHeight="150.0" prefWidth="295.0">
+                <styleClass>
+                    <String fx:value="account" />
+                    <String fx:value="account_gradient" />
+                </styleClass>
+                <Label fx:id="cheking_balance" styleClass="account_balance" text="\$3500.52" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="25.0" />
+                <Label styleClass="account_number" text="**** **** ****" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="14.0" />
+                <Label fx:id="cheking_acc_num" styleClass="account_number" text="4558" AnchorPane.bottomAnchor="47.0" AnchorPane.leftAnchor="138.0" />
+                <FontAwesomeIconView glyphName="BANK" size="30" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="7.0" />
+                <Text text="Checking Account" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="14.0" />
+            </AnchorPane>
+
+            <!-- Savings Account -->
+            <AnchorPane prefHeight="150.0" prefWidth="295.0">
+                <styleClass>
+                    <String fx:value="account" />
+                    <String fx:value="account_gradient" />
+                </styleClass>
+                <Label fx:id="savings_balance" styleClass="account_balance" text="\$3500.52" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="25.0" />
+                <Label styleClass="account_number" text="**** **** ****" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="14.0" />
+                <Label fx:id="savings_acc_num" styleClass="account_number" text="4558" AnchorPane.bottomAnchor="47.0" AnchorPane.leftAnchor="138.0" />
+                <FontAwesomeIconView glyphName="BANK" size="30" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="7.0" />
+                <Text text="Savings Account" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="14.0" />
+            </AnchorPane>
+        </HBox>
+
+        <!-- Account Summary -->
+
+
+        <VBox layoutY="108.8" prefHeight="171.0" prefWidth="210.0" styleClass="Summary_view" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="109.0">
+            <VBox prefHeight="156.0" prefWidth="190.0" styleClass="acc_summary_container">
+                <Text text="Income" />
+                <Label fx:id="income_lbl" styleClass="income_amount" text="+ $4000.00" />
+                <Line endX="160.0" />
+                <Text text="Expenses" />
+                <Label fx:id="expense_lbl" styleClass="expense_amount" text="- $1500.00" />
+            </VBox>
+        </VBox>
+
+        <!-- Transaction Section -->
+        <Text layoutX="18.0" layoutY="309.0" styleClass="section_title" text="Latest Transactions" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="296.4000005722046" />
+        <ListView fx:id="transaction_listview" layoutX="17.0" layoutY="328.0" prefHeight="266.0" prefWidth="782.0" styleClass="transaction_listview" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="328.0" />
+    </AnchorPane>
+</AnchorPane>
