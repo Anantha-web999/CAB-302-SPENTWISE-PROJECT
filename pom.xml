@@ -38,6 +38,11 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.xerial</groupId>
+            <artifactId>sqlite-jdbc</artifactId>
+            <version>3.42.0.0</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -61,11 +66,11 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-<<<<<<< HEAD
+
                                 com.example.cab302spentwiseproject/com.example.trial.Main
-=======
+
                                 com.example.cab302spentwiseproject/com.example.cab302spentwiseproject.HelloApplication
->>>>>>> 6bdd1f393b1c093cb3530ed9067f75f56aa3c2cf
+
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
