@@ -11,4 +11,6 @@ module com.example.trial {
 
     exports com.example.trial;
     exports com.example.trial.Home_add_account;
+    opens com.example.trial.logincontroller to javafx.fxml;
+
 }

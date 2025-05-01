@@ -1,0 +1,77 @@
+/* Main Styles - /com/spentwise/styles.css */
+.root {
+    -fx-font-family: 'Segoe UI', Arial;
+    -fx-font-size: 14px;
+    -fx-background-color: #ffffff;
+}
+
+/* ===== BUTTONS ===== */
+.button-primary {
+    -fx-background-color: #2563eb;
+    -fx-text-fill: white;
+    -fx-background-radius: 8;
+    -fx-pref-width: 120px;
+    -fx-pref-height: 35px;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+}
+
+.button-primary:hover {
+    -fx-background-color: #1d4ed8;
+}
+
+.button-secondary {
+    -fx-background-color: transparent;
+    -fx-text-fill: #2563eb;
+    -fx-underline: true;
+    -fx-padding: 0;
+    -fx-cursor: hand;
+}
+
+/* ===== TEXT ===== */
+.title {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-fill: #2563eb;
+}
+
+.subtitle {
+    -fx-font-size: 14px;
+    -fx-fill: #64748b;
+}
+
+.error-text {
+    -fx-fill: #ef4444;
+    -fx-font-size: 12px;
+}
+
+/* ===== FORM CONTROLS ===== */
+.text-field, .password-field {
+    -fx-pref-height: 35px;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-border-color: #cbd5e1;
+    -fx-border-width: 1px;
+    -fx-padding: 0 8px;
+}
+
+.text-field:error, .password-field:error {
+    -fx-border-color: #ef4444;
+}
+
+/* ===== ANIMATIONS ===== */
+.shake {
+    -fx-border-color: #ef4444 !important;
+    -fx-border-width: 2px !important;
+}
+
+/* ===== LAYOUTS ===== */
+.vbox-spacing {
+    -fx-spacing: 15px;
+    -fx-padding: 20px;
+}
+
+.hbox-spacing {
+    -fx-spacing: 10px;
+    -fx-alignment: CENTER;
+}

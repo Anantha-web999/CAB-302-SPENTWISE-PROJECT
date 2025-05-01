@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.trial.logincontroller.LandingController"
+            stylesheets="@/style.css">
+
+    <center>
+        <VBox alignment="CENTER" styleClass="vbox-spacing">
+
+            <!-- Logo -->
+            <ImageView fitWidth="80" fitHeight="80" preserveRatio="true">
+                <Image url="@/spentwiselogo.png"/>
+            </ImageView>
+
+            <!-- Title -->
+            <Text text="SpentWise" styleClass="title"/>
+            <Text text="Smart finance management" styleClass="subtitle"/>
+
+            <!-- Image Row -->
+            <HBox alignment="CENTER" styleClass="hbox-spacing">
+                <ImageView fitWidth="150" fitHeight="120" preserveRatio="true">
+                    <Image url="@/BARGRAPH.jpg"/>
+                </ImageView>
+                <ImageView fitWidth="100" fitHeight="100" preserveRatio="true">
+                    <Image url="@/coins_spentwise.webp"/>
+                </ImageView>
+                <ImageView fitWidth="150" fitHeight="120" preserveRatio="true">
+                    <Image url="@/piechart_spentwise.jpg"/>
+                </ImageView>
+            </HBox>
+
+            <!-- Get Started Button -->
+            <Button text="Get Started" onAction="#navigateToLogin" styleClass="button-primary"/>
+        </VBox>
+    </center>
+</BorderPane>
