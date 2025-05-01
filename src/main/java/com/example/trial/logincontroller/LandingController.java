@@ -15,7 +15,7 @@ public class LandingController {
     private void navigateToLogin(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/com/example/views/login.fxml"));
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root, 800, 600)); // Set fixed size here
+        stage.setScene(new Scene(root, 1000, 600)); // Set fixed size here
         stage.setResizable(false); // Prevent resizing
     }
 }

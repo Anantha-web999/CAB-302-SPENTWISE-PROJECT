@@ -24,7 +24,15 @@ public class LoginController {
             showAlert("Error", "Please enter both email and password");
         } else {
             System.out.println("Login successful for: " + email);
-            // Add your actual login logic here
+            try {
+                Parent root = FXMLLoader.load(getClass().getResource("/com/example/hellofx/homepage.fxml"));
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                stage.setScene(new Scene(root, 1000, 600));
+                stage.setResizable(false);
+            } catch (Exception e) {
+                e.printStackTrace();
+                showAlert("Error", "Cannot load homepage");
+            }
         }
     }
 
@@ -33,7 +41,7 @@ public class LoginController {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/com/example/views/signup.fxml"));
             Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root, 800, 600));
+            stage.setScene(new Scene(root, 1000, 600));
             stage.setResizable(false);
         } catch (Exception e) {
             e.printStackTrace();

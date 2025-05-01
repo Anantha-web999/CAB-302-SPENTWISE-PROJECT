@@ -15,7 +15,7 @@ public class Mainlogin extends Application {
         URL fxmlLocation = getClass().getResource("/com/example/views/landing.fxml");
         FXMLLoader loader = new FXMLLoader(fxmlLocation);
         Parent root = loader.load();
-        Scene scene = new Scene(root, 800, 600); // Set fixed size here
+        Scene scene = new Scene(root, 1000, 600); // Set fixed size here
         stage.setTitle("SpentWise");
         stage.setScene(scene);
         stage.setResizable(false); // Prevent resizing
