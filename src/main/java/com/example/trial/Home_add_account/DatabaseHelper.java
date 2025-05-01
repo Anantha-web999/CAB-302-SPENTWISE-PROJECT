@@ -46,8 +46,8 @@ public class DatabaseHelper {
         }
     }
 
-    public static List<com.example.hellofx.BankAccount> getAllBankAccounts() throws SQLException {
-        List<com.example.hellofx.BankAccount> accounts = new ArrayList<>();
+    public static List<com.example.trial.Home_add_account.BankAccount> getAllBankAccounts() throws SQLException {
+        List<com.example.trial.Home_add_account.BankAccount> accounts = new ArrayList<>();
         String sql = "SELECT * FROM bank_accounts";
 
         try (Connection conn = DriverManager.getConnection(DB_URL);
@@ -55,7 +55,7 @@ public class DatabaseHelper {
              ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
-                com.example.hellofx.BankAccount account = new com.example.hellofx.BankAccount(
+                com.example.trial.Home_add_account.BankAccount account = new com.example.trial.Home_add_account.BankAccount(
                         rs.getInt("id"),
                         rs.getString("bank_name"),
                         rs.getString("account_name"),

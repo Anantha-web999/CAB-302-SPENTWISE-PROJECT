@@ -19,6 +19,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class InsightsController {
     @FXML
     private PieChart categoryPieChart;
@@ -59,9 +61,9 @@ public class InsightsController {
     @FXML
     public void initialize() {
         this.insightTip.setText("\ud83d\udca1 Insight: Your weekly spending is 5% lower than last month!");
-        this.avgDailyLabel.setText("Daily Avg: ₹650");
-        this.avgWeeklyLabel.setText("Weekly Avg: ₹4200");
-        this.avgMonthlyLabel.setText("Monthly Avg: ₹16800");
+        this.avgDailyLabel.setText("Daily Avg: $250");
+        this.avgWeeklyLabel.setText("Weekly Avg: $800");
+        this.avgMonthlyLabel.setText("Monthly Avg: $4240");
         this.colCategory.setCellValueFactory((data) -> ((CategoryData)data.getValue()).categoryProperty());
         this.colAmount.setCellValueFactory((data) -> ((CategoryData)data.getValue()).amountProperty().asObject());
         this.colPercentage.setCellValueFactory((data) -> ((CategoryData)data.getValue()).percentageProperty());
@@ -97,4 +99,13 @@ public class InsightsController {
 
         this.categoryPieChart.setData(pieChartData);
     }
+
+    public void goToHomePage(ActionEvent event) throws IOException {
+        Parent homeRoot = FXMLLoader.load(getClass().getResource("/com/example/hellofx/homepage.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(homeRoot));
+        stage.show();
+    }
 }
+
+

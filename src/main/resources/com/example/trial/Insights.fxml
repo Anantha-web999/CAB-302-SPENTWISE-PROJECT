@@ -19,7 +19,7 @@
     <TableView fx:id="categoryTable" layoutX="423.0" layoutY="96.0" prefHeight="264.0" prefWidth="335.0" style="-fx-background-color: white; -fx-border-color: #1e90ff;">
         <columns>
             <TableColumn fx:id="colCategory" prefWidth="100" text="Category" />
-            <TableColumn fx:id="colAmount" prefWidth="90" text="Amount (₹)" />
+            <TableColumn fx:id="colAmount" prefWidth="90" text="Amount ($)" />
             <TableColumn fx:id="colPercentage" prefWidth="90" text="Percentage" />
         </columns>
     </TableView>
@@ -47,7 +47,7 @@
            -fx-padding: 6 14;
            -fx-font-size: 12px;
            -fx-cursor: hand;"
-            text="Back" />
+            text="Back" onAction="#goToHomePage" />
 
     <Button layoutX="563.0" layoutY="528.0" onAction="#goToCompareExpenses"
             style="-fx-background-color: #1e90ff;

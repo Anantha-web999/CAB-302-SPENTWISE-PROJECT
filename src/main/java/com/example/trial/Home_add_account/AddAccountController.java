@@ -1,7 +1,9 @@
 package com.example.trial.Home_add_account;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
@@ -85,5 +87,12 @@ public class AddAccountController {
         accountNumberField.clear();
         bsbField.clear();
         accountTypeCombo.getSelectionModel().clearSelection();
+    }
+
+    public void goToHomePage(ActionEvent event) throws IOException {
+        Parent homeRoot = FXMLLoader.load(getClass().getResource("/com/example/hellofx/homepage.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(homeRoot));
+        stage.show();
     }
 }
