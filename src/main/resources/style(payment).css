@@ -1,0 +1,38 @@
+@font-face {
+    font-family: "Lato";
+    /*src: url("fonts/Lato-Regular.ttf");*/
+}
+
+@font-face {
+    font-family: "Lato Bold";
+    /*src: url("fonts/Lato-Bold.ttf");*/
+}
+
+.root {
+    -fx-font-family: "Lato";
+    -fx-background-color: #e6f0ff; /* Very dark background */
+}
+
+.table-view {
+    -fx-background-color: #00B9b3; /* Darker blue for table *//
+    -fx-text-fill: #fbfcfc; /* Almost white text */
+}
+
+.table-column {
+    -fx-alignment: CENTER;
+    -fx-font-size: 14px;
+    -fx-text-fill: #fbfcfc;
+}
+
+.button {
+    -fx-background-color: #2980b9; /* Strong blue */
+    -fx-text-fill: #fbfcfc;
+    -fx-font-weight: bold;
+    -fx-font-family: "Lato Bold";
+}
+
+.text-field {
+    -fx-background-color: #fbfcfc; /* Light background */
+    -fx-text-fill: #17202a; /* Dark text */
+}
+
