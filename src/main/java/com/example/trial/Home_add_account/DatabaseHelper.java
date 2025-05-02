@@ -5,19 +5,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseHelper {
-    private static final String DB_URL = "jdbc:sqlite:spentwise.db";
+    private static final String DB_URL = "jdbc:sqlite:spentwise.db"; // Ensure this path is correct
 
+    // Method to initialize the database (create table if not exists)
     public static void initializeDatabase() {
         String sql = "CREATE TABLE IF NOT EXISTS bank_accounts (" +
-                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "bank_name TEXT NOT NULL," +
-                "account_name TEXT NOT NULL," +
-                "account_number TEXT NOT NULL," +
-                "bsb TEXT NOT NULL," +
-                "account_type TEXT NOT NULL," +  // <-- COMMA HERE
-                "balance REAL DEFAULT 0.0" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "bank_name TEXT NOT NULL, " +
+                "account_name TEXT NOT NULL, " +
+                "account_number TEXT NOT NULL, " +
+                "bsb TEXT NOT NULL, " +
+                "account_type TEXT NOT NULL, " +
+                "balance REAL DEFAULT 0.0 " +
                 ");";
-
 
         try (Connection conn = DriverManager.getConnection(DB_URL);
              Statement stmt = conn.createStatement()) {
@@ -27,6 +27,21 @@ public class DatabaseHelper {
         }
     }
 
+    // Method to check if the table exists
+    public static boolean isTableExist() {
+        String sql = "SELECT name FROM sqlite_master WHERE type='table' AND name='bank_accounts';";
+        try (Connection conn = DriverManager.getConnection(DB_URL);
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            return rs.next(); // True if table exists
+        } catch (SQLException e) {
+            System.err.println("Error checking table existence: " + e.getMessage());
+            return false;
+        }
+    }
+
+    // Method to add a new bank account to the table
     public static void addBankAccount(String bankName, String accountName,
                                       String accountNumber, String bsb,
                                       String accountType) throws SQLException {
@@ -41,13 +56,19 @@ public class DatabaseHelper {
             pstmt.setString(3, accountNumber);
             pstmt.setString(4, bsb);
             pstmt.setString(5, accountType);
-            pstmt.setDouble(6, 0.0);
+            pstmt.setDouble(6, 0.0);  // Default balance value
             pstmt.executeUpdate();
         }
     }
 
-    public static List<com.example.trial.Home_add_account.BankAccount> getAllBankAccounts() throws SQLException {
-        List<com.example.trial.Home_add_account.BankAccount> accounts = new ArrayList<>();
+    // Method to fetch all bank accounts from the table
+    public static List<BankAccount> getAllBankAccounts() throws SQLException {
+        // Check if the table exists and initialize if not
+        if (!isTableExist()) {
+            initializeDatabase(); // Create the table
+        }
+
+        List<BankAccount> accounts = new ArrayList<>();
         String sql = "SELECT * FROM bank_accounts";
 
         try (Connection conn = DriverManager.getConnection(DB_URL);
@@ -55,7 +76,7 @@ public class DatabaseHelper {
              ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
-                com.example.trial.Home_add_account.BankAccount account = new com.example.trial.Home_add_account.BankAccount(
+                BankAccount account = new BankAccount(
                         rs.getInt("id"),
                         rs.getString("bank_name"),
                         rs.getString("account_name"),
@@ -67,6 +88,7 @@ public class DatabaseHelper {
                 accounts.add(account);
             }
         }
+
         return accounts;
     }
 }
