@@ -1,6 +1,7 @@
 package com.example.trial.Home_add_account;
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,5 +91,67 @@ public class DatabaseHelper {
         }
 
         return accounts;
+    }
+
+    // Call this in your app startup or controller init
+    public static void initializeTransactionsTable() {
+        String sql = "CREATE TABLE IF NOT EXISTS transactions (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "account_id INTEGER NOT NULL, " +
+                "amount REAL NOT NULL, " +
+                "description TEXT, " +
+                "date TEXT NOT NULL, " +
+                "FOREIGN KEY(account_id) REFERENCES bank_accounts(id)" +
+                ");";
+
+        try (Connection conn = DriverManager.getConnection(DB_URL);
+             Statement stmt = conn.createStatement()) {
+            stmt.execute(sql);
+        } catch (SQLException e) {
+            System.err.println("Error creating transactions table: " + e.getMessage());
+        }
+    }
+
+
+    public static List<Transaction> getRecentTransactions() throws SQLException {
+        List<Transaction> transactions = new ArrayList<>();
+        String query = "SELECT * FROM transactions ORDER BY date DESC LIMIT 10";  // Example query
+
+        try (Connection connection = DriverManager.getConnection(DB_URL);
+             PreparedStatement stmt = connection.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                // Retrieve the date as a string and then parse it
+                String dateString = rs.getString("date");
+
+                // Parse the date string into a Date object
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                java.util.Date parsedDate = null;
+
+                // Handle ParseException
+                try {
+                    parsedDate = dateFormat.parse(dateString);
+                } catch (java.text.ParseException e) {
+                    System.err.println("Date format error: " + e.getMessage());
+                    continue;  // Skip this transaction if date parsing fails
+                }
+
+                java.sql.Date sqlDate = new java.sql.Date(parsedDate.getTime());
+                String description = rs.getString("description");
+                double amount = rs.getDouble("amount");
+
+                // Format the date to your desired format
+                String formattedDate = dateFormat.format(sqlDate);
+
+                transactions.add(new Transaction(formattedDate, description, amount));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;  // Re-throwing the SQLException for the caller to handle
+        }
+
+        return transactions;
     }
 }
