@@ -11,8 +11,10 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -28,6 +30,23 @@ import java.util.ResourceBundle;
 
 public class HomePageController implements Initializable {
 
+    public Button dashbord_btn;
+    public Button add_acc_btn;
+    public Button Budget_btn;
+    public Button Insights_btn;
+    public Button reminders_btn;
+    public Button child_acc_btn;
+    public Button settingsButton;
+    public Button logout_btn;
+    public Text user_name;
+    public Label login_date;
+    public Label cheking_balance;
+    public Label cheking_acc_num;
+    public Label savings_balance;
+    public Label savings_acc_num;
+    public Label income_lbl;
+    public Label expense_lbl;
+    public ListView transaction_listview;
     @FXML
     private HBox accountsContainer;
 
@@ -67,11 +86,9 @@ public class HomePageController implements Initializable {
         AnchorPane.setLeftAnchor(balanceLabel, 14.0);
         AnchorPane.setTopAnchor(balanceLabel, 25.0);
 
-        // Account Number (Masked + Last 4 Digits)
+        // Account Number (Display full account number)
         String accountNum = account.getAccountNumber();
-        String maskedAccount = "**** **** **** ";  // Mask the first part
-        String lastFourDigits = accountNum.substring(accountNum.length() - 4);  // Extract the last 4 digits
-        Label accountNumberLabel = new Label(maskedAccount + lastFourDigits);  // Combine both parts
+        Label accountNumberLabel = new Label(accountNum);  // Display full account number
         accountNumberLabel.getStyleClass().add("account_number");
         AnchorPane.setLeftAnchor(accountNumberLabel, 14.0);
         AnchorPane.setBottomAnchor(accountNumberLabel, 45.0);
@@ -99,6 +116,7 @@ public class HomePageController implements Initializable {
 
         return accountPane;
     }
+
 
 
 
@@ -146,5 +164,11 @@ public class HomePageController implements Initializable {
         alert.setHeaderText(header);
         alert.setContentText(content);
         alert.showAndWait();
+    }
+
+    public void handlepayremind(ActionEvent event) throws IOException {
+        Parent insightsView = FXMLLoader.load(getClass().getResource("/com/example/upcomingpayments/payment.fxml"));
+        Scene currentScene = ((Node) event.getSource()).getScene();
+        currentScene.setRoot(insightsView);
     }
 }

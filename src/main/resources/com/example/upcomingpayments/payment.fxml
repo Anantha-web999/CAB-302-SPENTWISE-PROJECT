@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane stylesheets="@/style(payment).css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trial.upcomingpayments.paymentController">
+
+    <padding>
+        <Insets topRightBottomLeft="10" />
+    </padding>
+
+    <center>
+        <TableView fx:id="paymentTable" BorderPane.alignment="CENTER">
+            <columns>
+                <TableColumn fx:id="nameColumn" prefWidth="150" text="Name" />
+                <TableColumn fx:id="amountColumn" prefWidth="100" text="Amount ($)" />
+                <TableColumn fx:id="dateColumn" prefWidth="150" text="Due Date" />
+                <TableColumn fx:id="paidColumn" prefWidth="100" text="Paid" />
+            </columns>
+        </TableView>
+    </center>
+
+    <bottom>
+        <VBox spacing="10">
+            <HBox spacing="10">
+                <Label text="Name:" />
+                <TextField fx:id="nameField" prefWidth="150" />
+                <Label text="Amount:" />
+                <TextField fx:id="amountField" prefWidth="100" />
+                <Label text="Due Date:" />
+                <DatePicker fx:id="datePicker" prefWidth="150" />
+            </HBox>
+
+            <HBox spacing="10">
+                <Button onAction="#handleAddPayment" text="Add Payment" />
+                <Button onAction="#handleDeletePayment" text="Delete Selected" />
+            <Button fx:id="back_btn" mnemonicParsing="false" text="Back" onAction="#handleGoBack" />
+            </HBox>
+        </VBox>
+    </bottom>
+</BorderPane>

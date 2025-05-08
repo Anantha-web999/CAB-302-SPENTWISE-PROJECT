@@ -61,7 +61,7 @@ public class AddAccountController {
     }
 
     private void returnToMainView() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/hellofx/hello-view.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/hellofx/homepage.fxml"));
         Parent root = loader.load();
 
         // Get the controller and refresh accounts
