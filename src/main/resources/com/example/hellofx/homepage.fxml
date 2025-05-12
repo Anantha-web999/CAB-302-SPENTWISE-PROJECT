@@ -53,7 +53,7 @@
                     </graphic>
                 </Button>
 
-                <Button fx:id="child_acc_btn" mnemonicParsing="false" text="Kids Account">
+                <Button fx:id="child_acc_btn" mnemonicParsing="false" text="Kids Account" onAction="#handleChildAccount">
                     <graphic>
                         <FontAwesomeIconView glyphName="CHILD" size="20" />
                     </graphic>
