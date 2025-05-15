@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import com.example.trial.settings.ToggleSwitch?>
+
+<BorderPane fx:id="mainContainer" prefHeight="600.0" prefWidth="900.0"
+            xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.trial.settings.SettingsPanel">
+
+    <!-- Sidebar -->
+    <left>
+        <VBox prefWidth="200.0" style="-fx-background-color: #1a5276;">
+            <StackPane prefHeight="140.0">
+                <padding>
+                    <Insets top="15.0" bottom="10.0" left="10.0" right="10.0"/>
+                </padding>
+                <Label fx:id="logoLabel" text="SpentWise" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="18.0"/>
+                    </font>
+                </Label>
+            </StackPane>
+            <VBox spacing="10.0" VBox.vgrow="ALWAYS">
+                <padding><Insets top="10.0"/></padding>
+                <Button fx:id="accountBtn" text="Account" textFill="WHITE" onAction="#showAccountPanel" prefHeight="40.0"/>
+                <Button fx:id="preferencesBtn" text="App Preferences" textFill="WHITE" onAction="#showPreferencesPanel" prefHeight="40.0"/>
+                <Button fx:id="notificationsBtn" text="Notifications" textFill="WHITE" onAction="#showNotificationsPanel" prefHeight="40.0"/>
+                <Button fx:id="helpBtn" text="Help &amp; Support" textFill="WHITE" onAction="#showHelpPanel" prefHeight="40.0"/>
+                <Button fx:id="aboutBtn" text="About Us" textFill="WHITE" onAction="#showAboutPanel" prefHeight="40.0"/>
+            </VBox>
+        </VBox>
+    </left>
+
+    <!-- Main Content Area -->
+    <center>
+        <StackPane fx:id="contentPane">
+            <BorderPane fx:id="accountPanel">
+                <top>
+                    <VBox>
+                        <padding><Insets top="20.0" bottom="20.0" left="30.0" right="30.0"/></padding>
+                        <Label text="Account Settings" textFill="#1f618d">
+                            <font><Font name="System Bold" size="24.0"/></font>
+                        </Label>
+                        <Label text="Manage your personal information and preferences" textFill="#1f618d"/>
+                    </VBox>
+                </top>
+                <center>
+                    <ScrollPane fitToWidth="true">
+                        <VBox>
+                            <Label text="This is the Account Settings panel."/>
+                        </VBox>
+                    </ScrollPane>
+                </center>
+            </BorderPane>
+
+            <BorderPane fx:id="preferencesPanel" visible="false">
+                <top>
+                    <VBox>
+                        <padding><Insets top="20.0" bottom="20.0" left="30.0" right="30.0"/></padding>
+                        <Label text="App Preferences" textFill="#1f618d">
+                            <font><Font name="System Bold" size="24.0"/></font>
+                        </Label>
+                        <Label text="Customize the application to suit your needs" textFill="#1f618d"/>
+                    </VBox>
+                </top>
+                <center>
+                    <ScrollPane fitToWidth="true">
+                        <VBox>
+                            <Label text="This is the Preferences panel."/>
+                        </VBox>
+                    </ScrollPane>
+                </center>
+            </BorderPane>
+
+            <BorderPane fx:id="notificationsPanel" visible="false">
+                <top>
+                    <VBox>
+                        <padding><Insets top="20.0" bottom="20.0" left="30.0" right="30.0"/></padding>
+                        <Label text="Notifications" textFill="#1f618d">
+                            <font><Font name="System Bold" size="24.0"/></font>
+                        </Label>
+                    </VBox>
+                </top>
+                <center>
+                    <ScrollPane fitToWidth="true">
+                        <VBox>
+                            <Label text="This is the Notifications panel."/>
+                        </VBox>
+                    </ScrollPane>
+                </center>
+            </BorderPane>
+
+            <BorderPane fx:id="helpPanel" visible="false">
+                <top>
+                    <VBox>
+                        <padding><Insets top="20.0" bottom="20.0" left="30.0" right="30.0"/></padding>
+                        <Label text="Help &amp; Support" textFill="#1f618d">
+                            <font><Font name="System Bold" size="24.0"/></font>
+                        </Label>
+                    </VBox>
+                </top>
+                <center>
+                    <ScrollPane fitToWidth="true">
+                        <VBox>
+                            <Label text="This is the Help panel."/>
+                        </VBox>
+                    </ScrollPane>
+                </center>
+            </BorderPane>
+
+            <BorderPane fx:id="aboutPanel" visible="false">
+                <top>
+                    <VBox>
+                        <padding><Insets top="20.0" bottom="20.0" left="30.0" right="30.0"/></padding>
+                        <Label text="About Us" textFill="#1f618d">
+                            <font><Font name="System Bold" size="24.0"/></font>
+                        </Label>
+                    </VBox>
+                </top>
+                <center>
+                    <ScrollPane fitToWidth="true">
+                        <VBox>
+                            <Label text="This is the About panel."/>
+                        </VBox>
+                    </ScrollPane>
+                </center>
+            </BorderPane>
+        </StackPane>
+    </center>
+
+</BorderPane>
