@@ -15,5 +15,6 @@ module com.example.trial {
     opens com.example.trial.logincontroller to javafx.fxml;
     opens com.example.trial.upcomingpayments to javafx.fxml;
     exports com.example.trial.upcomingpayments;
-
+    opens com.example.trial.settings to javafx.fxml;
+    exports com.example.trial.settings;
 }

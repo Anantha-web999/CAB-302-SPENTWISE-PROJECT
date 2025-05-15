@@ -1,8 +1,6 @@
 package com.example.trial.Home_add_account;
 
-import com.example.trial.settings.SettingsPanel;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
-import javafx.embed.swing.SwingNode;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -131,20 +129,25 @@ public class HomePageController implements Initializable {
 
     @FXML
     private void handleSettingsClick(ActionEvent event) {
-        SwingNode swingNode = new SwingNode();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/SettingsPanel.fxml"));
+            Parent root = loader.load();
 
-        SwingUtilities.invokeLater(() -> {
-            SettingsPanel settingsPanel = new SettingsPanel();
-            swingNode.setContent(settingsPanel);
-        });
+            Stage stage = new Stage();
+            stage.setTitle("Settings");
+            Scene scene = new Scene(root);
 
-        VBox root = new VBox(swingNode);
-        Scene scene = new Scene(root, 800, 600);
+            // Add CSS if needed
+            scene.getStylesheets().add(getClass().getResource("/settingsPanel.css").toExternalForm());
 
-        Stage stage = new Stage();
-        stage.setTitle("Settings");
-        stage.setScene(scene);
-        stage.show();
+            stage.setScene(scene);
+            stage.setMinWidth(800);
+            stage.setMinHeight(600);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Error loading settings panel: " + e.getMessage());
+        }
     }
 
     @FXML
