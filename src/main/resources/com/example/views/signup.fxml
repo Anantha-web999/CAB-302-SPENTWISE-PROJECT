@@ -16,15 +16,12 @@
 
     <center>
         <VBox alignment="CENTER" spacing="15" style="-fx-padding: 15; -fx-max-width: 350;">
-            <!-- Logo -->
             <ImageView fitWidth="60" fitHeight="60" preserveRatio="true">
                 <Image url="@/spentwiselogo.png"/>
             </ImageView>
 
-            <!-- Title -->
             <Text text="Create Account" style="-fx-font-size: 22; -fx-font-weight: bold; -fx-fill: #2563eb;"/>
 
-            <!-- Signup Form -->
             <VBox spacing="10" style="-fx-padding: 10 0;">
                 <TextField fx:id="fullNameField" promptText="Full Name" style="-fx-pref-height: 35;"/>
                 <TextField fx:id="emailField" promptText="Email" style="-fx-pref-height: 35;"/>

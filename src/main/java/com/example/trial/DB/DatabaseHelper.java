@@ -12,6 +12,16 @@ public class DatabaseHelper {
         try (Connection conn = DriverManager.getConnection(DB_URL);
              Statement stmt = conn.createStatement()) {
 
+            stmt.execute("PRAGMA foreign_keys = ON;");
+
+            // Create users table
+            String usersSql = "CREATE TABLE IF NOT EXISTS users (" +
+                    "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    "full_name TEXT NOT NULL, " +
+                    "email TEXT NOT NULL UNIQUE, " +
+                    "password TEXT NOT NULL);";
+            stmt.execute(usersSql);
+
             // Create bank_accounts table
             String bankAccountsSql = "CREATE TABLE IF NOT EXISTS bank_accounts (" +
                     "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
