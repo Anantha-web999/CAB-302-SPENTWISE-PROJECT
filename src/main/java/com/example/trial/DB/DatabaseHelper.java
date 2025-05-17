@@ -53,7 +53,9 @@ public class DatabaseHelper {
                     "account_number TEXT NOT NULL, " +
                     "bsb TEXT NOT NULL, " +
                     "account_type TEXT NOT NULL, " +
+                    "budget REAL DEFAULT 0.0, " +
                     "user_id INTEGER NOT NULL, " +
+                    "details TEXT," +
                     "FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE);";
             stmt.execute(childAccountsSql);
 

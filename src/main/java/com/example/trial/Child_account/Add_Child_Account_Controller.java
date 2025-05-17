@@ -51,13 +51,16 @@ public class Add_Child_Account_Controller {
 
         try {
             String email = Session.getCurrentUserEmail();
-            ChildBankAccountHelper.addChildAccount(bankName, accountName, accountNumber, bsb, accountType, email);
+            ChildBankAccountHelper.addChildAccount(
+                    accountName, 0.0, bankName, accountNumber, bsb, accountType, email
+            );
             showAlert(Alert.AlertType.INFORMATION, "Success", "Child account saved successfully!");
             clearFields();
         } catch (Exception e) {
             showAlert(Alert.AlertType.ERROR, "Database Error", "Failed to save account: " + e.getMessage());
         }
     }
+
 
 
 

@@ -1,5 +1,6 @@
 package com.example.trial.Child_account;
 
+
 import com.example.trial.Session;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -48,33 +49,31 @@ public class manage_child_account_controller implements Initializable {
 
     private void loadChildAccounts() {
         ObservableList<ChildAccount> accounts = FXCollections.observableArrayList();
-        String sql = "SELECT account_name, account_type FROM child_accounts WHERE user_email = ?";
 
-        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:spentwise.db");
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:spentwise.db")) {
+            String email = Session.getCurrentUserEmail();
+            if (email == null) return;
 
-            String userEmail = Session.getCurrentUserEmail();  // Your session-based method
+            int userId = ChildBankAccountHelper.getUserIdByEmail(email);
 
-            if (userEmail == null) {
-                System.out.println("No user is currently logged in.");
-                return;
-            }
-
-            pstmt.setString(1, userEmail);
+            String sql = "SELECT account_name, budget, details FROM child_accounts WHERE user_id = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, userId);
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                String name = rs.getString("account_name");
-                String details = rs.getString("account_type");
-                accounts.add(new ChildAccount(name, 0.0, details));  // Still using dummy budget
+                accounts.add(new ChildAccount(
+                        rs.getString("account_name"),
+                        rs.getDouble("budget")
+                ));
             }
 
             tableView.setItems(accounts);
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
 
 
     public void handleAddChildAccount(ActionEvent event) throws IOException {

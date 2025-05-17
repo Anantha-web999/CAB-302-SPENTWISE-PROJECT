@@ -3,29 +3,73 @@ package com.example.trial.Child_account;
 import com.example.trial.DB.DatabaseHelper;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ChildBankAccountHelper {
     private static final String DB_URL = "jdbc:sqlite:spentwise.db";
 
-    public static void addChildAccount(String bankName, String accountName,
-                                       String accountNumber, String bsb,
-                                       String accountType, String userEmail) throws SQLException {
+    public static boolean isTableExist() {
+        String sql = "SELECT name FROM sqlite_master WHERE type='table' AND name='child_accounts';";
+        try (Connection conn = DatabaseHelper.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            return rs.next();
+        } catch (SQLException e) {
+            System.err.println("Error checking child_accounts table existence: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public static void addChildAccount(String accountName, double budget,
+                                       String bankName, String accountNumber,
+                                       String bsb, String accountType,
+                                       String userEmail) throws SQLException {
         int userId = getUserIdByEmail(userEmail);
 
-        String sql = "INSERT INTO child_accounts(user_id, bank_name, account_name, account_number, bsb, account_type) " +
-                "VALUES(?,?,?,?,?,?)";
+        String sql = "INSERT INTO child_accounts (bank_name, account_name, account_number, bsb, account_type, budget, user_id) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+        try (Connection conn = DatabaseHelper.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, bankName);
+            pstmt.setString(2, accountName);
+            pstmt.setString(3, accountNumber);
+            pstmt.setString(4, bsb);
+            pstmt.setString(5, accountType);
+            pstmt.setDouble(6, budget);
+            pstmt.setInt(7, userId);
+            pstmt.executeUpdate();
+        }
+    }
+
+
+    public static List<ChildAccount> getAllChildAccounts(String email) throws SQLException {
+        if (!isTableExist()) {
+            DatabaseHelper.initializeDatabase();
+        }
+
+        List<ChildAccount> accounts = new ArrayList<>();
+        int userId = getUserIdByEmail(email);
+        String sql = "SELECT account_name, budget FROM child_accounts WHERE user_id = ?";
 
         try (Connection conn = DatabaseHelper.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, userId);
-            pstmt.setString(2, bankName);
-            pstmt.setString(3, accountName);
-            pstmt.setString(4, accountNumber);
-            pstmt.setString(5, bsb);
-            pstmt.setString(6, accountType);
-            pstmt.executeUpdate();
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                ChildAccount account = new ChildAccount(
+                        rs.getString("account_name"),
+                        rs.getDouble("budget")
+                );
+                accounts.add(account);
+            }
         }
+
+        return accounts;
     }
+
     public static int getUserIdByEmail(String email) throws SQLException {
         String sql = "SELECT id FROM users WHERE email = ?";
         try (Connection conn = DatabaseHelper.getConnection();
