@@ -1,6 +1,7 @@
 package com.example.trial.Child_account;
 
 import com.example.trial.DB.DatabaseHelper;
+import com.example.trial.Session;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -49,7 +50,8 @@ public class Add_Child_Account_Controller {
         }
 
         try {
-            ChildBankAccountHelper.addChildAccount(bankName, accountName, accountNumber, bsb, accountType);
+            String email = Session.getCurrentUserEmail();
+            ChildBankAccountHelper.addChildAccount(bankName, accountName, accountNumber, bsb, accountType, email);
             showAlert(Alert.AlertType.INFORMATION, "Success", "Child account saved successfully!");
             clearFields();
         } catch (Exception e) {
