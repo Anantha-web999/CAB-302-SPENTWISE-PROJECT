@@ -12,6 +12,16 @@ public class DatabaseHelper {
         try (Connection conn = DriverManager.getConnection(DB_URL);
              Statement stmt = conn.createStatement()) {
 
+            stmt.execute("PRAGMA foreign_keys = ON;");
+
+            // Create users table
+            String usersSql = "CREATE TABLE IF NOT EXISTS users (" +
+                    "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    "full_name TEXT NOT NULL, " +
+                    "email TEXT NOT NULL UNIQUE, " +
+                    "password TEXT NOT NULL);";
+            stmt.execute(usersSql);
+
             // Create bank_accounts table
             String bankAccountsSql = "CREATE TABLE IF NOT EXISTS bank_accounts (" +
                     "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -20,7 +30,9 @@ public class DatabaseHelper {
                     "account_number TEXT NOT NULL, " +
                     "bsb TEXT NOT NULL, " +
                     "account_type TEXT NOT NULL, " +
-                    "balance REAL DEFAULT 0.0);";
+                    "balance REAL DEFAULT 0.0, " +
+                    "user_id INTEGER NOT NULL, " +
+                    "FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE);";
             stmt.execute(bankAccountsSql);
 
             // Create transactions table
@@ -40,7 +52,11 @@ public class DatabaseHelper {
                     "account_name TEXT NOT NULL, " +
                     "account_number TEXT NOT NULL, " +
                     "bsb TEXT NOT NULL, " +
-                    "account_type TEXT NOT NULL);";
+                    "account_type TEXT NOT NULL, " +
+                    "budget REAL DEFAULT 0.0, " +
+                    "user_id INTEGER NOT NULL, " +
+                    "details TEXT," +
+                    "FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE);";
             stmt.execute(childAccountsSql);
 
         } catch (SQLException e) {

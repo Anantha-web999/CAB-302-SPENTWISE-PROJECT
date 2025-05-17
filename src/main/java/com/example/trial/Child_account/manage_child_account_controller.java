@@ -1,5 +1,7 @@
 package com.example.trial.Child_account;
 
+
+import com.example.trial.Session;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -47,25 +49,32 @@ public class manage_child_account_controller implements Initializable {
 
     private void loadChildAccounts() {
         ObservableList<ChildAccount> accounts = FXCollections.observableArrayList();
-        String sql = "SELECT account_name, account_type FROM child_accounts";
 
-        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:spentwise.db");
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
+        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:spentwise.db")) {
+            String email = Session.getCurrentUserEmail();
+            if (email == null) return;
+
+            int userId = ChildBankAccountHelper.getUserIdByEmail(email);
+
+            String sql = "SELECT account_name, budget, details FROM child_accounts WHERE user_id = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, userId);
+            ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                String name = rs.getString("account_name");
-                String details = rs.getString("account_type");
-                // Set a dummy budget for now since the table has no budget column
-                accounts.add(new ChildAccount(name, 0.0, details));
+                accounts.add(new ChildAccount(
+                        rs.getString("account_name"),
+                        rs.getDouble("budget")
+                ));
             }
 
             tableView.setItems(accounts);
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
+
 
     public void handleAddChildAccount(ActionEvent event) throws IOException {
         Parent insightsView = FXMLLoader.load(getClass().getResource("/com/example/child_control/Add_child_account.fxml"));
