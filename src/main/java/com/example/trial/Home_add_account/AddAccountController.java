@@ -45,7 +45,7 @@ public class AddAccountController {
         }
 
         try {
-            DatabaseHelper.addBankAccount(bankName, accountName, accountNumber, bsb, accountType);
+            BankAccountHelper.addBankAccount(bankName, accountName, accountNumber, bsb, accountType);
             showAlert(AlertType.INFORMATION, "Success", "Account Saved",
                     "The bank account has been successfully saved.");
             clearFields();

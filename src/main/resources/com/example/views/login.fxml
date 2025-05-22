@@ -7,31 +7,38 @@
 
 <BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.example.trial.logincontroller.LoginController"
-            style="-fx-background-color: #ffffff;">
+            style="-fx-background-color: #ffffff; -fx-padding: 30;">
 
     <center>
-        <VBox alignment="CENTER" spacing="15" style="-fx-padding: 20; -fx-max-width: 350;">
+        <VBox alignment="CENTER" spacing="20" style="-fx-padding: 30; -fx-max-width: 380; -fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 4);">
+
             <!-- Logo -->
             <ImageView fitWidth="90" fitHeight="80" preserveRatio="true">
                 <Image url="@/spentwiselogo.png"/>
             </ImageView>
 
             <!-- Title -->
-            <Text text="Welcome Back" style="-fx-font-size: 22; -fx-font-weight: bold; -fx-fill: #2563eb;"/>
+            <Text text="Welcome Back" style="-fx-font-size: 24; -fx-font-weight: bold; -fx-fill: #2563eb;"/>
+
+            <!-- Error Message -->
+            <Label fx:id="errorLabel" text="" visible="false"
+                   style="-fx-text-fill: red; -fx-font-size: 13;"/>
 
             <!-- Login Form -->
-            <VBox spacing="10" style="-fx-padding: 20 0;">
-                <TextField fx:id="emailField" promptText="Email" style="-fx-pref-height: 35;"/>
-                <PasswordField fx:id="passwordField" promptText="Password" style="-fx-pref-height: 35;"/>
+            <VBox spacing="12" style="-fx-padding: 10 0;">
+                <TextField fx:id="emailField" promptText="Enter your email"
+                           style="-fx-pref-height: 38; -fx-background-radius: 5;"/>
+                <PasswordField fx:id="passwordField" promptText="Enter password"
+                               style="-fx-pref-height: 38; -fx-background-radius: 5;"/>
 
                 <Button text="Login" onAction="#handleLogin"
-                        style="-fx-font-size: 14; -fx-pref-width: 120; -fx-pref-height: 35;
-                              -fx-background-color: #2563eb; -fx-text-fill: white; -fx-background-radius: 5;"/>
+                        style="-fx-font-size: 14; -fx-pref-width: 140; -fx-pref-height: 38;
+                              -fx-background-color: #2563eb; -fx-text-fill: white; -fx-background-radius: 6;"/>
 
                 <HBox alignment="CENTER" spacing="5">
                     <Text text="New user?" style="-fx-fill: #64748b;"/>
                     <Button text="Create account" onAction="#navigateToSignup"
-                            style="-fx-background-color: transparent; -fx-text-fill: #2563eb; -fx-padding: 0;"/>
+                            style="-fx-background-color: transparent; -fx-text-fill: #2563eb; -fx-font-weight: bold; -fx-underline: true;"/>
                 </HBox>
             </VBox>
         </VBox>
