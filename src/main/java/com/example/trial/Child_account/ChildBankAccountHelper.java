@@ -60,6 +60,7 @@ public class ChildBankAccountHelper {
 
             while (rs.next()) {
                 ChildAccount account = new ChildAccount(
+                        rs.getInt("id"),
                         rs.getString("account_name"),
                         rs.getDouble("budget")
                 );
@@ -83,4 +84,30 @@ public class ChildBankAccountHelper {
             }
         }
     }
+
+
+
+
+    public static void updateBudget(int childId, double newBudget) throws SQLException {
+        String sql = "UPDATE child_accounts SET budget = ? WHERE id = ?";
+
+        try (Connection conn = DatabaseHelper.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setDouble(1, newBudget);
+            pstmt.setInt(2, childId);
+            pstmt.executeUpdate();
+        }
+    }
+
+    public static void deleteChildAccount(int childId) throws SQLException {
+        String sql = "DELETE FROM child_accounts WHERE id = ?";
+
+        try (Connection conn = DatabaseHelper.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, childId);
+            pstmt.executeUpdate();
+        }
+    }
+
+
 }
