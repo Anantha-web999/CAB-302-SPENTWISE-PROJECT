@@ -164,7 +164,7 @@
     <bottom>
         <HBox alignment="CENTER_RIGHT" spacing="10.0" style="-fx-background-color: #fbfcfc;">
             <children>
-                <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#handleCancelButton" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #e0e0e0; -fx-font-family: 'Lato'; -fx-font-size: 13px;" text="Cancel" />
+                <Button fx:id="homeButton" mnemonicParsing="false" onAction="#goToHomePage" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #e0e0e0; -fx-font-family: 'Lato'; -fx-font-size: 13px;" text="Cancel" />
                 <Button fx:id="saveButton" mnemonicParsing="false" onAction="#handleSaveButton" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #1f618d; -fx-text-fill: #fbfcfc; -fx-font-family: 'Lato'; -fx-font-weight: bold; -fx-font-size: 13px;" text="Save Changes" />
             </children>
             <padding>

@@ -1,9 +1,16 @@
 package com.example.trial.settings;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 import java.net.URL;
 import javafx.scene.effect.DropShadow;
 import java.time.LocalDate;
@@ -178,14 +185,11 @@ public class SettingsPanelController implements Initializable {
         alert.showAndWait();
     }
 
-    @FXML
-    private void handleCancelButton() {
-        //Reload original user data or close the settings panel
-        loadUserData();
-
-        //In a real application, you might want to close this panel and return to previous view
-        Stage stage = (Stage) cancelButton.getScene().getWindow();
-        stage.close();
+    public void goToHomePage(ActionEvent event) throws IOException {
+        Parent homeRoot = FXMLLoader.load(getClass().getResource("/com/example/hellofx/homepage.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(homeRoot));
+        stage.show();
     }
 
     /**
