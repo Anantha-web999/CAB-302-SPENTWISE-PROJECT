@@ -19,83 +19,111 @@ public class LoginController {
 
     @FXML private TextField emailField;
     @FXML private PasswordField passwordField;
+    @FXML private TextField visiblePasswordField;
+    @FXML private Button togglePasswordButton;
+    @FXML private Label errorLabel;
+
+    private boolean passwordVisible = false;
 
     @FXML
     public void handleLogin(ActionEvent event) {
-        String email = emailField.getText().trim();
-        String password = passwordField.getText();
+        String email    = emailField.getText().trim();
+        String password = passwordVisible
+                ? visiblePasswordField.getText()
+                : passwordField.getText();
 
         if (email.isEmpty() || password.isEmpty()) {
-            showAlert("Error", "Please enter both email and password");
+            showError("Please enter both email and password");
             return;
         }
 
         try (Connection conn = DatabaseHelper.getConnection()) {
-            String query = "SELECT password FROM users WHERE email = ?";
-            PreparedStatement pstmt = conn.prepareStatement(query);
-            pstmt.setString(1, email);
-            ResultSet rs = pstmt.executeQuery();
+            String sql = "SELECT password FROM users WHERE email = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                String storedHashedPassword = rs.getString("password");
-                String inputHashedPassword = hashPassword(password);
+                String storedHash = rs.getString("password");
+                String inputHash  = hashPassword(password);
 
-                if (storedHashedPassword.equals(inputHashedPassword)) {
-                    //  Login success
+                if (storedHash.equals(inputHash)) {
                     loadHomePage(event);
                 } else {
-                    showAlert("Login Failed", "Incorrect password.");
+                    showError("Incorrect password.");
                 }
             } else {
-                showAlert("Login Failed", "No user found with this email.");
+                showError("No user found with this email.");
             }
 
         } catch (SQLException | NoSuchAlgorithmException e) {
-            showAlert("Error", "Database error: " + e.getMessage());
+            showError("Error: " + e.getMessage());
             e.printStackTrace();
         }
     }
 
-    private String hashPassword(String password) throws NoSuchAlgorithmException {
-        MessageDigest digest = MessageDigest.getInstance("SHA-256");
-        byte[] encodedHash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
-        StringBuilder hexString = new StringBuilder();
-        for (byte b : encodedHash) {
-            hexString.append(String.format("%02x", b));
-        }
-        return hexString.toString();
-    }
+    @FXML
+    private void togglePasswordVisibility() {
+        passwordVisible = !passwordVisible;
 
-    private void loadHomePage(ActionEvent event) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/com/example/hellofx/homepage.fxml"));
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root, 1000, 600));
-            stage.setResizable(false);
-        } catch (Exception e) {
-            e.printStackTrace();
-            showAlert("Error", "Cannot load homepage");
+        if (passwordVisible) {
+            visiblePasswordField.setText(passwordField.getText());
+            visiblePasswordField.setVisible(true);
+            visiblePasswordField.setManaged(true);
+            passwordField.setVisible(false);
+            passwordField.setManaged(false);
+            togglePasswordButton.setText("Hide");
+        } else {
+            passwordField.setText(visiblePasswordField.getText());
+            passwordField.setVisible(true);
+            passwordField.setManaged(true);
+            visiblePasswordField.setVisible(false);
+            visiblePasswordField.setManaged(false);
+            togglePasswordButton.setText("Show");
         }
     }
 
     @FXML
     public void navigateToSignup(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/com/example/views/signup.fxml"));
+            Parent root = FXMLLoader.load(
+                    getClass().getResource("/com/example/views/signup.fxml")
+            );
             Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root, 1000, 600));
             stage.setResizable(false);
         } catch (Exception e) {
+            showError("Cannot load signup page");
             e.printStackTrace();
-            showAlert("Error", "Cannot load signup page");
         }
     }
 
-    private void showAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
+    private void loadHomePage(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(
+                    getClass().getResource("/com/example/hellofx/homepage.fxml")
+            );
+            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root, 1000, 600));
+            stage.setResizable(false);
+        } catch (Exception e) {
+            showError("Cannot load homepage");
+            e.printStackTrace();
+        }
+    }
+
+    private void showError(String message) {
+        errorLabel.setText(message);
+        errorLabel.setVisible(true);
+    }
+
+    private String hashPassword(String password) throws NoSuchAlgorithmException {
+        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        byte[] hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
+        StringBuilder sb = new StringBuilder();
+        for (byte b : hash) {
+            sb.append(String.format("%02x", b));
+        }
+        return sb.toString();
     }
 }
