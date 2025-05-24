@@ -29,6 +29,8 @@
                AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
       <columns>
           <TableColumn fx:id="childName" text="Child"/>
+          <TableColumn fx:id="budget" text="Budget"/>
+          <TableColumn fx:id="balance" text="Balance"/>
           <TableColumn fx:id="detailsColumn" text="Details"/>
           <TableColumn fx:id="editColumn" text="Edit"/>
           <TableColumn fx:id="deleteColumn" text="Delete"/>
