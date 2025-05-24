@@ -79,7 +79,7 @@ public class HomePageController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/trial/SpendingAdvisor.fxml"));
         Parent root = loader.load();
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root, 800, 600));
+        stage.setScene(new Scene(root, 1000, 600));
         stage.setTitle("Spending Advisor - AI Assistant");
         stage.show();
     }
