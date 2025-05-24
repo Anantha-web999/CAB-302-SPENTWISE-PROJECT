@@ -6,6 +6,7 @@ module com.example.trial {
     requires javafx.swing;
     requires de.jensd.fx.glyphs.fontawesome;
     requires javafx.controls;
+    requires org.json;
 
     opens com.example.trial to javafx.fxml;
     opens com.example.trial.Home_add_account to javafx.fxml, javafx.graphics;
