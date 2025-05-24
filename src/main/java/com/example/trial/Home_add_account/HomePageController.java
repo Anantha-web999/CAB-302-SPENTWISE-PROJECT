@@ -23,6 +23,8 @@ import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -58,33 +60,35 @@ public class HomePageController implements Initializable {
     @FXML
     private HBox accountsContainer;
 
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         loadBankAccounts();
+
         String email = Session.getCurrentUserEmail();
         if (email != null) {
             try {
                 String fullName = BankAccountHelper.getFullNameByEmail(email);
-                if (fullName != null) {
-                    user_name.setText("Welcome, " + fullName);
-                } else {
-                    user_name.setText("Welcome, user");
-                }
+                user_name.setText(fullName != null ? "Welcome, " + fullName : "Welcome, user");
             } catch (SQLException e) {
-                e.printStackTrace();
                 user_name.setText("Welcome");
+                e.printStackTrace();
             }
         } else {
             user_name.setText("Session not found!");
         }
 
+        LocalDate today = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, dd MMM yyyy");
+        login_date.setText("Today, " + today.format(formatter));
 
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
         descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
         amountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
-        loadRecentTransactions();
 
+        loadRecentTransactions();
     }
+
 
     private void loadBankAccounts() {
         try {
