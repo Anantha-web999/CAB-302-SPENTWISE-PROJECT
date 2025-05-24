@@ -19,6 +19,13 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
+import javafx.stage.FileChooser;
+import javafx.scene.control.Alert;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.io.IOException;
+
 
 public class CompareExpensesController {
     @FXML
@@ -85,4 +92,41 @@ public class CompareExpensesController {
 
         this.barChart.getData().addAll(new XYChart.Series[]{series1, series2});
     }
+
+    @FXML
+    private void exportToCSV() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save Comparison Data");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
+        fileChooser.setInitialFileName("compare_expenses.csv");
+
+        File file = fileChooser.showSaveDialog(null);
+
+        if (file != null) {
+            try (PrintWriter writer = new PrintWriter(new FileWriter(file))) {
+                // Write CSV header
+                writer.println("Category,Month1,Month2,Difference");
+
+                // Write table data
+                for (ComparisonData data : comparisonTable.getItems()) {
+                    writer.printf("%s,%.2f,%.2f,%s%n",
+                            data.getCategory(),
+                            data.getMonth1Value(),
+                            data.getMonth2Value(),
+                            data.getDifference());
+                }
+
+                // Success popup
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Export");
+                alert.setHeaderText(null);
+                alert.setContentText("Comparison data exported successfully!");
+                alert.showAndWait();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }
