@@ -17,6 +17,7 @@ public class Main extends Application {
     }
 
     public void start(Stage primaryStage) throws Exception {
+
         Parent root = (Parent)FXMLLoader.load(this.getClass().getResource("/com/example/trial/Insights.fxml"));
         Image icon = new Image("Logo.png");
         primaryStage.getIcons().add(icon);
