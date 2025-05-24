@@ -44,6 +44,7 @@
     <!-- Buttons -->
     <Button layoutX="240.0" layoutY="547.0" onAction="#goBackToInsights" style="-fx-background-color: #1e90ff; -fx-text-fill: white;" text="Back" />
     <Button layoutX="387.0" layoutY="547.0" onAction="#loadComparisonData" style="-fx-background-color: #1e90ff; -fx-text-fill: white;" text="Refresh" />
-    <Button layoutX="548.0" layoutY="547.0" style="-fx-background-color: #1e90ff; -fx-text-fill: white;" text="Export" />
+    <Button layoutX="548.0" layoutY="547.0" onAction="#exportToCSV"
+            style="-fx-background-color: #1e90ff; -fx-text-fill: white;" text="Export" />
 
 </AnchorPane>
