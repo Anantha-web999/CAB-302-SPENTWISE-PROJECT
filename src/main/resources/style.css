@@ -75,3 +75,15 @@
     -fx-spacing: 10px;
     -fx-alignment: CENTER;
 }
+
+.fancy-button {
+    -fx-background-color: #e3f0ff;
+    -fx-text-fill: #005fa3;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-padding: 8 16;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.15), 4, 0, 0, 1);
+}
