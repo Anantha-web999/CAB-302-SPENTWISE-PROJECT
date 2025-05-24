@@ -1,29 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.example.trial.SpendingAdvisorController" prefWidth="800" prefHeight="600"
-            style="-fx-background-color: #f0f8ff;">
+<AnchorPane prefHeight="600" prefWidth="1000.0" style="-fx-background-color: #f0f8ff;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trial.SpendingAdvisorController">
 
-    <Label layoutX="30" layoutY="30" text="AI Spending Advisor"
-           style="-fx-font-size: 24px; -fx-font-weight: bold;" />
+    <Label layoutX="361.0" layoutY="30.0" style="-fx-font-size: 24px; -fx-font-weight: bold;" text="AI Spending Advisor" />
 
-    <TextArea fx:id="userInput" layoutX="30" layoutY="80" prefWidth="740" prefHeight="120"
-              promptText="Describe your spending concern..." wrapText="true"/>
+    <TextArea fx:id="userInput" layoutX="30" layoutY="80" prefHeight="120" prefWidth="913.0" promptText="Describe your spending concern..." wrapText="true" />
 
-    <Button text="Get Advice" layoutX="670" layoutY="220" prefWidth="100"
-            onAction="#handleGetAdvice" styleClass="fancy-button"/>
+    <Button layoutX="844.0" layoutY="217.0" onAction="#handleGetAdvice" prefWidth="100" styleClass="fancy-button" text="Get Advice" />
 
-    <Button text="Back"
-            layoutX="30" layoutY="570"
-            prefWidth="80"
-            onAction="#goBack"
-            styleClass="fancy-button"/>
+    <Button layoutX="30" layoutY="570" onAction="#goBack" prefWidth="80" styleClass="fancy-button" text="Back" />
 
 
-    <TextArea fx:id="aiResponse" layoutX="30" layoutY="270" prefWidth="740" prefHeight="280"
-              editable="false" wrapText="true" promptText="AI response will appear here..."/>
+    <TextArea fx:id="aiResponse" editable="false" layoutX="30" layoutY="270" prefHeight="280" prefWidth="914.0" promptText="AI response will appear here..." wrapText="true" />
+   <AnchorPane prefHeight="200.0" prefWidth="200.0" />
 
 </AnchorPane>
