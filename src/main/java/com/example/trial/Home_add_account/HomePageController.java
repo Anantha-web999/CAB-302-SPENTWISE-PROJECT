@@ -1,6 +1,8 @@
 package com.example.trial.Home_add_account;
-import com.example.trial.settings.SettingsPanelController;
+import com.example.trial.Session;
+import com.example.trial.settings.SettingsPanel;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import javafx.embed.swing.SwingNode;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,14 +12,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ListView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
 import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
@@ -60,11 +60,33 @@ public class HomePageController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         loadBankAccounts();
+        String email = Session.getCurrentUserEmail();  // <== This defines 'email'
+        if (email != null) {
+            user_name.setText("Welcome, " + email);
+        } else {
+            user_name.setText("Session not found!");
+        }
+
+        dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+        descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
+        amountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
+        loadRecentTransactions();
+
     }
 
     private void loadBankAccounts() {
         try {
-            List<BankAccount> accounts = BankAccountHelper.getAllBankAccounts();
+            // Get the current user email from the session
+            String email = Session.getCurrentUserEmail();
+
+            if (email == null) {
+                showAlert(Alert.AlertType.ERROR, "Session Error", null, "No user logged in.");
+                return;
+            }
+
+            // Pass the email to filter bank accounts by user
+            List<BankAccount> accounts = BankAccountHelper.getAllBankAccounts(email);
+
             accountsContainer.getChildren().clear();
 
             for (BankAccount account : accounts) {
@@ -73,12 +95,13 @@ public class HomePageController implements Initializable {
             }
 
         } catch (SQLException e) {
-            showAlert(AlertType.ERROR, "Database Error",
+            showAlert(Alert.AlertType.ERROR, "Database Error",
                     "Failed to load accounts",
                     "Could not load bank accounts from database: " + e.getMessage());
             e.printStackTrace();
         }
     }
+
 
     private AnchorPane createAccountCard(BankAccount account) {
         AnchorPane accountPane = new AnchorPane();
@@ -119,10 +142,19 @@ public class HomePageController implements Initializable {
     }
 
     @FXML
-    private void handleSettingsClick(ActionEvent event) throws IOException {
-        Parent insightsView = FXMLLoader.load(getClass().getResource("/com/example/settingspanel/SettingsPanel.fxml"));
-        Scene currentScene = ((Node) event.getSource()).getScene();
-        currentScene.setRoot(insightsView);
+    private void handleSettingsClick(ActionEvent event) {
+        SwingNode swingNode = new SwingNode();
+        SwingUtilities.invokeLater(() -> {
+            SettingsPanel settingsPanel = new SettingsPanel();
+            swingNode.setContent(settingsPanel);
+        });
+
+        VBox root = new VBox(swingNode);
+        Scene scene = new Scene(root, 800, 600);
+        Stage stage = new Stage();
+        stage.setTitle("Settings");
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
@@ -167,5 +199,22 @@ public class HomePageController implements Initializable {
         Scene currentScene = ((Node) event.getSource()).getScene();
         currentScene.setRoot(insightsView);
     }
+
+    public void handleLogout(ActionEvent event) {
+        try {
+            // Clear the session
+            Session.clearSession();
+
+            // Load login page
+            Parent root = FXMLLoader.load(getClass().getResource("/com/example/views/landing.fxml"));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root, 1000, 600));
+            stage.setResizable(false);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
+
+
 

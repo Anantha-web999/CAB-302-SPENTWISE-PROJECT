@@ -12,8 +12,7 @@ public class BankAccount {
     private String accountType;
     private double balance;
 
-    public BankAccount(int id, String bankName, String accountName,
-                       String accountNumber, String bsb, String accountType, double balance) {
+    public BankAccount(int id, String bankName, String accountName, String accountNumber, String bsb, String accountType, double balance) {
         this.id = id;
         this.bankName = bankName;
         this.accountName = accountName;

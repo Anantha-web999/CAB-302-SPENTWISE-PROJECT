@@ -28,9 +28,10 @@
     <TableView fx:id="tableView" layoutX="20.0" layoutY="108.0" prefHeight="480.0" prefWidth="980.0" styleClass="main_menu_container"
                AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
       <columns>
-          <TableColumn fx:id="childName" text="Child Name"/>
-          <TableColumn fx:id="budget" text="Budget"/>
-          <TableColumn fx:id="details" text="Details"/>
+          <TableColumn fx:id="childName" text="Child"/>
+          <TableColumn fx:id="detailsColumn" text="Details"/>
+          <TableColumn fx:id="editColumn" text="Edit"/>
+          <TableColumn fx:id="deleteColumn" text="Delete"/>
       </columns>
     </TableView>
     <Button fx:id="add_child_acc_btn1" alignment="CENTER" layoutX="883.0" layoutY="37.0" mnemonicParsing="false"

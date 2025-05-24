@@ -1,6 +1,7 @@
 package com.example.trial.logincontroller;
 
 import com.example.trial.DB.DatabaseHelper;
+import com.example.trial.Session;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -41,7 +42,7 @@ public class LoginController {
                 String inputHashedPassword = hashPassword(password);
 
                 if (storedHashedPassword.equals(inputHashedPassword)) {
-                    // ✅ Login success
+                    Session.setCurrentUserEmail(email);
                     loadHomePage(event);
                 } else {
                     showAlert("Login Failed", "Incorrect password.");

@@ -1,5 +1,6 @@
 package com.example.trial.Home_add_account;
 
+import com.example.trial.Session;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -45,7 +46,9 @@ public class AddAccountController {
         }
 
         try {
-            BankAccountHelper.addBankAccount(bankName, accountName, accountNumber, bsb, accountType);
+            String email = Session.getCurrentUserEmail(); // Get email from session
+            int userId = BankAccountHelper.getUserIdByEmail(email);
+            BankAccountHelper.addBankAccount( userId, bankName, accountName, accountNumber, bsb, accountType);
             showAlert(AlertType.INFORMATION, "Success", "Account Saved",
                     "The bank account has been successfully saved.");
             clearFields();
