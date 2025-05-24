@@ -53,8 +53,13 @@ public class DatabaseHelper {
                     "account_number TEXT NOT NULL, " +
                     "bsb TEXT NOT NULL, " +
                     "account_type TEXT NOT NULL, " +
+                    "budget REAL DEFAULT 0.0, " +
+                    "balance REAL DEFAULT 0.0, " +
                     "user_id INTEGER NOT NULL, " +
-                    "FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE);";
+                    "details TEXT, " +
+                    "FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE" +
+                    ");";
+
             stmt.execute(childAccountsSql);
 
         } catch (SQLException e) {
