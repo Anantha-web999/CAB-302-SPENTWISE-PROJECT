@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.trial.SpendingAdvisorController" prefWidth="800" prefHeight="600"
+            style="-fx-background-color: #f0f8ff;">
+
+    <Label layoutX="30" layoutY="30" text="AI Spending Advisor"
+           style="-fx-font-size: 24px; -fx-font-weight: bold;" />
+
+    <TextArea fx:id="userInput" layoutX="30" layoutY="80" prefWidth="740" prefHeight="120"
+              promptText="Describe your spending concern..." wrapText="true"/>
+
+    <Button text="Get Advice" layoutX="670" layoutY="220" prefWidth="100"
+            onAction="#handleGetAdvice" styleClass="fancy-button"/>
+
+    <Button text="Back"
+            layoutX="30" layoutY="570"
+            prefWidth="80"
+            onAction="#goBack"
+            styleClass="fancy-button"/>
+
+
+    <TextArea fx:id="aiResponse" layoutX="30" layoutY="270" prefWidth="740" prefHeight="280"
+              editable="false" wrapText="true" promptText="AI response will appear here..."/>
+
+</AnchorPane>
