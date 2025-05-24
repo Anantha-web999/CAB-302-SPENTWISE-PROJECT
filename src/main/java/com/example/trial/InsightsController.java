@@ -96,6 +96,17 @@ public class InsightsController {
     }
 
     @FXML
+    private void openSpendingAdvisor(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/trial/SpendingAdvisor.fxml"));
+        Parent root = loader.load();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root, 800, 600));
+        stage.setTitle("Spending Advisor - AI Assistant");
+        stage.show();
+    }
+
+
+    @FXML
     public void loadData() {
         ObservableList<CategoryData> data = FXCollections.observableArrayList(new CategoryData[]{new CategoryData("Food", (double)4200.0F, "30%"), new CategoryData("Transport", (double)1800.0F, "13%"), new CategoryData("Shopping", (double)3500.0F, "25%"), new CategoryData("Entertainment", (double)1200.0F, "9%"), new CategoryData("Others", (double)4300.0F, "23%")});
         this.categoryTable.setItems(data);

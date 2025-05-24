@@ -41,6 +41,11 @@
     <!-- Buttons -->
     <!-- Updated Stylish and Slightly Smaller Buttons -->
 
+    <Button text="AI Advisor" layoutX="670" layoutY="570" prefWidth="100"
+    onAction="#openSpendingAdvisor"
+    styleClass="fancy-button" />
+
+
     <Button layoutX="138.0" layoutY="528.0"
             style="-fx-background-color: #1e90ff;
            -fx-text-fill: white;
