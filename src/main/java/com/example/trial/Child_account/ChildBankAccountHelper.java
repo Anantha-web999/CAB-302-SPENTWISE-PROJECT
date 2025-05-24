@@ -51,7 +51,8 @@ public class ChildBankAccountHelper {
 
         List<ChildAccount> accounts = new ArrayList<>();
         int userId = getUserIdByEmail(email);
-        String sql = "SELECT account_name, budget FROM child_accounts WHERE user_id = ?";
+        String sql = "SELECT id, account_name, budget, balance, bank_name, account_number, bsb, account_type FROM child_accounts WHERE user_id = ?";
+
 
         try (Connection conn = DatabaseHelper.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -62,8 +63,16 @@ public class ChildBankAccountHelper {
                 ChildAccount account = new ChildAccount(
                         rs.getInt("id"),
                         rs.getString("account_name"),
-                        rs.getDouble("budget")
+                        rs.getDouble("budget"),
+                        rs.getString("bank_name"),
+                        rs.getString("account_number"),
+                        rs.getString("bsb"),
+                        rs.getString("account_type"),
+                        email // Set the current user email
                 );
+                account.setBalance(rs.getDouble("balance"));
+
+
                 accounts.add(account);
             }
         }
