@@ -41,7 +41,7 @@ public class LoginController {
                 String inputHashedPassword = hashPassword(password);
 
                 if (storedHashedPassword.equals(inputHashedPassword)) {
-                    // ✅ Login success
+                    //  Login success
                     loadHomePage(event);
                 } else {
                     showAlert("Login Failed", "Incorrect password.");
