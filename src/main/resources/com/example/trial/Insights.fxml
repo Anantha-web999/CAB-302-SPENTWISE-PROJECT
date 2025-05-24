@@ -9,6 +9,9 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #e6f0ff;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trial.InsightsController">
 
+
+
+
     <!-- Title -->
     <Label layoutX="306.0" layoutY="25.0" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #003366;" text="Spending by Category" />
 
@@ -48,6 +51,7 @@
            -fx-font-size: 12px;
            -fx-cursor: hand;"
             text="Back" onAction="#goToHomePage" />
+
 
     <Button layoutX="563.0" layoutY="528.0" onAction="#goToCompareExpenses"
             style="-fx-background-color: #1e90ff;
