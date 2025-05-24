@@ -31,11 +31,6 @@ public class manage_child_account_controller implements Initializable {
     @FXML
     private TableColumn<ChildAccount, String> childName;
 
-    @FXML
-    private TableColumn<ChildAccount, Double> budget;
-
-    @FXML
-    private TableColumn<ChildAccount, String> details;
 
     @FXML
     private TableColumn<ChildAccount, Void> detailsColumn;
@@ -43,7 +38,10 @@ public class manage_child_account_controller implements Initializable {
     private TableColumn<ChildAccount, Void> editColumn;
     @FXML
     private TableColumn<ChildAccount, Void> deleteColumn;
-
+    @FXML
+    private TableColumn<ChildAccount, Double> budget;
+    @FXML
+    private TableColumn<ChildAccount, Double> balance;
 
 
 
@@ -52,15 +50,29 @@ public class manage_child_account_controller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         // Load columns from ChildAccount properties
         childName.setCellValueFactory(new PropertyValueFactory<>("accountName"));
+        budget.setCellValueFactory(new PropertyValueFactory<>("budget"));
+        balance.setCellValueFactory(new PropertyValueFactory<>("balance"));
 
         // Set up "Info" button for details
         detailsColumn.setCellFactory(getButtonCellFactory("Info", (child) -> {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Child Account Details");
             alert.setHeaderText("Details for: " + child.getAccountName());
-            alert.setContentText("Budget: $" + child.getBudget());
+
+            alert.setContentText(
+                    String.format(
+                            "Budget: $%.2f\nBank Name: %s\nAccount Number: %s\nBSB: %s\nAccount Type: %s",
+                            child.getBudget(),
+                            child.getBankName(),
+                            child.getAccountNumber(),
+                            child.getBsb(),
+                            child.getAccountType()
+                    )
+            );
+
             alert.showAndWait();
         }));
+
 
         // Set up "Update" button
         editColumn.setCellFactory(getButtonCellFactory("Update", (child) -> {
@@ -127,31 +139,18 @@ public class manage_child_account_controller implements Initializable {
     private void loadChildAccounts() {
         ObservableList<ChildAccount> accounts = FXCollections.observableArrayList();
 
-        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:spentwise.db")) {
+        try {
             String email = Session.getCurrentUserEmail();
             if (email == null) return;
 
-            // ✅ This line might throw SQLException – it must be inside try
-            int userId = ChildBankAccountHelper.getUserIdByEmail(email);
-
-            String sql = "SELECT id, account_name, budget FROM child_accounts WHERE user_id = ?";
-            PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, userId);
-            ResultSet rs = pstmt.executeQuery();
-
-            while (rs.next()) {
-                accounts.add(new ChildAccount(
-                        rs.getInt("id"),
-                        rs.getString("account_name"),
-                        rs.getDouble("budget")
-                ));
-            }
-
+            accounts.addAll(ChildBankAccountHelper.getAllChildAccounts(email));
             tableView.setItems(accounts);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
 
 
 
