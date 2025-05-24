@@ -95,15 +95,6 @@ public class InsightsController {
 
     }
 
-    @FXML
-    private void openSpendingAdvisor(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/trial/SpendingAdvisor.fxml"));
-        Parent root = loader.load();
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root, 800, 600));
-        stage.setTitle("Spending Advisor - AI Assistant");
-        stage.show();
-    }
 
 
     @FXML
