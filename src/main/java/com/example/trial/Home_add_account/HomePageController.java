@@ -1,4 +1,5 @@
 package com.example.trial.Home_add_account;
+
 import com.example.trial.DB.DatabaseHelper;
 import com.example.trial.Session;
 import com.example.trial.settings.SettingsPanel;
@@ -12,7 +13,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -29,42 +29,24 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class HomePageController implements Initializable {
-
-    public Button dashbord_btn;
-    public Button add_acc_btn;
-    public Button Budget_btn;
-    public Button Insights_btn;
-    public Button reminders_btn;
-    public Button child_acc_btn;
-    public Button settingsButton;
-    public Button logout_btn;
-    public Text user_name;
-    public Label login_date;
-    public Label cheking_balance;
-    public Label cheking_acc_num;
-    public Label savings_balance;
-    public Label savings_acc_num;
-    public Label income_lbl;
-    public Label expense_lbl;
-
-
-
-    @FXML
-    private TableView<Transaction> transactionTable;
-    @FXML
-    private TableColumn<Transaction, String> dateColumn;
-    @FXML
-    private TableColumn<Transaction, String> descriptionColumn;
-    @FXML
-    private TableColumn<Transaction, Double> amountColumn;
-    @FXML
-    private HBox accountsContainer;
-
+    @FXML private Button dashbord_btn, add_acc_btn, Budget_btn, Insights_btn, reminders_btn, child_acc_btn, settingsButton, logout_btn;
+    @FXML private Text user_name;
+    @FXML private Label login_date, cheking_balance, cheking_acc_num, savings_balance, savings_acc_num, income_lbl, expense_lbl;
+    @FXML private TableView<Transaction> transactionTable;
+    @FXML private TableColumn<Transaction, String> dateColumn, descriptionColumn;
+    @FXML private TableColumn<Transaction, Double> amountColumn;
+    @FXML private HBox accountsContainer;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         loadBankAccounts();
+        setWelcomeMessage();
+        setLoginDate();
+        setupTransactionTable();
+        loadRecentTransactions();
+    }
 
+    private void setWelcomeMessage() {
         String email = Session.getCurrentUserEmail();
         if (email != null) {
             try {
@@ -77,72 +59,60 @@ public class HomePageController implements Initializable {
         } else {
             user_name.setText("Session not found!");
         }
+    }
 
-        LocalDate today = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, dd MMM yyyy");
-        login_date.setText("Today, " + today.format(formatter));
+    private void setLoginDate() {
+        login_date.setText("Today, " + LocalDate.now().format(DateTimeFormatter.ofPattern("EEEE, dd MMM yyyy")));
+    }
 
+    private void setupTransactionTable() {
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
         descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
         amountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
-
-        loadRecentTransactions();
     }
-
 
     private void loadBankAccounts() {
         try {
-            // Get the current user email from the session
             String email = Session.getCurrentUserEmail();
-
             if (email == null) {
                 showAlert(Alert.AlertType.ERROR, "Session Error", null, "No user logged in.");
                 return;
             }
 
-            // Pass the email to filter bank accounts by user
             List<BankAccount> accounts = BankAccountHelper.getAllBankAccounts(email);
-
             accountsContainer.getChildren().clear();
 
             for (BankAccount account : accounts) {
-                AnchorPane accountCard = createAccountCard(account);
-                accountsContainer.getChildren().add(accountCard);
+                accountsContainer.getChildren().add(createAccountCard(account));
             }
 
         } catch (SQLException e) {
-            showAlert(Alert.AlertType.ERROR, "Database Error",
-                    "Failed to load accounts",
-                    "Could not load bank accounts from database: " + e.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Database Error", "Failed to load accounts", e.getMessage());
             e.printStackTrace();
         }
     }
 
-
     private AnchorPane createAccountCard(BankAccount account) {
         AnchorPane accountPane = new AnchorPane();
-        accountPane.setPrefHeight(150);
-        accountPane.setPrefWidth(295);
+        accountPane.setPrefSize(295, 150);
         accountPane.getStyleClass().addAll("account", "account_gradient");
-        Label balanceLabel = new Label(account.getFormattedBalance());
-        balanceLabel.getStyleClass().add("account_balance");
-        AnchorPane.setLeftAnchor(balanceLabel, 14.0);
-        AnchorPane.setTopAnchor(balanceLabel, 25.0);
-        String accountNum = account.getAccountNumber();
-        Label accountNumberLabel = new Label(accountNum);
-        accountNumberLabel.getStyleClass().add("account_number");
-        AnchorPane.setLeftAnchor(accountNumberLabel, 14.0);
+
+        Label balanceLabel = createLabel(account.getFormattedBalance(), "account_balance", 14.0, 25.0);
+        Label accountNumberLabel = createLabel(account.getAccountNumber(), "account_number", 14.0, null);
         AnchorPane.setBottomAnchor(accountNumberLabel, 45.0);
+
         FontAwesomeIconView bankIcon = new FontAwesomeIconView();
         bankIcon.setGlyphName("BANK");
         bankIcon.setSize("30");
         AnchorPane.setRightAnchor(bankIcon, 14.0);
         AnchorPane.setTopAnchor(bankIcon, 7.0);
+
         Text bankNameText = new Text(account.getBankName());
         AnchorPane.setLeftAnchor(bankNameText, 14.0);
         AnchorPane.setBottomAnchor(bankNameText, 10.0);
+
         accountPane.getChildren().addAll(balanceLabel, accountNumberLabel, bankIcon, bankNameText);
-        accountPane.setOnMouseClicked(e -> showAlert(AlertType.INFORMATION, "Account Info", null,
+        accountPane.setOnMouseClicked(e -> showAlert(Alert.AlertType.INFORMATION, "Account Info", null,
                 "Bank: " + account.getBankName() + "\n" +
                         "Type: " + account.getAccountType() + "\n" +
                         "Balance: " + account.getFormattedBalance()));
@@ -150,78 +120,43 @@ public class HomePageController implements Initializable {
         return accountPane;
     }
 
-    @FXML
-    private void handleAddAccount(ActionEvent event) throws IOException {
-        Parent addAccountView = FXMLLoader.load(getClass().getResource("/com/example/hellofx/add-account.fxml"));
-        Scene currentScene = ((Node) event.getSource()).getScene();
-        currentScene.setRoot(addAccountView);
+    private Label createLabel(String text, String styleClass, Double leftAnchor, Double topAnchor) {
+        Label label = new Label(text);
+        label.getStyleClass().add(styleClass);
+        if (leftAnchor != null) AnchorPane.setLeftAnchor(label, leftAnchor);
+        if (topAnchor != null) AnchorPane.setTopAnchor(label, topAnchor);
+        return label;
     }
 
-    @FXML
-    private void handleSettingsClick(ActionEvent event) {
-        SwingNode swingNode = new SwingNode();
-        SwingUtilities.invokeLater(() -> {
-            SettingsPanel settingsPanel = new SettingsPanel();
-            swingNode.setContent(settingsPanel);
-        });
+    @FXML private void handleAddAccount(ActionEvent event) throws IOException {
+        switchScene(event, "/com/example/hellofx/add-account.fxml");
+    }
 
+    @FXML private void handleSettingsClick(ActionEvent event) {
+        SwingNode swingNode = new SwingNode();
+        SwingUtilities.invokeLater(() -> swingNode.setContent(new SettingsPanel()));
         VBox root = new VBox(swingNode);
-        Scene scene = new Scene(root, 800, 600);
         Stage stage = new Stage();
         stage.setTitle("Settings");
-        stage.setScene(scene);
+        stage.setScene(new Scene(root, 800, 600));
         stage.show();
     }
 
-    @FXML
-    private void handleInsightsClick(ActionEvent event) throws IOException {
-        Parent insightsView = FXMLLoader.load(getClass().getResource("/com/example/trial/Insights.fxml"));
-        Scene currentScene = ((Node) event.getSource()).getScene();
-        currentScene.setRoot(insightsView);
+    @FXML private void handleInsightsClick(ActionEvent event) throws IOException {
+        switchScene(event, "/com/example/trial/Insights.fxml");
     }
 
-    public void refreshAccounts() {
-        loadBankAccounts();
+    @FXML private void handlepayremind(ActionEvent event) throws IOException {
+        switchScene(event, "/com/example/upcomingpayments/payment.fxml");
     }
 
-    private void showAlert(AlertType type, String title, String header, String content) {
-        Alert alert = new Alert(type);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
-        alert.setContentText(content);
-        alert.showAndWait();
+    @FXML private void handleChildAccount(ActionEvent event) throws IOException {
+        switchScene(event, "/com/example/child_control/manage_child_account.fxml");
     }
 
-    public void handlepayremind(ActionEvent event) throws IOException {
-        Parent insightsView = FXMLLoader.load(getClass().getResource("/com/example/upcomingpayments/payment.fxml"));
-        Scene currentScene = ((Node) event.getSource()).getScene();
-        currentScene.setRoot(insightsView);
-    }
-
-    private void loadRecentTransactions() {
+    @FXML private void handleLogout(ActionEvent event) {
         try {
-            List<Transaction> transactions = TransactionHelper.getRecentTransactions();
-            transactionTable.getItems().clear();
-            transactionTable.getItems().addAll(transactions);
-        } catch (SQLException e) {
-            showAlert(Alert.AlertType.ERROR, "Database Error", "Could not load transactions", e.getMessage());
-            e.printStackTrace();
-        }
-    }
-
-
-    public void handleChildAccount(ActionEvent event) throws IOException {
-        Parent insightsView = FXMLLoader.load(getClass().getResource("/com/example/child_control/manage_child_account.fxml"));
-        Scene currentScene = ((Node) event.getSource()).getScene();
-        currentScene.setRoot(insightsView);
-    }
-
-    public void handleLogout(ActionEvent event) {
-        try {
-            // Clear the session
             Session.clearSession();
-
-            // Load login page
             Parent root = FXMLLoader.load(getClass().getResource("/com/example/views/landing.fxml"));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root, 1000, 600));
@@ -229,10 +164,33 @@ public class HomePageController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
+    private void loadRecentTransactions() {
+        try {
+            List<Transaction> transactions = TransactionHelper.getRecentTransactions();
+            transactionTable.getItems().setAll(transactions);
+        } catch (SQLException e) {
+            showAlert(Alert.AlertType.ERROR, "Database Error", "Could not load transactions", e.getMessage());
+            e.printStackTrace();
+        }
+    }
 
+    public void refreshAccounts() {
+        loadBankAccounts();
+    }
+
+    private void switchScene(ActionEvent event, String fxmlPath) throws IOException {
+        Parent view = FXMLLoader.load(getClass().getResource(fxmlPath));
+        Scene currentScene = ((Node) event.getSource()).getScene();
+        currentScene.setRoot(view);
+    }
+
+    private void showAlert(Alert.AlertType type, String title, String header, String content) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 }
-
-
-
