@@ -23,6 +23,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.io.IOException;
+import javafx.scene.control.Alert;
+
 
 
 import java.io.IOException;
@@ -123,21 +125,27 @@ public class InsightsController {
 
         if (file != null) {
             try (PrintWriter writer = new PrintWriter(new FileWriter(file))) {
-                // CSV Header
+                // Write CSV header
                 writer.println("Category,Amount,Percentage");
 
-                // Table Rows
+                // Write data rows
                 for (CategoryData data : categoryTable.getItems()) {
                     writer.printf("%s,%.2f,%s%n", data.getCategory(), data.getAmount(), data.getPercentage());
                 }
 
-                System.out.println("Export successful: " + file.getAbsolutePath());
+                // ✅ SUCCESS POPUP
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Export");
+                alert.setHeaderText(null);
+                alert.setContentText("Data exported successfully!");
+                alert.showAndWait();
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
+
 
 }
 
