@@ -18,6 +18,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
+import javafx.stage.FileChooser;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.io.IOException;
+
 
 import java.io.IOException;
 
@@ -106,6 +112,33 @@ public class InsightsController {
         stage.setScene(new Scene(homeRoot));
         stage.show();
     }
+    @FXML
+    private void exportToCSV() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save Spending Table");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
+        fileChooser.setInitialFileName("spending_by_category.csv");
+
+        File file = fileChooser.showSaveDialog(null);
+
+        if (file != null) {
+            try (PrintWriter writer = new PrintWriter(new FileWriter(file))) {
+                // CSV Header
+                writer.println("Category,Amount,Percentage");
+
+                // Table Rows
+                for (CategoryData data : categoryTable.getItems()) {
+                    writer.printf("%s,%.2f,%s%n", data.getCategory(), data.getAmount(), data.getPercentage());
+                }
+
+                System.out.println("Export successful: " + file.getAbsolutePath());
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }
 
 

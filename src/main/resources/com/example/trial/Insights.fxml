@@ -82,7 +82,8 @@
            -fx-cursor: hand;"
             text="Trends" />
 
-    <Button layoutX="346.0" layoutY="528.0"
+    <Button layoutX="346.0" layoutY="528.0" onAction="#exportToCSV"
+
             style="-fx-background-color: #1e90ff;
            -fx-text-fill: white;
            -fx-font-weight: bold;
