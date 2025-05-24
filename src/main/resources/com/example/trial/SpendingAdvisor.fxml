@@ -11,12 +11,15 @@
 
     <TextArea fx:id="userInput" layoutX="30" layoutY="80" prefHeight="120" prefWidth="913.0" promptText="Describe your spending concern..." wrapText="true" />
 
-    <Button layoutX="844.0" layoutY="217.0" onAction="#handleGetAdvice" prefWidth="100" styleClass="fancy-button" text="Get Advice" />
+    <Button layoutX="30.0" layoutY="556.0" mnemonicParsing="false" onAction="#goBack" style="-fx-background-color: #2c80b4;  /* blue tone */            -fx-text-fill: white;            -fx-font-weight: bold;            -fx-font-size: 16px;            -fx-padding: 8 20;            -fx-background-radius: 8;" text="Back" />
 
-    <Button layoutX="30" layoutY="570" onAction="#goBack" prefWidth="80" styleClass="fancy-button" text="Back" />
+    <Button layoutX="822.0" layoutY="209.0" mnemonicParsing="false" onAction="#handleGetAdvice" style="-fx-background-color: #2c80b4;  /* blue tone */            -fx-text-fill: white;            -fx-font-weight: bold;            -fx-font-size: 16px;            -fx-padding: 8 20;            -fx-background-radius: 8;" text="Get Advice" />
 
 
     <TextArea fx:id="aiResponse" editable="false" layoutX="30" layoutY="270" prefHeight="280" prefWidth="914.0" promptText="AI response will appear here..." wrapText="true" />
    <AnchorPane prefHeight="200.0" prefWidth="200.0" />
+
+
+
 
 </AnchorPane>
