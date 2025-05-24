@@ -1,4 +1,5 @@
 package com.example.trial.Home_add_account;
+import com.example.trial.DB.DatabaseHelper;
 import com.example.trial.Session;
 import com.example.trial.settings.SettingsPanel;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
@@ -60,12 +61,23 @@ public class HomePageController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         loadBankAccounts();
-        String email = Session.getCurrentUserEmail();  // <== This defines 'email'
+        String email = Session.getCurrentUserEmail();
         if (email != null) {
-            user_name.setText("Welcome, " + email);
+            try {
+                String fullName = BankAccountHelper.getFullNameByEmail(email);
+                if (fullName != null) {
+                    user_name.setText("Welcome, " + fullName);
+                } else {
+                    user_name.setText("Welcome, user");
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                user_name.setText("Welcome");
+            }
         } else {
             user_name.setText("Session not found!");
         }
+
 
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
         descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
@@ -213,6 +225,8 @@ public class HomePageController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+
     }
 }
 
