@@ -1,6 +1,6 @@
 package com.example.trial.Home_add_account;
 import com.example.trial.Session;
-import com.example.trial.settings.SettingsPanel;
+import com.example.trial.settings.SettingsPanelController;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.embed.swing.SwingNode;
 import javafx.event.ActionEvent;
@@ -142,20 +142,12 @@ public class HomePageController implements Initializable {
     }
 
     @FXML
-    private void handleSettingsClick(ActionEvent event) {
-        SwingNode swingNode = new SwingNode();
-        SwingUtilities.invokeLater(() -> {
-            SettingsPanel settingsPanel = new SettingsPanel();
-            swingNode.setContent(settingsPanel);
-        });
-
-        VBox root = new VBox(swingNode);
-        Scene scene = new Scene(root, 800, 600);
-        Stage stage = new Stage();
-        stage.setTitle("Settings");
-        stage.setScene(scene);
-        stage.show();
+    private void handleSettingsClick(ActionEvent event) throws IOException {
+        Parent insightsView = FXMLLoader.load(getClass().getResource("/com/example/settingspanel/SettingsPanel.fxml"));
+        Scene currentScene = ((Node) event.getSource()).getScene();
+        currentScene.setRoot(insightsView);
     }
+
 
     @FXML
     private void handleInsightsClick(ActionEvent event) throws IOException {
