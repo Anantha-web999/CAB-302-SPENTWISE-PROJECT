@@ -5,7 +5,6 @@
 <?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
 
-
 <BorderPane xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.example.trial.logincontroller.LoginController"
@@ -45,27 +44,33 @@
                            style="-fx-pref-height: 38;
                                   -fx-background-radius: 5;"/>
 
-                <!-- Password + Show/Hide -->
-                <HBox alignment="CENTER_LEFT" spacing="5">
-                    <PasswordField fx:id="passwordField"
+                <!-- Password + Show/Hide + Caps Lock Warning -->
+                <VBox spacing="4">
+                    <HBox alignment="CENTER_LEFT" spacing="5">
+                        <PasswordField fx:id="passwordField"
+                                       promptText="Enter password"
+                                       style="-fx-pref-height: 38;
+                                            -fx-background-radius: 5;"
+                                       HBox.hgrow="ALWAYS"/>
+                        <TextField fx:id="visiblePasswordField"
                                    promptText="Enter password"
+                                   visible="false"
+                                   managed="false"
                                    style="-fx-pref-height: 38;
-                                          -fx-background-radius: 5;"
+                                        -fx-background-radius: 5;"
                                    HBox.hgrow="ALWAYS"/>
-                    <TextField fx:id="visiblePasswordField"
-                               promptText="Enter password"
-                               visible="false"
-                               managed="false"
-                               style="-fx-pref-height: 38;
-                                      -fx-background-radius: 5;"
-                               HBox.hgrow="ALWAYS"/>
-                    <Button fx:id="togglePasswordButton"
-                            text="Show"
-                            onAction="#togglePasswordVisibility"
-                            style="-fx-background-color: transparent;
-                                   -fx-text-fill: #2563eb;
-                                   -fx-font-weight: bold;"/>
-                </HBox>
+                        <Button fx:id="togglePasswordButton"
+                                text="Show"
+                                onAction="#togglePasswordVisibility"
+                                style="-fx-background-color: transparent;
+                                     -fx-text-fill: #2563eb;
+                                     -fx-font-weight: bold;"/>
+                    </HBox>
+                    <Label fx:id="capsLockLabel"
+                           text="⚠ Caps Lock is ON"
+                           visible="false"
+                           style="-fx-text-fill: darkorange; -fx-font-size: 11;"/>
+                </VBox>
 
                 <!-- Login Button -->
                 <Button text="Login"

@@ -3,6 +3,7 @@ package com.example.trial.logincontroller;
 import com.example.trial.DB.DatabaseHelper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -10,20 +11,38 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
+import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
+import java.util.ResourceBundle;
 
-public class LoginController {
+public class LoginController implements Initializable {
 
     @FXML private TextField emailField;
     @FXML private PasswordField passwordField;
     @FXML private TextField visiblePasswordField;
     @FXML private Button togglePasswordButton;
     @FXML private Label errorLabel;
+    @FXML private Label capsLockLabel;
 
     private boolean passwordVisible = false;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        // Watch for key events to detect Caps Lock
+        passwordField.setOnKeyReleased(e -> checkCapsLock());
+        visiblePasswordField.setOnKeyReleased(e -> checkCapsLock());
+    }
+
+    private void checkCapsLock() {
+        boolean capsOn = Toolkit.getDefaultToolkit()
+                .getLockingKeyState(KeyEvent.VK_CAPS_LOCK);
+        capsLockLabel.setVisible(capsOn);
+    }
 
     @FXML
     public void handleLogin(ActionEvent event) {
