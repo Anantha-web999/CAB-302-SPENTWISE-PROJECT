@@ -118,7 +118,6 @@
                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                             </padding>
                         </TitledPane>
-
                         <TitledPane animated="false" collapsible="false" expanded="true" text="Application Behavior" style="-fx-font-family: 'Lato'; -fx-font-weight: bold;">
                             <content>
                                 <GridPane hgap="10.0" vgap="15.0">
