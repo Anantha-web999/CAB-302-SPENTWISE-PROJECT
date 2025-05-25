@@ -149,19 +149,43 @@ public class SettingsPanelController implements Initializable {
     @FXML
     private void handleAppPreferencesButton() {
         setActiveButton(appPreferencesButton);
-        //Here you would load the app preferences panel content
+        try {
+            Parent appPreferencesRoot = FXMLLoader.load(getClass().getResource("/com/example/settingspanel/AppPreferencesPanel.fxml"));
+            Stage stage = (Stage) appPreferencesButton.getScene().getWindow();
+            stage.setScene(new Scene(appPreferencesRoot));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Error loading app preferences panel: " + e.getMessage());
+        }
     }
 
     @FXML
     private void handleHelpSupportButton() {
         setActiveButton(helpSupportButton);
-        //Here you would load the help & support panel content
+        try {
+            Parent helpSupportRoot = FXMLLoader.load(getClass().getResource("/com/example/settingspanel/HelpSupportPanel.fxml"));
+            Stage stage = (Stage) helpSupportButton.getScene().getWindow();
+            stage.setScene(new Scene(helpSupportRoot));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Error loading help support panel: " + e.getMessage());
+        }
     }
 
     @FXML
     private void handleAboutUsButton() {
         setActiveButton(aboutUsButton);
-        //Here you would load the about us panel content
+        try {
+            Parent aboutUsRoot = FXMLLoader.load(getClass().getResource("/com/example/settingspanel/AboutUsPanel.fxml"));
+            Stage stage = (Stage) aboutUsButton.getScene().getWindow();
+            stage.setScene(new Scene(aboutUsRoot));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Error loading about us panel: " + e.getMessage());
+        }
     }
 
     @FXML
