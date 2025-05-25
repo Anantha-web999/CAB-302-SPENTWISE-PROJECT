@@ -121,59 +121,6 @@ public class HelpSupportPanelController implements Initializable {
         }
     }
 
-    @FXML
-    private void handleSendMessage() {
-        String email = emailField.getText().trim();
-        String message = messageArea.getText().trim();
-
-        if (email.isEmpty() || message.isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Incomplete Information");
-            alert.setHeaderText(null);
-            alert.setContentText("Please fill in both email and message fields before sending.");
-            alert.showAndWait();
-            return;
-        }
-
-        //Simulate sending message
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Message Sent");
-        alert.setHeaderText(null);
-        alert.setContentText("Your message has been sent successfully. We'll get back to you within 24 hours.");
-        alert.showAndWait();
-
-        //Clear fields
-        emailField.clear();
-        messageArea.clear();
-    }
-
-    @FXML
-    private void handleDownloadGuide() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Download Guide");
-        alert.setHeaderText(null);
-        alert.setContentText("The user guide download has been initiated. Check your Downloads folder.");
-        alert.showAndWait();
-    }
-
-    @FXML
-    private void handleVideoTutorials() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Video Tutorials");
-        alert.setHeaderText(null);
-        alert.setContentText("Opening video tutorials in your default web browser...");
-        alert.showAndWait();
-    }
-
-    @FXML
-    private void handleKeyboardShortcuts() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Keyboard Shortcuts");
-        alert.setHeaderText("SpentWise Keyboard Shortcuts");
-        alert.setContentText("Ctrl+N - New Expense\nCtrl+S - Save\nCtrl+E - Export Data\nCtrl+T - View Trends\nF1 - Help\nEsc - Close Dialog");
-        alert.showAndWait();
-    }
-
     public void goToHomePage(ActionEvent event) throws IOException {
         Parent homeRoot = FXMLLoader.load(getClass().getResource("/com/example/hellofx/homepage.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

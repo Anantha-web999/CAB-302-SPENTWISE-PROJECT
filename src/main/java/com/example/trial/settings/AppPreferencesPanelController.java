@@ -32,7 +32,7 @@ public class AppPreferencesPanelController implements Initializable {
     @FXML private Button helpSupportButton;
     @FXML private Button aboutUsButton;
     @FXML private Button resetButton;
-    @FXML private Button applyButton;
+    @FXML private Button savechangesButton;
     @FXML private Button homeButton;
 
     private final String activeStyle = "-fx-background-color: #17202a; -fx-text-fill: #fbfcfc; -fx-font-family: 'Lato'; -fx-font-weight: bold; -fx-font-size: 14px;";
@@ -142,7 +142,7 @@ public class AppPreferencesPanelController implements Initializable {
     }
 
     @FXML
-    private void handleApplyButton() {
+    private void handlesavechangesButton() {
         //Apply preferences
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Preferences Applied");
