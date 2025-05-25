@@ -33,7 +33,6 @@ public class SettingsPanelController implements Initializable {
 
     @FXML private Button accountButton;
     @FXML private Button appPreferencesButton;
-    @FXML private Button notificationsButton;
     @FXML private Button helpSupportButton;
     @FXML private Button aboutUsButton;
     @FXML private Button cancelButton;
@@ -134,7 +133,6 @@ public class SettingsPanelController implements Initializable {
         //Reset all buttons to inactive style
         accountButton.setStyle(inactiveStyle);
         appPreferencesButton.setStyle(inactiveStyle);
-        notificationsButton.setStyle(inactiveStyle);
         helpSupportButton.setStyle(inactiveStyle);
         aboutUsButton.setStyle(inactiveStyle);
 
@@ -152,12 +150,6 @@ public class SettingsPanelController implements Initializable {
     private void handleAppPreferencesButton() {
         setActiveButton(appPreferencesButton);
         //Here you would load the app preferences panel content
-    }
-
-    @FXML
-    private void handleNotificationsButton() {
-        setActiveButton(notificationsButton);
-        //Here you would load the notifications panel content
     }
 
     @FXML
