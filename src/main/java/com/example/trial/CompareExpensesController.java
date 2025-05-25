@@ -66,7 +66,7 @@ public class CompareExpensesController {
         try {
             Parent insightsRoot = (Parent)FXMLLoader.load(this.getClass().getResource("/com/example/trial/Insights.fxml"));
             Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(insightsRoot, (double)800.0F, (double)600.0F));
+            stage.setScene(new Scene(insightsRoot, (double)1000.0F, (double)600.0F));
             stage.setTitle("Insights");
             stage.show();
         } catch (Exception e) {

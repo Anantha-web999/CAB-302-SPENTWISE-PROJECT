@@ -10,19 +10,19 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #e6f0ff;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="com.example.trial.CompareExpensesController">
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #e6f0ff;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trial.CompareExpensesController">
 
     <!-- Title -->
-    <Label layoutX="282.0" layoutY="25.0" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #003366;" text="Compare Monthly Expenses" />
+    <Label layoutX="400.0" layoutY="23.0" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #003366;" text="Compare Monthly Expenses" />
 
     <!-- Month Selection -->
-    <Label layoutX="177.0" layoutY="76.0" text="Month 1:" />
-    <ComboBox fx:id="month1Combo" layoutX="240.0" layoutY="72.0" prefWidth="150" />
-    <Label layoutX="433.0" layoutY="76.0" text="Month 2:" />
-    <ComboBox fx:id="month2Combo" layoutX="492.0" layoutY="72.0" prefWidth="150" />
+    <Label layoutX="274.0" layoutY="76.0" text="Month 1:" />
+    <ComboBox fx:id="month1Combo" layoutX="340.0" layoutY="72.0" prefWidth="150" />
+    <Label layoutX="548.0" layoutY="76.0" text="Month 2:" />
+    <ComboBox fx:id="month2Combo" layoutX="608.0" layoutY="72.0" prefWidth="150" />
 
     <!-- Bar Chart -->
-    <BarChart fx:id="barChart" layoutX="88.0" layoutY="101.0" prefHeight="258.0" prefWidth="603.0">
+    <BarChart fx:id="barChart" layoutX="131.0" layoutY="107.0" prefHeight="258.0" prefWidth="699.0">
         <xAxis>
             <CategoryAxis label="Category" />
         </xAxis>
@@ -32,7 +32,7 @@
     </BarChart>
 
     <!-- Table -->
-    <TableView fx:id="comparisonTable" layoutX="165.0" layoutY="359.0" prefHeight="140" prefWidth="500" style="-fx-background-color: white; -fx-border-color: #1e90ff;">
+    <TableView fx:id="comparisonTable" layoutX="240.0" layoutY="365.0" prefHeight="140" prefWidth="500" style="-fx-background-color: white; -fx-border-color: #1e90ff;">
         <columns>
             <TableColumn fx:id="colCategory" prefWidth="140" text="Category" />
             <TableColumn fx:id="colMonth1" prefWidth="120" text="Month 1 ($)" />
@@ -42,9 +42,8 @@
     </TableView>
 
     <!-- Buttons -->
-    <Button layoutX="240.0" layoutY="547.0" onAction="#goBackToInsights" style="-fx-background-color: #1e90ff; -fx-text-fill: white;" text="Back" />
-    <Button layoutX="387.0" layoutY="547.0" onAction="#loadComparisonData" style="-fx-background-color: #1e90ff; -fx-text-fill: white;" text="Refresh" />
-    <Button layoutX="548.0" layoutY="547.0" onAction="#exportToCSV"
-            style="-fx-background-color: #1e90ff; -fx-text-fill: white;" text="Export" />
+    <Button layoutX="50.0" layoutY="37.0" onAction="#goBackToInsights" style="-fx-background-color: #1e90ff; -fx-text-fill: white;" text="Back" />
+    <Button layoutX="184.0" layoutY="534.0" onAction="#loadComparisonData" style="-fx-background-color: #1e90ff; -fx-text-fill: white;" text="Refresh" />
+    <Button layoutX="740.0" layoutY="534.0" onAction="#exportToCSV" style="-fx-background-color: #1e90ff; -fx-text-fill: white;" text="Export" />
 
 </AnchorPane>
