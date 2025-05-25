@@ -85,8 +85,8 @@
                                         <Separator />
                                         <VBox spacing="10.0">
                                             <children>
-                                                <Label text="Q: Can I export my data?" style="-fx-font-family: 'Lato'; -fx-font-size: 13px; -fx-font-weight: bold;" />
-                                                <Label text="A: Yes! You can export your expense data to CSV or PDF format from the Reports section. This allows you to backup your data or use it in other applications." wrapText="true" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
+                                                <Label text="Q: Can I export my expense data out of SpentWise" style="-fx-font-family: 'Lato'; -fx-font-size: 13px; -fx-font-weight: bold;" />
+                                                <Label text="A: Yes! You can export and download your expense data in CSV format from the Insights section. This allows you to backup and store your data, or use it in other applications." wrapText="true" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
                                             </children>
                                         </VBox>
                                         <Separator />
