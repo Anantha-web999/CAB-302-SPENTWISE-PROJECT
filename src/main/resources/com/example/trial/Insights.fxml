@@ -41,16 +41,26 @@
     <!-- Buttons -->
 
 
-    <Button layoutX="41.0" layoutY="31.0" onAction="#goToHomePage" style="-fx-background-color: #1e90ff;            -fx-text-fill: white;            -fx-font-weight: bold;            -fx-background-radius: 8;            -fx-border-radius: 8;            -fx-padding: 6 14;            -fx-font-size: 12px;            -fx-cursor: hand;" text="Back" />
+    <Button layoutX="41.0" layoutY="31.0" onAction="#goToHomePage"
+            style="-fx-background-color: #1e90ff; -fx-text-fill: white;"
+            text="Back" />
 
+    <Button layoutX="733.0" layoutY="528.0" onAction="#goToCompareExpenses"
+            style="-fx-background-color: #1e90ff; -fx-text-fill: white;"
+            text="Compare Monthly Expenses" />
 
-    <Button layoutX="733.0" layoutY="528.0" onAction="#goToCompareExpenses" style="-fx-background-color: #1e90ff;            -fx-text-fill: white;            -fx-font-weight: bold;            -fx-background-radius: 8;            -fx-border-radius: 8;            -fx-padding: 6 14;            -fx-font-size: 12px;            -fx-cursor: hand;" text="Compare Monthly Expenses" />
+    <Button layoutX="186.0" layoutY="528.0" onAction="#loadData"
+            style="-fx-background-color: #1e90ff; -fx-text-fill: white;"
+            text="Refresh" />
 
-    <Button layoutX="186.0" layoutY="528.0" onAction="#loadData" style="-fx-background-color: #1e90ff;            -fx-text-fill: white;            -fx-font-weight: bold;            -fx-background-radius: 8;            -fx-border-radius: 8;            -fx-padding: 6 14;            -fx-font-size: 12px;            -fx-cursor: hand;" text="Refresh" />
+    <Button layoutX="556.0" layoutY="528.0" onAction="#goToTrends"
+            style="-fx-background-color: #1e90ff; -fx-text-fill: white;"
+            text="Trends" />
 
-    <Button layoutX="556.0" layoutY="528.0" onAction="#goToTrends" style="-fx-background-color: #1e90ff;            -fx-text-fill: white;            -fx-font-weight: bold;            -fx-background-radius: 8;            -fx-border-radius: 8;            -fx-padding: 6 14;            -fx-font-size: 12px;            -fx-cursor: hand;" text="Trends" />
+    <Button layoutX="366.0" layoutY="528.0" onAction="#exportToCSV"
+            style="-fx-background-color: #1e90ff; -fx-text-fill: white;"
+            text="Export" />
 
-    <Button layoutX="366.0" layoutY="528.0" onAction="#exportToCSV" style="-fx-background-color: #1e90ff;            -fx-text-fill: white;            -fx-font-weight: bold;            -fx-background-radius: 8;            -fx-border-radius: 8;            -fx-padding: 6 14;            -fx-font-size: 12px;            -fx-cursor: hand;" text="Export" />
 
 
 
