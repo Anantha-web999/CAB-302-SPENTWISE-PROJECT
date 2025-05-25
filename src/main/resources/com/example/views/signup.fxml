@@ -5,37 +5,73 @@
 <?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+<!-- This BorderPane sets up a clean white background for the signup screen -->
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.example.trial.logincontroller.SignupController"
             style="-fx-background-color: #ffffff;">
 
+    <!-- A simple back button at the top so users can return to the login page -->
     <top>
         <Button text="← Back" onAction="#navigateToLogin"
-                style="-fx-background-color: transparent; -fx-text-fill: #2563eb; -fx-font-size: 14; -fx-padding: 10;"/>
+                style="-fx-background-color: transparent;
+                       -fx-text-fill: #2563eb;
+                       -fx-font-size: 14;
+                       -fx-padding: 10;"/>
     </top>
 
     <center>
-        <VBox alignment="CENTER" spacing="15" style="-fx-padding: 15; -fx-max-width: 350;">
+        <!-- Centered container for all signup form elements -->
+        <VBox alignment="CENTER" spacing="15"
+              style="-fx-padding: 15; -fx-max-width: 350;">
+
+            <!-- Small logo at the top to keep branding consistent -->
             <ImageView fitWidth="60" fitHeight="60" preserveRatio="true">
                 <Image url="@/spentwiselogo.png"/>
             </ImageView>
 
-            <Text text="Create Account" style="-fx-font-size: 22; -fx-font-weight: bold; -fx-fill: #2563eb;"/>
+            <!-- Heading that clearly tells the user they're creating an account -->
+            <Text text="Create Account"
+                  style="-fx-font-size: 22;
+                         -fx-font-weight: bold;
+                         -fx-fill: #2563eb;"/>
 
+            <!-- Form fields stacked vertically with some spacing -->
             <VBox spacing="10" style="-fx-padding: 10 0;">
-                <TextField fx:id="fullNameField" promptText="Full Name" style="-fx-pref-height: 35;"/>
-                <TextField fx:id="emailField" promptText="Email" style="-fx-pref-height: 35;"/>
-                <PasswordField fx:id="passwordField" promptText="Password" style="-fx-pref-height: 35;"/>
-                <PasswordField fx:id="confirmPasswordField" promptText="Confirm Password" style="-fx-pref-height: 35;"/>
+                <!-- Field for the user's full name -->
+                <TextField fx:id="fullNameField"
+                           promptText="Full Name"
+                           style="-fx-pref-height: 35;"/>
+                <!-- Field for the user's email address -->
+                <TextField fx:id="emailField"
+                           promptText="Email"
+                           style="-fx-pref-height: 35;"/>
+                <!-- Password entry field, hides input by default -->
+                <PasswordField fx:id="passwordField"
+                               promptText="Password"
+                               style="-fx-pref-height: 35;"/>
+                <!-- Second password field to confirm they typed it correctly -->
+                <PasswordField fx:id="confirmPasswordField"
+                               promptText="Confirm Password"
+                               style="-fx-pref-height: 35;"/>
 
+                <!-- Primary action button to submit the signup form -->
                 <Button text="Sign Up" onAction="#handleSignup"
-                        style="-fx-font-size: 14; -fx-pref-width: 120; -fx-pref-height: 35;
-                              -fx-background-color: #2563eb; -fx-text-fill: white; -fx-background-radius: 5;"/>
+                        style="-fx-font-size: 14;
+                               -fx-pref-width: 120;
+                               -fx-pref-height: 35;
+                               -fx-background-color: #2563eb;
+                               -fx-text-fill: white;
+                               -fx-background-radius: 5;"/>
 
+                <!-- Link for users who already have an account to switch back -->
                 <HBox alignment="CENTER" spacing="5">
-                    <Text text="Already have an account?" style="-fx-fill: #64748b;"/>
+                    <Text text="Already have an account?"
+                          style="-fx-fill: #64748b;"/>
                     <Button text="Login" onAction="#navigateToLogin"
-                            style="-fx-background-color: transparent; -fx-text-fill: #2563eb; -fx-padding: 0;"/>
+                            style="-fx-background-color: transparent;
+                                   -fx-text-fill: #2563eb;
+                                   -fx-padding: 0;"/>
                 </HBox>
             </VBox>
         </VBox>
