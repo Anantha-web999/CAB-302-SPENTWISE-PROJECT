@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trial.settings.HelpSupportPanelController">
+    <left>
+        <VBox prefWidth="245" style="-fx-background-color: #1a5276;">
+            <children>
+                <StackPane alignment="CENTER" prefHeight="200.0">
+                    <children>
+                        <VBox alignment="CENTER">
+                            <children>
+                                <StackPane>
+                                    <ImageView fx:id="logoImage" fitHeight="150.0" fitWidth="150.0" preserveRatio="true">
+                                        <image>
+                                            <Image url="/Logo.png" />
+                                        </image>
+                                    </ImageView>
+                                </StackPane>
+                            </children>
+                        </VBox>
+                    </children>
+                </StackPane>
+                <Button fx:id="accountButton" alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#handleAccountButton" prefHeight="50.0" style="-fx-background-color: #1a5276; -fx-text-fill: #fbfcfc; -fx-font-family: 'Lato'; -fx-font-size: 14px;" text="Account">
+                    <padding>
+                        <Insets left="20.0" />
+                    </padding>
+                </Button>
+                <Button fx:id="appPreferencesButton" alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#handleAppPreferencesButton" prefHeight="50.0" style="-fx-background-color: #1a5276; -fx-text-fill: #fbfcfc; -fx-font-family: 'Lato'; -fx-font-size: 14px;" text="App Preferences">
+                    <padding>
+                        <Insets left="20.0" />
+                    </padding>
+                </Button>
+                <Button fx:id="helpSupportButton" alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#handleHelpSupportButton" prefHeight="50.0" style="-fx-background-color: #17202a; -fx-text-fill: #fbfcfc; -fx-font-family: 'Lato'; -fx-font-weight: bold; -fx-font-size: 14px;" text="Help &amp; Support">
+                    <padding>
+                        <Insets left="20.0" />
+                    </padding>
+                </Button>
+                <Button fx:id="aboutUsButton" alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#handleAboutUsButton" prefHeight="50.0" style="-fx-background-color: #1a5276; -fx-text-fill: #fbfcfc; -fx-font-family: 'Lato'; -fx-font-size: 14px;" text="About Us">
+                    <padding>
+                        <Insets left="20.0" />
+                    </padding>
+                </Button>
+            </children>
+        </VBox>
+    </left>
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: transparent;">
+            <content>
+                <VBox spacing="20.0">
+                    <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                    </padding>
+                    <children>
+                        <VBox>
+                            <children>
+                                <Label text="Help &amp; Support" style="-fx-text-fill: #1f618d; -fx-font-family: 'Lato'; -fx-font-weight: bold; -fx-font-size: 24px;" />
+                                <Label text="Get help and support for using SpentWise" style="-fx-text-fill: #1f618d; -fx-font-family: 'Lato'; -fx-font-size: 14px;" />
+                            </children>
+                        </VBox>
+                        <Separator />
+
+                        <TitledPane animated="false" collapsible="false" expanded="true" text="Frequently Asked Questions" style="-fx-font-family: 'Lato'; -fx-font-weight: bold;">
+                            <content>
+                                <VBox spacing="15.0">
+                                    <children>
+                                        <VBox spacing="10.0">
+                                            <children>
+                                                <Label text="Q: How do I add a new expense?" style="-fx-font-family: 'Lato'; -fx-font-size: 13px; -fx-font-weight: bold;" />
+                                                <Label text="A: To add a new expense, click the 'Add Expense' button on the main dashboard and fill in the required details including amount, category, and date." wrapText="true" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
+                                            </children>
+                                        </VBox>
+                                        <Separator />
+                                        <VBox spacing="10.0">
+                                            <children>
+                                                <Label text="Q: How can I view my spending trends?" style="-fx-font-family: 'Lato'; -fx-font-size: 13px; -fx-font-weight: bold;" />
+                                                <Label text="A: Navigate to the 'Trends' section from the main menu to view detailed charts and graphs of your spending patterns over time." wrapText="true" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
+                                            </children>
+                                        </VBox>
+                                        <Separator />
+                                        <VBox spacing="10.0">
+                                            <children>
+                                                <Label text="Q: Can I export my data?" style="-fx-font-family: 'Lato'; -fx-font-size: 13px; -fx-font-weight: bold;" />
+                                                <Label text="A: Yes! You can export your expense data to CSV or PDF format from the Reports section. This allows you to backup your data or use it in other applications." wrapText="true" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
+                                            </children>
+                                        </VBox>
+                                        <Separator />
+                                        <VBox spacing="10.0">
+                                            <children>
+                                                <Label text="Q: How do I set up budget categories?" style="-fx-font-family: 'Lato'; -fx-font-size: 13px; -fx-font-weight: bold;" />
+                                                <Label text="A: Go to Settings > Categories to create, edit, or delete expense categories. You can also set budget limits for each category to help track your spending." wrapText="true" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </VBox>
+                            </content>
+                            <padding>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                            </padding>
+                        </TitledPane>
+
+                        <TitledPane animated="false" collapsible="false" expanded="true" text="Contact Support" style="-fx-font-family: 'Lato'; -fx-font-weight: bold;">
+                            <content>
+                                <GridPane hgap="10.0" vgap="15.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="150.0" prefWidth="150.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="400.0" prefWidth="400.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                        <Label text="Email:" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
+                                        <Label text="support@spentwise.com" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" GridPane.columnIndex="1" />
+
+                                        <Label text="Phone:" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" GridPane.rowIndex="1" />
+                                        <Label text="1-800-SPENT-WISE" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                                        <Label text="Hours:" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" GridPane.rowIndex="2" />
+                                        <Label text="Monday - Friday, 9 AM - 5 PM EST" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                                        <Label text="Your Email:" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" GridPane.rowIndex="3" />
+                                        <TextField fx:id="emailField" promptText="Your email address" GridPane.columnIndex="1" GridPane.rowIndex="3" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
+
+                                        <Label text="Message:" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" GridPane.rowIndex="4" />
+                                        <TextArea fx:id="messageArea" prefHeight="100.0" promptText="Your message..." GridPane.columnIndex="1" GridPane.rowIndex="4" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
+                                    </children>
+                                </GridPane>
+                            </content>
+                            <padding>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                            </padding>
+                        </TitledPane>
+
+                        <TitledPane animated="false" collapsible="false" expanded="true" text="User Guide" style="-fx-font-family: 'Lato'; -fx-font-weight: bold;">
+                            <content>
+                                <GridPane hgap="10.0" vgap="15.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="150.0" prefWidth="150.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="400.0" prefWidth="400.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                        <Label text="Downloads:" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
+                                        <Button fx:id="downloadGuideButton" onAction="#handleDownloadGuide" text="Download User Guide (PDF)" GridPane.columnIndex="1" style="-fx-background-color: #2980b9; -fx-text-fill: #fbfcfc; -fx-font-family: 'Lato'; -fx-font-size: 13px;" />
+
+                                        <Label text="Tutorials:" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" GridPane.rowIndex="1" />
+                                        <Button fx:id="videoTutorialsButton" onAction="#handleVideoTutorials" text="Watch Video Tutorials" GridPane.columnIndex="1" GridPane.rowIndex="1" style="-fx-background-color: #2980b9; -fx-text-fill: #fbfcfc; -fx-font-family: 'Lato'; -fx-font-size: 13px;" />
+
+                                        <Label text="Shortcuts:" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" GridPane.rowIndex="2" />
+                                        <Button fx:id="keyboardShortcutsButton" onAction="#handleKeyboardShortcuts" text="View Keyboard Shortcuts" GridPane.columnIndex="1" GridPane.rowIndex="2" style="-fx-background-color: #2980b9; -fx-text-fill: #fbfcfc; -fx-font-family: 'Lato'; -fx-font-size: 13px;" />
+                                    </children>
+                                </GridPane>
+                            </content>
+                            <padding>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                            </padding>
+                        </TitledPane>
+                    </children>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </center>
+    <bottom>
+        <HBox alignment="CENTER_RIGHT" spacing="10.0" style="-fx-background-color: #fbfcfc;">
+            <children>
+                <Button fx:id="sendMessageButton" mnemonicParsing="false" onAction="#handleSendMessage" prefHeight="30.0" prefWidth="115.0" style="-fx-background-color: #1f618d; -fx-text-fill: #fbfcfc; -fx-font-family: 'Lato'; -fx-font-weight: bold; -fx-font-size: 13px;" text="Send Message" />
+                <Button fx:id="homeButton" mnemonicParsing="false" onAction="#goToHomePage" prefHeight="30.0" prefWidth="115.0" style="-fx-background-color: #e0e0e0; -fx-font-family: 'Lato'; -fx-font-size: 13px;" text="Back" />
+            </children>
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding>
+        </HBox>
+    </bottom>
+</BorderPane>
