@@ -127,12 +127,6 @@
 
                                         <Label text="Hours:" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" GridPane.rowIndex="2" />
                                         <Label text="Monday - Friday, 9 AM - 5 PM EST" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-
-                                        <Label text="Your Email:" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" GridPane.rowIndex="3" />
-                                        <TextField fx:id="emailField" promptText="Your email address" GridPane.columnIndex="1" GridPane.rowIndex="3" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
-
-                                        <Label text="Message:" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" GridPane.rowIndex="4" />
-                                        <TextArea fx:id="messageArea" prefHeight="100.0" promptText="Your message..." GridPane.columnIndex="1" GridPane.rowIndex="4" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
                                     </children>
                                 </GridPane>
                             </content>

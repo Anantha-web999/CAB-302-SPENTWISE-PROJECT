@@ -26,10 +26,6 @@ public class HelpSupportPanelController implements Initializable {
     @FXML private Button appPreferencesButton;
     @FXML private Button helpSupportButton;
     @FXML private Button aboutUsButton;
-    @FXML private Button sendMessageButton;
-    @FXML private Button downloadGuideButton;
-    @FXML private Button videoTutorialsButton;
-    @FXML private Button keyboardShortcutsButton;
     @FXML private Button homeButton;
 
     private final String activeStyle = "-fx-background-color: #17202a; -fx-text-fill: #fbfcfc; -fx-font-family: 'Lato'; -fx-font-weight: bold; -fx-font-size: 14px;";
