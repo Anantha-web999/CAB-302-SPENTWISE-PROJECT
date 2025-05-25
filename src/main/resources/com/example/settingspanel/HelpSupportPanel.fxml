@@ -78,22 +78,22 @@
                                         <Separator />
                                         <VBox spacing="10.0">
                                             <children>
-                                                <Label text="Q: How can I view my spending trends?" style="-fx-font-family: 'Lato'; -fx-font-size: 13px; -fx-font-weight: bold;" />
-                                                <Label text="A: Navigate to the 'Trends' section from the main menu to view detailed charts and graphs of your spending patterns over time." wrapText="true" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
-                                            </children>
-                                        </VBox>
-                                        <Separator />
-                                        <VBox spacing="10.0">
-                                            <children>
                                                 <Label text="Q: Can I export my expense data out of SpentWise?" style="-fx-font-family: 'Lato'; -fx-font-size: 13px; -fx-font-weight: bold;" />
-                                                <Label text="A: Yes! You can export and download your expense data in CSV format from the Insights section. This allows you to backup and store your data, or use it in other applications." wrapText="true" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
+                                                <Label text="A: Yes! You can export and download your expense data in CSV format from the 'Insights' section. This allows you to backup and store your data, or use it in other applications." wrapText="true" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
                                             </children>
                                         </VBox>
                                         <Separator />
                                         <VBox spacing="10.0">
                                             <children>
-                                                <Label text="Q: How do I set up budget categories?" style="-fx-font-family: 'Lato'; -fx-font-size: 13px; -fx-font-weight: bold;" />
-                                                <Label text="A: Go to Settings > Categories to create, edit, or delete expense categories. You can also set budget limits for each category to help track your spending." wrapText="true" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
+                                                <Label text="Q: How do I use the AI Spending Advisor?" style="-fx-font-family: 'Lato'; -fx-font-size: 13px; -fx-font-weight: bold;" />
+                                                <Label text="A: Navigate to the 'AI Advisor' section from the dashboard. Once you've clicked this, enter the prompt you'd like to ask the AI Advisor and simply press the 'Get Advice' button. After a short wait, the AI will respond with the answer to your query." wrapText="true" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
+                                            </children>
+                                        </VBox>
+                                        <Separator />
+                                        <VBox spacing="10.0">
+                                            <children>
+                                                <Label text="Q: Am I able to set reminders for my upcoming bills?" style="-fx-font-family: 'Lato'; -fx-font-size: 13px; -fx-font-weight: bold;" />
+                                                <Label text="A: You can! Firstly, open the 'Reminders' section from the dashboard. Then, all you need to do is insert the name, amount, and due date of the specific payment you want a reminder to be set for." wrapText="true" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
                                             </children>
                                         </VBox>
                                     </children>
@@ -115,8 +115,6 @@
                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                     </rowConstraints>
                                     <children>
                                         <Label text="Email:" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
@@ -128,25 +126,6 @@
                                         <Label text="Hours:" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" GridPane.rowIndex="2" />
                                         <Label text="Monday - Friday, 9 AM - 5 PM EST" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                     </children>
-                                </GridPane>
-                            </content>
-                            <padding>
-                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                            </padding>
-                        </TitledPane>
-
-                        <TitledPane animated="false" collapsible="false" expanded="true" text="User Guide" style="-fx-font-family: 'Lato'; -fx-font-weight: bold;">
-                            <content>
-                                <GridPane hgap="10.0" vgap="15.0">
-                                    <columnConstraints>
-                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="150.0" prefWidth="150.0" />
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="400.0" prefWidth="400.0" />
-                                    </columnConstraints>
-                                    <rowConstraints>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    </rowConstraints>
                                 </GridPane>
                             </content>
                             <padding>
