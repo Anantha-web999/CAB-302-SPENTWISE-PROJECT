@@ -1,45 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: linear-gradient(to bottom right, #e6f2ff, #f0f8ff);" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="com.example.trial.SpendingAdvisorController">
+<AnchorPane prefHeight="600" prefWidth="1000.0" style="-fx-background-color: #f0f8ff;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trial.SpendingAdvisorController">
 
-    <!-- Logo -->
-    <ImageView layoutX="20.0" layoutY="10.0" fitWidth="60.0" fitHeight="60.0" pickOnBounds="true" preserveRatio="true">
-        <image>
-            <Image url="@financial_ai_robot_logo.png" />
-        </image>
-    </ImageView>
+    <Label layoutX="361.0" layoutY="30.0" style="-fx-font-size: 24px; -fx-font-weight: bold;" text="AI Spending Advisor" />
 
-    <!-- Title -->
-    <Label layoutX="100.0" layoutY="25.0" text="AI Spending Advisor" style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;">
-        <font>
-            <Font size="28.0" />
-        </font>
-    </Label>
+    <TextArea fx:id="userInput" layoutX="30" layoutY="80" prefHeight="120" prefWidth="913.0" promptText="Describe your spending concern..." wrapText="true" />
 
-    <!-- User Input -->
-    <TextArea fx:id="userInput" layoutX="30.0" layoutY="90.0" prefHeight="120.0" prefWidth="940.0" promptText="Describe your spending concern..." wrapText="true"
-              style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #bdc3c7;" />
+    <Button layoutX="30.0" layoutY="556.0" mnemonicParsing="false" onAction="#goBack" style="-fx-background-color: #2c80b4;  /* blue tone */            -fx-text-fill: white;            -fx-font-weight: bold;            -fx-font-size: 16px;            -fx-padding: 8 20;            -fx-background-radius: 8;" text="Back" />
 
-    <!-- Get Advice Button -->
-    <Button layoutX="820.0" layoutY="220.0" mnemonicParsing="false" onAction="#handleGetAdvice"
-            text="Get Advice"
-            style="-fx-background-color: #2c80b4; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 16px; -fx-padding: 10 24; -fx-background-radius: 10;" />
+    <Button layoutX="822.0" layoutY="209.0" mnemonicParsing="false" onAction="#handleGetAdvice" style="-fx-background-color: #2c80b4;  /* blue tone */            -fx-text-fill: white;            -fx-font-weight: bold;            -fx-font-size: 16px;            -fx-padding: 8 20;            -fx-background-radius: 8;" text="Get Advice" />
 
-    <!-- AI Response -->
-    <TextArea fx:id="aiResponse" editable="false" layoutX="30.0" layoutY="270.0" prefHeight="270.0" prefWidth="940.0" promptText="AI response will appear here..." wrapText="true"
-              style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #bdc3c7;" />
 
-    <!-- Back Button -->
-    <Button layoutX="30.0" layoutY="570.0" mnemonicParsing="false" onAction="#goBack"
-            text="Back"
-            style="-fx-background-color: #2c80b4; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 16px; -fx-padding: 8 20; -fx-background-radius: 10;" />
+    <TextArea fx:id="aiResponse" editable="false" layoutX="30" layoutY="270" prefHeight="280" prefWidth="914.0" promptText="AI response will appear here..." wrapText="true" />
+   <AnchorPane prefHeight="200.0" prefWidth="200.0" />
+
+
+
 
 </AnchorPane>
