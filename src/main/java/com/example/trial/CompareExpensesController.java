@@ -50,8 +50,10 @@ public class CompareExpensesController {
 
     @FXML
     public void initialize() {
-        this.month1Combo.setItems(FXCollections.observableArrayList(new String[]{"January", "February", "March"}));
-        this.month2Combo.setItems(FXCollections.observableArrayList(new String[]{"January", "February", "March"}));
+        this.month1Combo.setItems(FXCollections.observableArrayList(new String[]{"January", "February", "March","April", "May", "June",
+                "July", "August", "September", "October", "November", "December"}));
+        this.month2Combo.setItems(FXCollections.observableArrayList(new String[]{"January", "February", "March","April", "May", "June",
+                "July", "August", "September", "October", "November", "December"}));
         this.month1Combo.getSelectionModel().selectFirst();
         this.month2Combo.getSelectionModel().select(1);
         this.colCategory.setCellValueFactory((data) -> ((ComparisonData)data.getValue()).categoryProperty());
