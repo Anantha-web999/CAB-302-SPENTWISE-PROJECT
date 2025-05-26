@@ -30,7 +30,6 @@ public class SettingsPanelController implements Initializable {
     @FXML private TextField emailField;
     @FXML private TextField phoneField;
     @FXML private TextArea addressField;
-    @FXML private ComboBox<String> currencyComboBox;
     @FXML private ImageView logoImage;
 
     @FXML private Button accountButton;
@@ -43,24 +42,20 @@ public class SettingsPanelController implements Initializable {
     private final String activeStyle = "-fx-background-color: #17202a; -fx-text-fill: #fbfcfc; -fx-font-family: 'Lato'; -fx-font-weight: bold; -fx-font-size: 14px;";
     private final String inactiveStyle = "-fx-background-color: #1a5276; -fx-text-fill: #fbfcfc; -fx-font-family: 'Lato'; -fx-font-size: 14px;";
 
-    //Database integration field
-    private int currentUserId = 1; //Using user ID 1 as default
+    //We're using user ID 1 as the default user for now
+    private int currentUserId = 1;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //Set account button as active by default
+        //Make the account button look active when we first load the page
         setActiveButton(accountButton);
 
-        //Initialize date dropdowns
-        initializeDateDropdowns();
+        //Set up all the date dropdown options
+        setupDateDropdowns();
 
-        //Initialize currency dropdown
-        initializeCurrencyDropdown();
-
-        //Add rounded corners to the logo - make sure logoImage is properly declared with @FXML
+        //Apply some nice rounded corners to the logo if it exists
         if (logoImage != null) {
             try {
-                //Apply clip for rounded corners
                 Rectangle clip = new Rectangle(
                         logoImage.getFitWidth(),
                         logoImage.getFitHeight()
@@ -69,65 +64,49 @@ public class SettingsPanelController implements Initializable {
                 clip.setArcHeight(30.0);
                 logoImage.setClip(clip);
 
-                //Make the clip resize with the image
+                //Make sure the clip resizes when the image does
                 logoImage.layoutBoundsProperty().addListener((observable, oldValue, newValue) -> {
                     clip.setWidth(newValue.getWidth());
                     clip.setHeight(newValue.getHeight());
                 });
             } catch (Exception e) {
-                //Just log the error but continue execution
-                System.err.println("Error applying effects to logo: " + e.getMessage());
+                //If something goes wrong with the logo styling, just log it and keep going
+                System.err.println("Couldn't apply rounded corners to logo: " + e.getMessage());
                 e.printStackTrace();
             }
         }
 
-        //Create extended user table on startup
-        createExtendedUserTable();
+        //Make sure we have our extended user table ready to go
+        setupExtendedUserTable();
 
-        //Load user data
+        //Load up the user's current data from the database
         loadUserData();
     }
 
-    private void initializeDateDropdowns() {
-        //Days 1-31
+    private void setupDateDropdowns() {
+        //Add days 1 through 31
         for (int i = 1; i <= 31; i++) {
             dayComboBox.getItems().add(String.format("%02d", i));
         }
 
-        //Months
+        //Add all the months in short form
         String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
         monthComboBox.getItems().addAll(months);
 
-        //Years (current year - 100 to current year)
+        //Add years from 100 years ago up to now
         int currentYear = LocalDate.now().getYear();
         for (int i = currentYear; i >= currentYear - 100; i--) {
             yearComboBox.getItems().add(String.valueOf(i));
         }
 
-        //Set default date (for example, January 1st, 2025)
+        //Start with a default date so the dropdowns aren't empty
         dayComboBox.setValue("01");
         monthComboBox.setValue("Jan");
         yearComboBox.setValue("2025");
     }
 
-    private void initializeCurrencyDropdown() {
-        //Common currencies
-        Map<String, String> currencies = new LinkedHashMap<>();
-        currencies.put("USD ($)", "US Dollar");
-        currencies.put("EUR (€)", "Euro");
-        currencies.put("GBP (£)", "British Pound");
-        currencies.put("JPY (¥)", "Japanese Yen");
-        currencies.put("AUD ($)", "Australian Dollar");
-        currencies.put("CAD ($)", "Canadian Dollar");
-        currencies.put("CHF (Fr)", "Swiss Franc");
-        currencies.put("CNY (¥)", "Chinese Yuan");
-
-        currencyComboBox.getItems().addAll(currencies.keySet());
-        currencyComboBox.setValue("USD ($)");
-    }
-
-    //Create extended user profile table for additional fields
-    private void createExtendedUserTable() {
+    //This creates a new table to store extra user info that wasn't in the original design
+    private void setupExtendedUserTable() {
         try {
             DatabaseHelper.initializeDatabase();
 
@@ -137,7 +116,6 @@ public class SettingsPanelController implements Initializable {
                     "date_of_birth TEXT, " +
                     "address TEXT, " +
                     "username TEXT, " +
-                    "preferred_currency TEXT DEFAULT 'USD ($)', " +
                     "FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE)";
 
             try (Connection conn = DatabaseHelper.getConnection();
@@ -145,32 +123,32 @@ public class SettingsPanelController implements Initializable {
 
                 stmt.execute(sql);
 
-                //Create profile entry for current user if it doesn't exist
-                createUserProfileIfNotExists(currentUserId);
+                //Make sure the current user has a profile entry
+                createUserProfileIfNeeded(currentUserId);
 
-                System.out.println("Extended user profile table created/verified successfully");
+                System.out.println("User profile table is ready to go");
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            System.err.println("Error creating extended user table: " + e.getMessage());
+            System.err.println("Something went wrong setting up the user profile table: " + e.getMessage());
         }
     }
 
-    private void createUserProfileIfNotExists(int userId) throws SQLException {
+    private void createUserProfileIfNeeded(int userId) throws SQLException {
         String checkSql = "SELECT COUNT(*) FROM user_profiles WHERE user_id = ?";
-        String insertSql = "INSERT INTO user_profiles (user_id, phone_number, date_of_birth, address, username, preferred_currency) VALUES (?, '', '', '', '', 'USD ($)')";
+        String insertSql = "INSERT INTO user_profiles (user_id, phone_number, date_of_birth, address, username) VALUES (?, '', '', '', '')";
 
         try (Connection conn = DatabaseHelper.getConnection()) {
-            //Check if profile exists
+            //See if this user already has a profile
             try (PreparedStatement checkStmt = conn.prepareStatement(checkSql)) {
                 checkStmt.setInt(1, userId);
                 ResultSet rs = checkStmt.executeQuery();
                 if (rs.next() && rs.getInt(1) == 0) {
-                    //Profile doesn't exist, create it
+                    //They don't have one yet, so let's create it
                     try (PreparedStatement insertStmt = conn.prepareStatement(insertSql)) {
                         insertStmt.setInt(1, userId);
                         insertStmt.executeUpdate();
-                        System.out.println("Created user profile for user ID: " + userId);
+                        System.out.println("Created a new profile for user " + userId);
                     }
                 }
             }
@@ -179,13 +157,13 @@ public class SettingsPanelController implements Initializable {
 
     private void loadUserData() {
         try {
-            //Print all users for debugging
-            printAllUsers();
+            //Show what users we have in the database for debugging
+            showAllUsers();
 
             UserAccount user = getUserFromDatabase(currentUserId);
 
             if (user != null) {
-                //Load basic data from users table
+                //Fill in the basic info from the main users table
                 if (user.getFullName() != null && !user.getFullName().isEmpty()) {
                     fullNameField.setText(user.getFullName());
                 } else {
@@ -198,33 +176,33 @@ public class SettingsPanelController implements Initializable {
                     emailField.setText("");
                 }
 
-                //Load extended data from user_profiles table
-                loadExtendedUserData(currentUserId);
+                //Now get the extra stuff from the profiles table
+                loadExtraUserData(currentUserId);
 
-                System.out.println("Successfully loaded user data from database: " + user.getFullName());
+                System.out.println("Successfully loaded data for: " + user.getFullName());
             } else {
-                //User not found in database, clear fields
-                clearAllFields();
-                System.out.println("User with ID " + currentUserId + " not found in database");
+                //Couldn't find this user, so clear everything
+                clearAllTheFields();
+                System.out.println("Couldn't find user " + currentUserId + " in the database");
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            System.err.println("Error loading user data from database: " + e.getMessage());
+            System.err.println("Had trouble loading user data: " + e.getMessage());
 
-            //Show error to user
+            //Let the user know something went wrong
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Database Error");
-            alert.setHeaderText("Failed to load user data");
-            alert.setContentText("Could not connect to database: " + e.getMessage());
+            alert.setTitle("Database Problem");
+            alert.setHeaderText("Couldn't load your data");
+            alert.setContentText("There was an issue connecting to the database: " + e.getMessage());
             alert.showAndWait();
 
-            //Fallback to empty fields
-            clearAllFields();
+            //Clear everything as a fallback
+            clearAllTheFields();
         }
     }
 
-    private void loadExtendedUserData(int userId) throws SQLException {
-        String sql = "SELECT phone_number, date_of_birth, address, username, preferred_currency FROM user_profiles WHERE user_id = ?";
+    private void loadExtraUserData(int userId) throws SQLException {
+        String sql = "SELECT phone_number, date_of_birth, address, username FROM user_profiles WHERE user_id = ?";
 
         try (Connection conn = DatabaseHelper.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -233,7 +211,7 @@ public class SettingsPanelController implements Initializable {
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                //Load phone number
+                //Fill in the phone number
                 String phone = rs.getString("phone_number");
                 if (phone != null && !phone.isEmpty()) {
                     phoneField.setText(phone);
@@ -241,18 +219,18 @@ public class SettingsPanelController implements Initializable {
                     phoneField.setText("");
                 }
 
-                //Load date of birth
+                //Set up the date of birth dropdowns
                 String dateOfBirth = rs.getString("date_of_birth");
                 if (dateOfBirth != null && !dateOfBirth.isEmpty()) {
-                    setDateOfBirthFromString(dateOfBirth);
+                    parseDateAndSetDropdowns(dateOfBirth);
                 } else {
-                    //Keep default values
+                    //Keep the default date we set earlier
                     dayComboBox.setValue("01");
                     monthComboBox.setValue("Jan");
                     yearComboBox.setValue("2025");
                 }
 
-                //Load address
+                //Fill in the address
                 String address = rs.getString("address");
                 if (address != null && !address.isEmpty()) {
                     addressField.setText(address);
@@ -260,7 +238,7 @@ public class SettingsPanelController implements Initializable {
                     addressField.setText("");
                 }
 
-                //Load username
+                //Fill in the username
                 String username = rs.getString("username");
                 if (username != null && !username.isEmpty()) {
                     usernameField.setText(username);
@@ -268,20 +246,12 @@ public class SettingsPanelController implements Initializable {
                     usernameField.setText("");
                 }
 
-                //Load preferred currency
-                String currency = rs.getString("preferred_currency");
-                if (currency != null && !currency.isEmpty()) {
-                    currencyComboBox.setValue(currency);
-                } else {
-                    currencyComboBox.setValue("USD ($)");
-                }
-
-                System.out.println("Loaded extended user data successfully");
+                System.out.println("Loaded all the extra user details");
             }
         }
     }
 
-    private void setDateOfBirthFromString(String dateOfBirth) {
+    private void parseDateAndSetDropdowns(String dateOfBirth) {
         try {
             String[] parts = dateOfBirth.split("/");
             if (parts.length == 3) {
@@ -294,12 +264,12 @@ public class SettingsPanelController implements Initializable {
                 yearComboBox.setValue(year);
             }
         } catch (Exception e) {
-            System.err.println("Error parsing date of birth: " + e.getMessage());
-            //Keep default values if parsing fails
+            System.err.println("Couldn't parse the date of birth: " + e.getMessage());
+            //If we can't parse it, just leave the defaults
         }
     }
 
-    //Database methods built into controller
+    //Get the basic user info from the main users table
     private UserAccount getUserFromDatabase(int userId) throws SQLException {
         String sql = "SELECT id, full_name, email FROM users WHERE id = ?";
 
@@ -320,7 +290,7 @@ public class SettingsPanelController implements Initializable {
     }
 
     private void updateUserInDatabase(int userId, UserAccount user) throws SQLException {
-        //Update basic user info in users table
+        //First update the main user info
         String userSql = "UPDATE users SET full_name = ?, email = ? WHERE id = ?";
 
         try (Connection conn = DatabaseHelper.getConnection();
@@ -331,22 +301,21 @@ public class SettingsPanelController implements Initializable {
             pstmt.setInt(3, userId);
 
             int rowsAffected = pstmt.executeUpdate();
-            System.out.println("Updated " + rowsAffected + " user record(s)");
+            System.out.println("Updated " + rowsAffected + " main user record");
         }
 
-        //Update extended user info in user_profiles table
-        updateExtendedUserData(userId, user);
+        //Then update all the extra profile stuff
+        updateExtraUserData(userId, user);
     }
 
-    private void updateExtendedUserData(int userId, UserAccount user) throws SQLException {
-        //Get current form values
+    private void updateExtraUserData(int userId, UserAccount user) throws SQLException {
+        //Get what's currently in the form
         String phone = phoneField.getText().trim();
-        String dateOfBirth = getDateOfBirthString();
+        String dateOfBirth = buildDateFromDropdowns();
         String address = addressField.getText().trim();
         String username = usernameField.getText().trim();
-        String currency = currencyComboBox.getValue();
 
-        String sql = "UPDATE user_profiles SET phone_number = ?, date_of_birth = ?, address = ?, username = ?, preferred_currency = ? WHERE user_id = ?";
+        String sql = "UPDATE user_profiles SET phone_number = ?, date_of_birth = ?, address = ?, username = ? WHERE user_id = ?";
 
         try (Connection conn = DatabaseHelper.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -355,15 +324,14 @@ public class SettingsPanelController implements Initializable {
             pstmt.setString(2, dateOfBirth);
             pstmt.setString(3, address);
             pstmt.setString(4, username);
-            pstmt.setString(5, currency);
-            pstmt.setInt(6, userId);
+            pstmt.setInt(5, userId);
 
             int rowsAffected = pstmt.executeUpdate();
-            System.out.println("Updated " + rowsAffected + " user profile record(s)");
+            System.out.println("Updated " + rowsAffected + " profile record");
         }
     }
 
-    private String getDateOfBirthString() {
+    private String buildDateFromDropdowns() {
         String day = dayComboBox.getValue();
         String month = monthComboBox.getValue();
         String year = yearComboBox.getValue();
@@ -374,14 +342,14 @@ public class SettingsPanelController implements Initializable {
         return "";
     }
 
-    private void printAllUsers() throws SQLException {
+    private void showAllUsers() throws SQLException {
         String sql = "SELECT id, full_name, email FROM users";
 
         try (Connection conn = DatabaseHelper.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
 
-            System.out.println("All users in database:");
+            System.out.println("Here are all the users we have:");
             while (rs.next()) {
                 System.out.println("ID: " + rs.getInt("id") +
                         ", Name: " + rs.getString("full_name") +
@@ -390,8 +358,8 @@ public class SettingsPanelController implements Initializable {
         }
     }
 
-    //Helper method to clear all fields
-    private void clearAllFields() {
+    //Clear out all the form fields
+    private void clearAllTheFields() {
         fullNameField.setText("");
         usernameField.setText("");
         emailField.setText("");
@@ -400,24 +368,23 @@ public class SettingsPanelController implements Initializable {
         dayComboBox.setValue("01");
         monthComboBox.setValue("Jan");
         yearComboBox.setValue("2025");
-        currencyComboBox.setValue("USD ($)");
     }
 
     private void setActiveButton(Button activeButton) {
-        //Reset all buttons to inactive style
+        //Make all buttons look inactive first
         accountButton.setStyle(inactiveStyle);
         appPreferencesButton.setStyle(inactiveStyle);
         helpSupportButton.setStyle(inactiveStyle);
         aboutUsButton.setStyle(inactiveStyle);
 
-        //Set active button
+        //Then make the one we clicked look active
         activeButton.setStyle(activeStyle);
     }
 
     @FXML
     private void handleAccountButton() {
         setActiveButton(accountButton);
-        //Here you would load the account panel content
+        //This button is already active since we're on the account page
     }
 
     @FXML
@@ -430,7 +397,7 @@ public class SettingsPanelController implements Initializable {
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            System.err.println("Error loading app preferences panel: " + e.getMessage());
+            System.err.println("Couldn't load the app preferences page: " + e.getMessage());
         }
     }
 
@@ -444,7 +411,7 @@ public class SettingsPanelController implements Initializable {
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            System.err.println("Error loading help support panel: " + e.getMessage());
+            System.err.println("Couldn't load the help and support page: " + e.getMessage());
         }
     }
 
@@ -458,61 +425,61 @@ public class SettingsPanelController implements Initializable {
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            System.err.println("Error loading about us panel: " + e.getMessage());
+            System.err.println("Couldn't load the about us page: " + e.getMessage());
         }
     }
 
     @FXML
     private void handleSaveButton() {
         try {
-            //Validate input
+            //Make sure they filled in the required stuff
             String fullName = fullNameField.getText().trim();
             String email = emailField.getText().trim();
 
             if (fullName.isEmpty()) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Validation Error");
+                alert.setTitle("Oops!");
                 alert.setHeaderText(null);
-                alert.setContentText("Full name cannot be empty.");
+                alert.setContentText("You need to enter your full name.");
                 alert.showAndWait();
                 return;
             }
 
             if (email.isEmpty()) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Validation Error");
+                alert.setTitle("Oops!");
                 alert.setHeaderText(null);
-                alert.setContentText("Email cannot be empty.");
+                alert.setContentText("You need to enter your email address.");
                 alert.showAndWait();
                 return;
             }
 
-            //Create UserAccount with form data
+            //Create a user object with the form data
             UserAccount user = new UserAccount();
             user.setFullName(fullName);
             user.setEmail(email);
 
-            //Save to database (both basic and extended data)
+            //Save everything to the database
             updateUserInDatabase(currentUserId, user);
 
-            //Show success message
+            //Let them know it worked
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Settings Saved");
+            alert.setTitle("All Done!");
             alert.setHeaderText(null);
-            alert.setContentText("Your settings have been successfully saved to the database.");
+            alert.setContentText("Your settings have been saved successfully.");
             alert.showAndWait();
 
-            System.out.println("User data saved to database successfully");
+            System.out.println("Everything saved successfully");
 
         } catch (SQLException e) {
             e.printStackTrace();
-            System.err.println("Error saving user data to database: " + e.getMessage());
+            System.err.println("Had trouble saving the data: " + e.getMessage());
 
-            //Show error message
+            //Let them know something went wrong
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Save Error");
-            alert.setHeaderText("Database Error");
-            alert.setContentText("Failed to save settings to database: " + e.getMessage());
+            alert.setTitle("Save Problem");
+            alert.setHeaderText("Couldn't save your changes");
+            alert.setContentText("There was a database error: " + e.getMessage());
             alert.showAndWait();
         }
     }
@@ -525,11 +492,11 @@ public class SettingsPanelController implements Initializable {
     }
 
     /**
-     * Sets user data in the form fields
-     * @param userAccount the user account data
+     * This method lets other parts of the code set user data in the form
+     * @param userAccount the user account data to display
      */
     public void setUserData(UserAccount userAccount) {
-        //Populate fields with user data
+        //Fill in all the form fields with the provided data
         if (userAccount.getFullName() != null) {
             fullNameField.setText(userAccount.getFullName());
         }
@@ -550,31 +517,26 @@ public class SettingsPanelController implements Initializable {
             addressField.setText(userAccount.getAddress());
         }
 
-        //Set date of birth if available
+        //Handle the date of birth if it's provided
         if (userAccount.getDateOfBirth() != null) {
             String[] dobParts = userAccount.getDateOfBirth().split("/");
             if (dobParts.length == 3) {
                 int month = Integer.parseInt(dobParts[0]);
                 dayComboBox.setValue(dobParts[1]);
-                monthComboBox.setValue(getMonthAbbreviation(month));
+                monthComboBox.setValue(getMonthName(month));
                 yearComboBox.setValue(dobParts[2]);
             }
-        }
-
-        //Set currency
-        if (userAccount.getPreferredCurrency() != null) {
-            currencyComboBox.setValue(userAccount.getPreferredCurrency());
         }
     }
 
     /**
-     * Gets month abbreviation from month number (1-12)
+     * Convert a month number to the short month name we use
      */
-    private String getMonthAbbreviation(int month) {
+    private String getMonthName(int month) {
         String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
         if (month >= 1 && month <= 12) {
             return months[month - 1];
         }
-        return "Jan"; //Default
+        return "Jan"; //Default to January if something's wrong
     }
 }
