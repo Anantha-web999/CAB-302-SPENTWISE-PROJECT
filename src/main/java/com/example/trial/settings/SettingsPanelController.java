@@ -1,5 +1,6 @@
 package com.example.trial.settings;
 
+import com.example.trial.DB.DatabaseHelper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,6 +14,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import javafx.scene.effect.DropShadow;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.*;
 import javafx.scene.shape.Rectangle;
@@ -40,6 +42,9 @@ public class SettingsPanelController implements Initializable {
 
     private final String activeStyle = "-fx-background-color: #17202a; -fx-text-fill: #fbfcfc; -fx-font-family: 'Lato'; -fx-font-weight: bold; -fx-font-size: 14px;";
     private final String inactiveStyle = "-fx-background-color: #1a5276; -fx-text-fill: #fbfcfc; -fx-font-family: 'Lato'; -fx-font-size: 14px;";
+
+    //Database integration field
+    private int currentUserId = 1; //Using user ID 1 as default
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -80,7 +85,6 @@ public class SettingsPanelController implements Initializable {
         loadUserData();
     }
 
-
     private void initializeDateDropdowns() {
         //Days 1-31
         for (int i = 1; i <= 31; i++) {
@@ -120,8 +124,109 @@ public class SettingsPanelController implements Initializable {
     }
 
     private void loadUserData() {
-        //In a real application, this would load data from a database or user service
-        //For now, we'll just set some example data
+        try {
+            //Initialize database if not already done
+            DatabaseHelper.initializeDatabase();
+
+            //Print all users for debugging
+            printAllUsers();
+
+            UserAccount user = getUserFromDatabase(currentUserId);
+
+            if (user != null) {
+                //Load data from database
+                if (user.getFullName() != null && !user.getFullName().isEmpty()) {
+                    fullNameField.setText(user.getFullName());
+                } else {
+                    fullNameField.setText("");
+                }
+
+                if (user.getEmail() != null && !user.getEmail().isEmpty()) {
+                    emailField.setText(user.getEmail());
+                } else {
+                    emailField.setText("");
+                }
+
+                //Set other fields to empty since they're not in your current database schema
+                usernameField.setText("");
+                phoneField.setText("");
+                addressField.setText("");
+
+                System.out.println("Successfully loaded user data from database: " + user.getFullName());
+            } else {
+                //User not found in database, clear fields
+                clearAllFields();
+                System.out.println("User with ID " + currentUserId + " not found in database");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Error loading user data from database: " + e.getMessage());
+
+            //Show error to user
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Database Error");
+            alert.setHeaderText("Failed to load user data");
+            alert.setContentText("Could not connect to database: " + e.getMessage());
+            alert.showAndWait();
+
+            //Fallback to empty fields
+            clearAllFields();
+        }
+    }
+
+    //Database methods built into controller
+    private UserAccount getUserFromDatabase(int userId) throws SQLException {
+        String sql = "SELECT id, full_name, email FROM users WHERE id = ?";
+
+        try (Connection conn = DatabaseHelper.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, userId);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                UserAccount user = new UserAccount();
+                user.setFullName(rs.getString("full_name"));
+                user.setEmail(rs.getString("email"));
+                return user;
+            }
+        }
+        return null;
+    }
+
+    private void updateUserInDatabase(int userId, UserAccount user) throws SQLException {
+        String sql = "UPDATE users SET full_name = ?, email = ? WHERE id = ?";
+
+        try (Connection conn = DatabaseHelper.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, user.getFullName());
+            pstmt.setString(2, user.getEmail());
+            pstmt.setInt(3, userId);
+
+            int rowsAffected = pstmt.executeUpdate();
+            System.out.println("Updated " + rowsAffected + " user record(s)");
+        }
+    }
+
+    private void printAllUsers() throws SQLException {
+        String sql = "SELECT id, full_name, email FROM users";
+
+        try (Connection conn = DatabaseHelper.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            System.out.println("All users in database:");
+            while (rs.next()) {
+                System.out.println("ID: " + rs.getInt("id") +
+                        ", Name: " + rs.getString("full_name") +
+                        ", Email: " + rs.getString("email"));
+            }
+        }
+    }
+
+    //Helper method to clear all fields
+    private void clearAllFields() {
         fullNameField.setText("");
         usernameField.setText("");
         emailField.setText("");
@@ -190,15 +295,57 @@ public class SettingsPanelController implements Initializable {
 
     @FXML
     private void handleSaveButton() {
-        //Save user settings
-        //In a real application, this would save to a database or user service
+        try {
+            //Validate input
+            String fullName = fullNameField.getText().trim();
+            String email = emailField.getText().trim();
 
-        //Show confirmation alert
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Settings Saved");
-        alert.setHeaderText(null);
-        alert.setContentText("Your settings have been successfully saved.");
-        alert.showAndWait();
+            if (fullName.isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Validation Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Full name cannot be empty.");
+                alert.showAndWait();
+                return;
+            }
+
+            if (email.isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Validation Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Email cannot be empty.");
+                alert.showAndWait();
+                return;
+            }
+
+            //Create UserAccount with form data
+            UserAccount user = new UserAccount();
+            user.setFullName(fullName);
+            user.setEmail(email);
+
+            //Save to database
+            updateUserInDatabase(currentUserId, user);
+
+            //Show success message
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Settings Saved");
+            alert.setHeaderText(null);
+            alert.setContentText("Your settings have been successfully saved to the database.");
+            alert.showAndWait();
+
+            System.out.println("User data saved to database successfully");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Error saving user data to database: " + e.getMessage());
+
+            //Show error message
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Save Error");
+            alert.setHeaderText("Database Error");
+            alert.setContentText("Failed to save settings to database: " + e.getMessage());
+            alert.showAndWait();
+        }
     }
 
     public void goToHomePage(ActionEvent event) throws IOException {
@@ -249,7 +396,6 @@ public class SettingsPanelController implements Initializable {
         if (userAccount.getPreferredCurrency() != null) {
             currencyComboBox.setValue(userAccount.getPreferredCurrency());
         }
-
     }
 
     /**
