@@ -83,11 +83,16 @@ public class BankAccountHelper {
 
     public static String getFullNameByEmail(String email) throws SQLException {
         String sql = "SELECT full_name FROM users WHERE email = ?";
-        try (Connection conn = DatabaseHelper.getConnection();
+        try (Connection conn = DriverManager.getConnection(DB_URL);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, email);
             ResultSet rs = pstmt.executeQuery();
-            return rs.next() ? rs.getString("full_name") : null;
+            if (rs.next()) {
+                return rs.getString("full_name");
+            } else {
+                return "User";
+            }
         }
     }
+
 }

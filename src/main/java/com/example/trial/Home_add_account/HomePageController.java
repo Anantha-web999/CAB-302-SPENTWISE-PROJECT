@@ -1,6 +1,6 @@
 package com.example.trial.Home_add_account;
 import com.example.trial.Session;
-import com.example.trial.settings.SettingsPanel;
+//import com.example.trial.settings.SettingsPanel;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.embed.swing.SwingNode;
 import javafx.event.ActionEvent;
@@ -24,6 +24,9 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 
 public class HomePageController implements Initializable {
 
@@ -60,12 +63,22 @@ public class HomePageController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         loadBankAccounts();
-        String email = Session.getCurrentUserEmail();  // <== This defines 'email'
+
+        String email = Session.getCurrentUserEmail();
         if (email != null) {
-            user_name.setText("Welcome, " + email);
+            try {
+                String fullName = BankAccountHelper.getFullNameByEmail(email);
+                user_name.setText("Welcome, " + fullName);
+            } catch (SQLException e) {
+                user_name.setText("Welcome, user");
+                e.printStackTrace();
+            }
         } else {
             user_name.setText("Session not found!");
         }
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, dd MMMM yyyy");
+        login_date.setText(LocalDate.now().format(formatter));
 
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
         descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
@@ -141,20 +154,40 @@ public class HomePageController implements Initializable {
         currentScene.setRoot(addAccountView);
     }
 
-    @FXML
-    private void handleSettingsClick(ActionEvent event) {
-        SwingNode swingNode = new SwingNode();
-        SwingUtilities.invokeLater(() -> {
-            SettingsPanel settingsPanel = new SettingsPanel();
-            swingNode.setContent(settingsPanel);
-        });
+//    @FXML
+//    private void handleSettingsClick(ActionEvent event) {
+//        SwingNode swingNode = new SwingNode();
+//        SwingUtilities.invokeLater(() -> {
+//            SettingsPanel settingsPanel = new SettingsPanel();
+//            swingNode.setContent(settingsPanel);
+//        });
+//
+//        VBox root = new VBox(swingNode);
+//        Scene scene = new Scene(root, 800, 600);
+//        Stage stage = new Stage();
+//        stage.setTitle("Settings");
+//        stage.setScene(scene);
+//        stage.show();
+//    }
 
-        VBox root = new VBox(swingNode);
-        Scene scene = new Scene(root, 800, 600);
-        Stage stage = new Stage();
-        stage.setTitle("Settings");
-        stage.setScene(scene);
-        stage.show();
+
+    @FXML
+    private void handleSettingsClick(ActionEvent event) throws IOException {
+        Parent addAccountView = FXMLLoader.load(getClass().getResource("/com/example/settingspanel/SettingsPanel.fxml"));
+        Scene currentScene = ((Node) event.getSource()).getScene();
+        currentScene.setRoot(addAccountView);
+    }
+
+    @FXML
+    private void openSpendingAdvisor(ActionEvent event) {
+        try {
+            Parent advisorView = FXMLLoader.load(getClass().getResource("/com/example/trial/SpendingAdvisor.fxml"));
+            Scene currentScene = ((Node) event.getSource()).getScene();
+            currentScene.setRoot(advisorView);
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", "Failed to load Spending Advisor", e.getMessage());
+        }
     }
 
     @FXML

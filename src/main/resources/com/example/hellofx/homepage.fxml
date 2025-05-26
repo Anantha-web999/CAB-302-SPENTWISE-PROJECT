@@ -37,8 +37,9 @@
                     </graphic>
                 </Button>
 
-                <Button fx:id="Budget_btn" mnemonicParsing="false" text="AI Advisor" onAction="#openSpendingAdvisor">
-                    <graphic>
+                <Button fx:id="advisorButton" text="Spending Advisor" onAction="#openSpendingAdvisor" >
+
+                <graphic>
                         <FontAwesomeIconView glyphName="DOLLAR" size="20" />
                     </graphic>
                 </Button>
