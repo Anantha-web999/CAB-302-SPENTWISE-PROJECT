@@ -51,7 +51,10 @@
                         </FXCollections>
                     </items>
                 </ComboBox>
-                <Button mnemonicParsing="false" onAction="#handleBack" style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 16px; -fx-padding: 8 20; -fx-background-radius: 8;" text="Back" GridPane.rowIndex="5" />
+                <Button mnemonicParsing="false" onAction="#handleBack" style="-fx-background-color: #27ae60;
+                 -fx-text-fill: white;
+                 -fx-font-weight: bold; -fx-font-size: 16px; -fx-padding: 8 20; -fx-background-radius: 8;"
+                        text="Back" GridPane.rowIndex="5" />
 
                 <Button onAction="#handleSaveAccount" style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 16px; -fx-padding: 8 20; -fx-background-radius: 8;" text="Save Account" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                 <rowConstraints>

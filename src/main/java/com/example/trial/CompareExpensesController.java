@@ -19,6 +19,13 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
+import javafx.stage.FileChooser;
+import javafx.scene.control.Alert;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.io.IOException;
+
 
 public class CompareExpensesController {
     @FXML
@@ -43,8 +50,10 @@ public class CompareExpensesController {
 
     @FXML
     public void initialize() {
-        this.month1Combo.setItems(FXCollections.observableArrayList(new String[]{"January", "February", "March"}));
-        this.month2Combo.setItems(FXCollections.observableArrayList(new String[]{"January", "February", "March"}));
+        this.month1Combo.setItems(FXCollections.observableArrayList(new String[]{"January", "February", "March","April", "May", "June",
+                "July", "August", "September", "October", "November", "December"}));
+        this.month2Combo.setItems(FXCollections.observableArrayList(new String[]{"January", "February", "March","April", "May", "June",
+                "July", "August", "September", "October", "November", "December"}));
         this.month1Combo.getSelectionModel().selectFirst();
         this.month2Combo.getSelectionModel().select(1);
         this.colCategory.setCellValueFactory((data) -> ((ComparisonData)data.getValue()).categoryProperty());
@@ -59,7 +68,7 @@ public class CompareExpensesController {
         try {
             Parent insightsRoot = (Parent)FXMLLoader.load(this.getClass().getResource("/com/example/trial/Insights.fxml"));
             Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(insightsRoot, (double)800.0F, (double)600.0F));
+            stage.setScene(new Scene(insightsRoot, (double)1000.0F, (double)600.0F));
             stage.setTitle("Insights");
             stage.show();
         } catch (Exception e) {
@@ -85,4 +94,41 @@ public class CompareExpensesController {
 
         this.barChart.getData().addAll(new XYChart.Series[]{series1, series2});
     }
+
+    @FXML
+    private void exportToCSV() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save Comparison Data");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
+        fileChooser.setInitialFileName("compare_expenses.csv");
+
+        File file = fileChooser.showSaveDialog(null);
+
+        if (file != null) {
+            try (PrintWriter writer = new PrintWriter(new FileWriter(file))) {
+                // Write CSV header
+                writer.println("Category,Month1,Month2,Difference");
+
+                // Write table data
+                for (ComparisonData data : comparisonTable.getItems()) {
+                    writer.printf("%s,%.2f,%.2f,%s%n",
+                            data.getCategory(),
+                            data.getMonth1Value(),
+                            data.getMonth2Value(),
+                            data.getDifference());
+                }
+
+                // Success popup
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Export");
+                alert.setHeaderText(null);
+                alert.setContentText("Comparison data exported successfully!");
+                alert.showAndWait();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }

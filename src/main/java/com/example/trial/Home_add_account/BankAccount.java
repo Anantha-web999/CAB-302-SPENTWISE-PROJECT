@@ -4,12 +4,12 @@ import java.text.NumberFormat;
 import java.util.Locale;
 
 public class BankAccount {
-    private int id;
-    private String bankName;
-    private String accountName;
-    private String accountNumber;
-    private String bsb;
-    private String accountType;
+    private final int id;
+    private final String bankName;
+    private final String accountName;
+    private final String accountNumber;
+    private final String bsb;
+    private final String accountType;
     private double balance;
 
     public BankAccount(int id, String bankName, String accountName, String accountNumber, String bsb, String accountType, double balance) {
@@ -22,20 +22,39 @@ public class BankAccount {
         this.balance = balance;
     }
 
-    // Getters
-    public int getId() { return id; }
-    public String getBankName() { return bankName; }
-    public String getAccountName() { return accountName; }
-    public String getAccountNumber() { return accountNumber; }
-    public String getBsb() { return bsb; }
-    public String getAccountType() { return accountType; }
-    public double getBalance() { return balance; }
+    public int getId() {
+        return id;
+    }
 
-    // Setters (only if you need them — unnecessary setters are removed for safety)
-    public void setBalance(double balance) { this.balance = balance; }
+    public String getBankName() {
+        return bankName;
+    }
+
+    public String getAccountName() {
+        return accountName;
+    }
+
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+
+    public String getBsb() {
+        return bsb;
+    }
+
+    public String getAccountType() {
+        return accountType;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
 
     public String getFormattedBalance() {
-        NumberFormat formatter = NumberFormat.getCurrencyInstance(Locale.getDefault());
-        return formatter.format(balance);
+        return NumberFormat.getCurrencyInstance(Locale.getDefault()).format(balance);
     }
 }

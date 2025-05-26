@@ -11,34 +11,25 @@ public class TransactionHelper {
     public static List<Transaction> getRecentTransactions() throws SQLException {
         List<Transaction> transactions = new ArrayList<>();
         String query = "SELECT * FROM transactions ORDER BY date DESC LIMIT 10";
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
         try (Connection connection = DriverManager.getConnection(DB_URL);
              PreparedStatement stmt = connection.prepareStatement(query);
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
-                String dateString = rs.getString("date");
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
-                java.util.Date parsedDate;
                 try {
-                    parsedDate = dateFormat.parse(dateString);
-                } catch (java.text.ParseException e) {
+                    String dateString = rs.getString("date");
+                    String formattedDate = dateFormat.format(dateFormat.parse(dateString));
+                    transactions.add(new Transaction(
+                            formattedDate,
+                            rs.getString("description"),
+                            rs.getDouble("amount")
+                    ));
+                } catch (Exception e) {
                     System.err.println("Date format error: " + e.getMessage());
-                    continue;
                 }
-
-                String formattedDate = dateFormat.format(parsedDate);
-                transactions.add(new Transaction(
-                        formattedDate,
-                        rs.getString("description"),
-                        rs.getDouble("amount")
-                ));
             }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw e;
         }
 
         return transactions;

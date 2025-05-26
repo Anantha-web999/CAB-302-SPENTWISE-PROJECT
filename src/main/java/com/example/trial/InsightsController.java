@@ -18,6 +18,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
+import javafx.stage.FileChooser;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.io.IOException;
+import javafx.scene.control.Alert;
+
+
 
 import java.io.IOException;
 
@@ -49,7 +57,7 @@ public class InsightsController {
         try {
             Parent compareRoot = (Parent)FXMLLoader.load(this.getClass().getResource("/com/example/trial/CompareExpenses.fxml"));
             Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(compareRoot, (double)800.0F, (double)600.0F));
+            stage.setScene(new Scene(compareRoot, (double)1000.0F, (double)600.0F));
             stage.setTitle("Compare Monthly Expenses");
             stage.show();
         } catch (Exception e) {
@@ -78,7 +86,7 @@ public class InsightsController {
             TrendsController controller = (TrendsController)loader.getController();
             controller.setPreviousScene(((Node)event.getSource()).getScene());
             Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root, (double)800.0F, (double)600.0F));
+            stage.setScene(new Scene(root, (double)1000.0F, (double)600.0F));
             stage.setTitle("Weekly / Monthly Trends");
             stage.show();
         } catch (Exception e) {
@@ -86,6 +94,8 @@ public class InsightsController {
         }
 
     }
+
+
 
     @FXML
     public void loadData() {
@@ -106,6 +116,39 @@ public class InsightsController {
         stage.setScene(new Scene(homeRoot));
         stage.show();
     }
+    @FXML
+    private void exportToCSV() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save Spending Table");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
+        fileChooser.setInitialFileName("spending_by_category.csv");
+
+        File file = fileChooser.showSaveDialog(null);
+
+        if (file != null) {
+            try (PrintWriter writer = new PrintWriter(new FileWriter(file))) {
+                // Write CSV header
+                writer.println("Category,Amount,Percentage");
+
+                // Write data rows
+                for (CategoryData data : categoryTable.getItems()) {
+                    writer.printf("%s,%.2f,%s%n", data.getCategory(), data.getAmount(), data.getPercentage());
+                }
+
+                // ✅ SUCCESS POPUP
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Export");
+                alert.setHeaderText(null);
+                alert.setContentText("Data exported successfully!");
+                alert.showAndWait();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
 }
 
 

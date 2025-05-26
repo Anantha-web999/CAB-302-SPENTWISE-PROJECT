@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trial.settings.SettingsPanelController">
+    <left>
+        <VBox prefWidth="245" style="-fx-background-color: #1a5276;">
+            <children>
+                <StackPane alignment="CENTER" prefHeight="200.0">
+                    <children>
+                        <VBox alignment="CENTER">
+                            <children>
+                                <StackPane>
+                                    <ImageView fx:id="logoImage" fitHeight="150.0" fitWidth="150.0" preserveRatio="true">
+                                        <image>
+                                            <Image url="/Logo.png" />
+                                        </image>
+                                    </ImageView>
+                                </StackPane>
+                            </children>
+                        </VBox>
+                    </children>
+                </StackPane>
+                <Button fx:id="accountButton" alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#handleAccountButton" prefHeight="50.0" style="-fx-background-color: #1a5276; -fx-text-fill: #fbfcfc; -fx-font-family: 'Lato'; -fx-font-weight: bold; -fx-font-size: 14px;" text="Account">
+                    <padding>
+                        <Insets left="20.0" />
+                    </padding>
+                </Button>
+                <Button fx:id="appPreferencesButton" alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#handleAppPreferencesButton" prefHeight="50.0" style="-fx-background-color: #1a5276; -fx-text-fill: #fbfcfc; -fx-font-family: 'Lato'; -fx-font-size: 14px;" text="App Preferences">
+                    <padding>
+                        <Insets left="20.0" />
+                    </padding>
+                </Button>
+                <Button fx:id="helpSupportButton" alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#handleHelpSupportButton" prefHeight="50.0" style="-fx-background-color: #1a5276; -fx-text-fill: #fbfcfc; -fx-font-family: 'Lato'; -fx-font-size: 14px;" text="Help &amp; Support">
+                    <padding>
+                        <Insets left="20.0" />
+                    </padding>
+                </Button>
+                <Button fx:id="aboutUsButton" alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#handleAboutUsButton" prefHeight="50.0" style="-fx-background-color: #1a5276; -fx-text-fill: #fbfcfc; -fx-font-family: 'Lato'; -fx-font-size: 14px;" text="About Us">
+                    <padding>
+                        <Insets left="20.0" />
+                    </padding>
+                </Button>
+            </children>
+        </VBox>
+    </left>
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: transparent;">
+            <content>
+                <VBox spacing="20.0">
+                    <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                    </padding>
+                    <children>
+                        <VBox>
+                            <children>
+                                <Label text="Account Settings" style="-fx-text-fill: #1f618d; -fx-font-family: 'Lato'; -fx-font-weight: bold; -fx-font-size: 24px;" />
+                                <Label text="Manage your personal information and preferences" style="-fx-text-fill: #1f618d; -fx-font-family: 'Lato'; -fx-font-size: 14px;" />
+                            </children>
+                        </VBox>
+                        <Separator />
+                        <TitledPane animated="false" collapsible="false" expanded="true" text="Personal Information" style="-fx-font-family: 'Lato'; -fx-font-weight: bold;">
+                            <content>
+                                <GridPane hgap="10.0" vgap="15.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="150.0" prefWidth="150.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="400.0" prefWidth="400.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                        <Label text="Full Name:" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
+                                        <TextField fx:id="fullNameField" GridPane.columnIndex="1" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
+
+                                        <Label text="Date of Birth:" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" GridPane.rowIndex="1" />
+                                        <HBox spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                            <children>
+                                                <ComboBox fx:id="dayComboBox" prefWidth="60.0" promptText="Day" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
+                                                <ComboBox fx:id="monthComboBox" prefWidth="90.0" promptText="Month" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
+                                                <ComboBox fx:id="yearComboBox" prefWidth="90.0" promptText="Year" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
+                                            </children>
+                                        </HBox>
+
+                                        <Label text="Username:" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" GridPane.rowIndex="2" />
+                                        <TextField fx:id="usernameField" GridPane.columnIndex="1" GridPane.rowIndex="2" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
+
+                                        <Label text="Email Address:" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" GridPane.rowIndex="3" />
+                                        <TextField fx:id="emailField" GridPane.columnIndex="1" GridPane.rowIndex="3" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
+
+                                        <Label text="Phone Number:" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" GridPane.rowIndex="4" />
+                                        <TextField fx:id="phoneField" GridPane.columnIndex="1" GridPane.rowIndex="4" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
+
+                                        <Label text="Address:" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" GridPane.rowIndex="5" />
+                                        <TextArea fx:id="addressField" prefHeight="60.0" GridPane.columnIndex="1" GridPane.rowIndex="5" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
+                                    </children>
+                                </GridPane>
+                            </content>
+                            <padding>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                            </padding>
+                        </TitledPane>
+
+                        <TitledPane animated="false" collapsible="false" expanded="true" text="Currency Settings" style="-fx-font-family: 'Lato'; -fx-font-weight: bold;">
+                            <content>
+                                <GridPane hgap="10.0" vgap="15.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="150.0" prefWidth="150.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="400.0" prefWidth="400.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                        <Label text="Default Currency:" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
+                                        <ComboBox fx:id="currencyComboBox" prefWidth="150.0" GridPane.columnIndex="1" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
+                                    </children>
+                                </GridPane>
+                            </content>
+                            <padding>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                            </padding>
+                        </TitledPane>
+
+                        <TitledPane animated="false" collapsible="false" expanded="true" text="Security Settings" style="-fx-font-family: 'Lato'; -fx-font-weight: bold;">
+                            <content>
+                                <GridPane hgap="10.0" vgap="15.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="150.0" prefWidth="150.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="400.0" prefWidth="400.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                        <!-- Add security settings here -->
+                                    </children>
+                                </GridPane>
+                            </content>
+                            <padding>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                            </padding>
+                        </TitledPane>
+                    </children>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </center>
+    <bottom>
+        <HBox alignment="CENTER_RIGHT" spacing="10.0" style="-fx-background-color: #fbfcfc;">
+            <children>
+                <Button fx:id="saveButton" mnemonicParsing="false" onAction="#handleSaveButton" prefHeight="30.0" prefWidth="115.0" style="-fx-background-color: #1f618d; -fx-text-fill: #fbfcfc; -fx-font-family: 'Lato'; -fx-font-weight: bold; -fx-font-size: 13px;" text="Save Changes" />
+                <Button fx:id="homeButton" mnemonicParsing="false" onAction="#goToHomePage" prefHeight="30.0" prefWidth="115.0" style="-fx-background-color: #e0e0e0; -fx-font-family: 'Lato'; -fx-font-size: 13px;" text="Back" />
+                 </children>
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding>
+        </HBox>
+    </bottom>
+</BorderPane>

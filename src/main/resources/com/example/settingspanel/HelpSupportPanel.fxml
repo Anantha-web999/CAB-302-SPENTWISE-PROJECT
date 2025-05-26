@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trial.settings.HelpSupportPanelController">
+    <left>
+        <VBox prefWidth="245" style="-fx-background-color: #1a5276;">
+            <children>
+                <StackPane alignment="CENTER" prefHeight="200.0">
+                    <children>
+                        <VBox alignment="CENTER">
+                            <children>
+                                <StackPane>
+                                    <ImageView fx:id="logoImage" fitHeight="150.0" fitWidth="150.0" preserveRatio="true">
+                                        <image>
+                                            <Image url="/Logo.png" />
+                                        </image>
+                                    </ImageView>
+                                </StackPane>
+                            </children>
+                        </VBox>
+                    </children>
+                </StackPane>
+                <Button fx:id="accountButton" alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#handleAccountButton" prefHeight="50.0" style="-fx-background-color: #1a5276; -fx-text-fill: #fbfcfc; -fx-font-family: 'Lato'; -fx-font-size: 14px;" text="Account">
+                    <padding>
+                        <Insets left="20.0" />
+                    </padding>
+                </Button>
+                <Button fx:id="appPreferencesButton" alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#handleAppPreferencesButton" prefHeight="50.0" style="-fx-background-color: #1a5276; -fx-text-fill: #fbfcfc; -fx-font-family: 'Lato'; -fx-font-size: 14px;" text="App Preferences">
+                    <padding>
+                        <Insets left="20.0" />
+                    </padding>
+                </Button>
+                <Button fx:id="helpSupportButton" alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#handleHelpSupportButton" prefHeight="50.0" style="-fx-background-color: #17202a; -fx-text-fill: #fbfcfc; -fx-font-family: 'Lato'; -fx-font-weight: bold; -fx-font-size: 14px;" text="Help &amp; Support">
+                    <padding>
+                        <Insets left="20.0" />
+                    </padding>
+                </Button>
+                <Button fx:id="aboutUsButton" alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#handleAboutUsButton" prefHeight="50.0" style="-fx-background-color: #1a5276; -fx-text-fill: #fbfcfc; -fx-font-family: 'Lato'; -fx-font-size: 14px;" text="About Us">
+                    <padding>
+                        <Insets left="20.0" />
+                    </padding>
+                </Button>
+            </children>
+        </VBox>
+    </left>
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: transparent;">
+            <content>
+                <VBox spacing="20.0">
+                    <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                    </padding>
+                    <children>
+                        <VBox>
+                            <children>
+                                <Label text="Help &amp; Support" style="-fx-text-fill: #1f618d; -fx-font-family: 'Lato'; -fx-font-weight: bold; -fx-font-size: 24px;" />
+                                <Label text="Get help and support for using SpentWise" style="-fx-text-fill: #1f618d; -fx-font-family: 'Lato'; -fx-font-size: 14px;" />
+                            </children>
+                        </VBox>
+                        <Separator />
+
+                        <TitledPane animated="false" collapsible="false" expanded="true" text="Frequently Asked Questions" style="-fx-font-family: 'Lato'; -fx-font-weight: bold;">
+                            <content>
+                                <VBox spacing="15.0">
+                                    <children>
+                                        <VBox spacing="10.0">
+                                            <children>
+                                                <Label text="Q: How do I link a new bank account?" style="-fx-font-family: 'Lato'; -fx-font-size: 13px; -fx-font-weight: bold;" />
+                                                <Label text="A: Navigate to the 'Add Account' section from the dashboard. Once you've clicked this, fill out the textboxes with your bank account details and select the 'Save Account' button." wrapText="true" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
+                                            </children>
+                                        </VBox>
+                                        <Separator />
+                                        <VBox spacing="10.0">
+                                            <children>
+                                                <Label text="Q: Can I export my expense data out of SpentWise?" style="-fx-font-family: 'Lato'; -fx-font-size: 13px; -fx-font-weight: bold;" />
+                                                <Label text="A: Yes! You can export and download your expense data in CSV format from the 'Insights' section. This allows you to backup and store your data, or use it in other applications." wrapText="true" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
+                                            </children>
+                                        </VBox>
+                                        <Separator />
+                                        <VBox spacing="10.0">
+                                            <children>
+                                                <Label text="Q: How do I use the AI Spending Advisor?" style="-fx-font-family: 'Lato'; -fx-font-size: 13px; -fx-font-weight: bold;" />
+                                                <Label text="A: Navigate to the 'AI Advisor' section from the dashboard. Once you've clicked this, enter the prompt you'd like to ask the AI Advisor and simply press the 'Get Advice' button. After a short wait, the AI will respond with the answer to your query." wrapText="true" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
+                                            </children>
+                                        </VBox>
+                                        <Separator />
+                                        <VBox spacing="10.0">
+                                            <children>
+                                                <Label text="Q: Am I able to set reminders for my upcoming bills?" style="-fx-font-family: 'Lato'; -fx-font-size: 13px; -fx-font-weight: bold;" />
+                                                <Label text="A: You can! Firstly, open the 'Reminders' section from the dashboard. Then, all you need to do is insert the name, amount, and due date of the specific payment you want a reminder to be set for." wrapText="true" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </VBox>
+                            </content>
+                            <padding>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                            </padding>
+                        </TitledPane>
+
+                        <TitledPane animated="false" collapsible="false" expanded="true" text="Contact Support" style="-fx-font-family: 'Lato'; -fx-font-weight: bold;">
+                            <content>
+                                <GridPane hgap="10.0" vgap="15.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="150.0" prefWidth="150.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="400.0" prefWidth="400.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                        <Label text="Email:" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
+                                        <Label text="support@spentwise.com" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" GridPane.columnIndex="1" />
+
+                                        <Label text="Phone:" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" GridPane.rowIndex="1" />
+                                        <Label text="1-800-SPENT-WISE" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                                        <Label text="Hours:" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" GridPane.rowIndex="2" />
+                                        <Label text="Monday - Friday, 9 AM - 5 PM EST" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    </children>
+                                </GridPane>
+                            </content>
+                            <padding>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                            </padding>
+                        </TitledPane>
+                    </children>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </center>
+    <bottom>
+        <HBox alignment="CENTER_RIGHT" spacing="10.0" style="-fx-background-color: #fbfcfc;">
+            <children>
+                <Button fx:id="homeButton" mnemonicParsing="false" onAction="#goToHomePage" prefHeight="30.0" prefWidth="115.0" style="-fx-background-color: #e0e0e0; -fx-font-family: 'Lato'; -fx-font-size: 13px;" text="Back" />
+            </children>
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding>
+        </HBox>
+    </bottom>
+</BorderPane>

@@ -1,9 +1,9 @@
 package com.example.trial.Home_add_account;
 
 public class Transaction {
-    private String date;
-    private String description;
-    private double amount;
+    private final String date;
+    private final String description;
+    private final double amount;
 
     public Transaction(String date, String description, double amount) {
         this.date = date;
@@ -11,7 +11,15 @@ public class Transaction {
         this.amount = amount;
     }
 
-    public String getDate() { return date; }
-    public String getDescription() { return description; }
-    public double getAmount() { return amount; }
+    public String getDate() {
+        return date;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
 }
