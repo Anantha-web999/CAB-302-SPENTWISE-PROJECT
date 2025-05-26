@@ -24,12 +24,25 @@ public class AddAccountController {
     private void handleSaveAccount() {
         String bankName = bankNameField.getText();
         String accountName = accountNameField.getText();
-        String accountNumber = accountNumberField.getText();
-        String bsb = bsbField.getText();
+        String accountNumber = accountNumberField.getText().trim();
+        String bsb = bsbField.getText().trim();
         String accountType = accountTypeCombo.getValue();
 
-        if (bankName.isEmpty() || accountName.isEmpty() || accountNumber.isEmpty() || bsb.isEmpty() || accountType == null) {
+        if (bankName.isEmpty() || accountName.isEmpty() ||
+                accountNumber.isEmpty() || bsb.isEmpty() || accountType == null) {
             showAlert(AlertType.ERROR, "Error", "Missing Information", "Please fill in all the fields.");
+            return;
+        }
+
+        // Validate account number (must be exactly 8 digits)
+        if (!accountNumber.matches("\\d{8}")) {
+            showAlert(AlertType.ERROR, "Invalid Input", "Invalid Account Number", "Account number must be exactly 8 digits.");
+            return;
+        }
+
+        // Validate BSB (must be exactly 6 digits)
+        if (!bsb.matches("\\d{6}")) {
+            showAlert(AlertType.ERROR, "Invalid Input", "Invalid BSB Number", "BSB must be exactly 6 digits.");
             return;
         }
 
@@ -45,6 +58,7 @@ public class AddAccountController {
             e.printStackTrace();
         }
     }
+
 
     private void returnToMainView() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/hellofx/homepage.fxml"));
