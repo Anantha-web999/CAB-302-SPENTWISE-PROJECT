@@ -32,6 +32,13 @@ public class SpendingAdvisorController {
     @FXML
     private TextArea responseArea;
 
+
+    @FXML
+    private void clearChat() {
+        userInput.clear();
+        aiResponse.clear();
+    }
+
     @FXML
     private void handleGetAdvice() {
         String prompt = userInput.getText();
