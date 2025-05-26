@@ -57,7 +57,7 @@ public class InsightsController {
         try {
             Parent compareRoot = (Parent)FXMLLoader.load(this.getClass().getResource("/com/example/trial/CompareExpenses.fxml"));
             Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(compareRoot, (double)800.0F, (double)600.0F));
+            stage.setScene(new Scene(compareRoot, (double)1000.0F, (double)600.0F));
             stage.setTitle("Compare Monthly Expenses");
             stage.show();
         } catch (Exception e) {
@@ -86,7 +86,7 @@ public class InsightsController {
             TrendsController controller = (TrendsController)loader.getController();
             controller.setPreviousScene(((Node)event.getSource()).getScene());
             Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root, (double)800.0F, (double)600.0F));
+            stage.setScene(new Scene(root, (double)1000.0F, (double)600.0F));
             stage.setTitle("Weekly / Monthly Trends");
             stage.show();
         } catch (Exception e) {

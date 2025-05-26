@@ -22,7 +22,7 @@ public class Main extends Application {
         Image icon = new Image("Logo.png");
         primaryStage.getIcons().add(icon);
         primaryStage.setTitle("Insights App");
-        primaryStage.setScene(new Scene(root, (double)800.0F, (double)600.0F));
+        primaryStage.setScene(new Scene(root, (double)1000.0F, (double)600.0F));
         primaryStage.show();
     }
 

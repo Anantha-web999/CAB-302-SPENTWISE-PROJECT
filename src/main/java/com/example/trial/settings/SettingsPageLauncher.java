@@ -35,7 +35,6 @@ public class SettingsPageLauncher extends Application {
             primaryStage.setMinHeight(600);
             primaryStage.setWidth(1000);
             primaryStage.setHeight(600);
-
             primaryStage.show();
 
         } catch (Exception e) {
