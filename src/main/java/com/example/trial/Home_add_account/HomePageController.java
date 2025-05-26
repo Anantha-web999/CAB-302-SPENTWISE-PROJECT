@@ -1,6 +1,6 @@
 package com.example.trial.Home_add_account;
 import com.example.trial.Session;
-import com.example.trial.settings.SettingsPanelController;
+import com.example.trial.settings.SettingsPanel;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.embed.swing.SwingNode;
 import javafx.event.ActionEvent;
@@ -74,17 +74,6 @@ public class HomePageController implements Initializable {
 
     }
 
-    @FXML
-    private void openSpendingAdvisor(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/trial/SpendingAdvisor.fxml"));
-        Parent root = loader.load();
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root, 1000, 600));
-        stage.setTitle("Spending Advisor - AI Assistant");
-        stage.show();
-    }
-
-
     private void loadBankAccounts() {
         try {
             // Get the current user email from the session
@@ -153,12 +142,20 @@ public class HomePageController implements Initializable {
     }
 
     @FXML
-    private void handleSettingsClick(ActionEvent event) throws IOException {
-        Parent insightsView = FXMLLoader.load(getClass().getResource("/com/example/settingspanel/SettingsPanel.fxml"));
-        Scene currentScene = ((Node) event.getSource()).getScene();
-        currentScene.setRoot(insightsView);
-    }
+    private void handleSettingsClick(ActionEvent event) {
+        SwingNode swingNode = new SwingNode();
+        SwingUtilities.invokeLater(() -> {
+            SettingsPanel settingsPanel = new SettingsPanel();
+            swingNode.setContent(settingsPanel);
+        });
 
+        VBox root = new VBox(swingNode);
+        Scene scene = new Scene(root, 800, 600);
+        Stage stage = new Stage();
+        stage.setTitle("Settings");
+        stage.setScene(scene);
+        stage.show();
+    }
 
     @FXML
     private void handleInsightsClick(ActionEvent event) throws IOException {
