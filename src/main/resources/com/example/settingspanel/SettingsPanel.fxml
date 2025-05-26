@@ -86,7 +86,7 @@
                                         <Label text="Date of Birth:" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" GridPane.rowIndex="1" />
                                         <HBox spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                             <children>
-                                                <ComboBox fx:id="dayComboBox" prefWidth="60.0" promptText="Day" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
+                                                <ComboBox fx:id="dayComboBox" prefWidth="90.0" promptText="Day" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
                                                 <ComboBox fx:id="monthComboBox" prefWidth="90.0" promptText="Month" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
                                                 <ComboBox fx:id="yearComboBox" prefWidth="90.0" promptText="Year" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
                                             </children>

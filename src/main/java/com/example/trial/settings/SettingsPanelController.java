@@ -81,6 +81,9 @@ public class SettingsPanelController implements Initializable {
             }
         }
 
+        //Create extended user table on startup
+        createExtendedUserTable();
+
         //Load user data
         loadUserData();
     }
@@ -123,18 +126,66 @@ public class SettingsPanelController implements Initializable {
         currencyComboBox.setValue("USD ($)");
     }
 
-    private void loadUserData() {
+    //Create extended user profile table for additional fields
+    private void createExtendedUserTable() {
         try {
-            //Initialize database if not already done
             DatabaseHelper.initializeDatabase();
 
+            String sql = "CREATE TABLE IF NOT EXISTS user_profiles (" +
+                    "user_id INTEGER PRIMARY KEY, " +
+                    "phone_number TEXT, " +
+                    "date_of_birth TEXT, " +
+                    "address TEXT, " +
+                    "username TEXT, " +
+                    "preferred_currency TEXT DEFAULT 'USD ($)', " +
+                    "FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE)";
+
+            try (Connection conn = DatabaseHelper.getConnection();
+                 Statement stmt = conn.createStatement()) {
+
+                stmt.execute(sql);
+
+                //Create profile entry for current user if it doesn't exist
+                createUserProfileIfNotExists(currentUserId);
+
+                System.out.println("Extended user profile table created/verified successfully");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Error creating extended user table: " + e.getMessage());
+        }
+    }
+
+    private void createUserProfileIfNotExists(int userId) throws SQLException {
+        String checkSql = "SELECT COUNT(*) FROM user_profiles WHERE user_id = ?";
+        String insertSql = "INSERT INTO user_profiles (user_id, phone_number, date_of_birth, address, username, preferred_currency) VALUES (?, '', '', '', '', 'USD ($)')";
+
+        try (Connection conn = DatabaseHelper.getConnection()) {
+            //Check if profile exists
+            try (PreparedStatement checkStmt = conn.prepareStatement(checkSql)) {
+                checkStmt.setInt(1, userId);
+                ResultSet rs = checkStmt.executeQuery();
+                if (rs.next() && rs.getInt(1) == 0) {
+                    //Profile doesn't exist, create it
+                    try (PreparedStatement insertStmt = conn.prepareStatement(insertSql)) {
+                        insertStmt.setInt(1, userId);
+                        insertStmt.executeUpdate();
+                        System.out.println("Created user profile for user ID: " + userId);
+                    }
+                }
+            }
+        }
+    }
+
+    private void loadUserData() {
+        try {
             //Print all users for debugging
             printAllUsers();
 
             UserAccount user = getUserFromDatabase(currentUserId);
 
             if (user != null) {
-                //Load data from database
+                //Load basic data from users table
                 if (user.getFullName() != null && !user.getFullName().isEmpty()) {
                     fullNameField.setText(user.getFullName());
                 } else {
@@ -147,10 +198,8 @@ public class SettingsPanelController implements Initializable {
                     emailField.setText("");
                 }
 
-                //Set other fields to empty since they're not in your current database schema
-                usernameField.setText("");
-                phoneField.setText("");
-                addressField.setText("");
+                //Load extended data from user_profiles table
+                loadExtendedUserData(currentUserId);
 
                 System.out.println("Successfully loaded user data from database: " + user.getFullName());
             } else {
@@ -171,6 +220,82 @@ public class SettingsPanelController implements Initializable {
 
             //Fallback to empty fields
             clearAllFields();
+        }
+    }
+
+    private void loadExtendedUserData(int userId) throws SQLException {
+        String sql = "SELECT phone_number, date_of_birth, address, username, preferred_currency FROM user_profiles WHERE user_id = ?";
+
+        try (Connection conn = DatabaseHelper.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, userId);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                //Load phone number
+                String phone = rs.getString("phone_number");
+                if (phone != null && !phone.isEmpty()) {
+                    phoneField.setText(phone);
+                } else {
+                    phoneField.setText("");
+                }
+
+                //Load date of birth
+                String dateOfBirth = rs.getString("date_of_birth");
+                if (dateOfBirth != null && !dateOfBirth.isEmpty()) {
+                    setDateOfBirthFromString(dateOfBirth);
+                } else {
+                    //Keep default values
+                    dayComboBox.setValue("01");
+                    monthComboBox.setValue("Jan");
+                    yearComboBox.setValue("2025");
+                }
+
+                //Load address
+                String address = rs.getString("address");
+                if (address != null && !address.isEmpty()) {
+                    addressField.setText(address);
+                } else {
+                    addressField.setText("");
+                }
+
+                //Load username
+                String username = rs.getString("username");
+                if (username != null && !username.isEmpty()) {
+                    usernameField.setText(username);
+                } else {
+                    usernameField.setText("");
+                }
+
+                //Load preferred currency
+                String currency = rs.getString("preferred_currency");
+                if (currency != null && !currency.isEmpty()) {
+                    currencyComboBox.setValue(currency);
+                } else {
+                    currencyComboBox.setValue("USD ($)");
+                }
+
+                System.out.println("Loaded extended user data successfully");
+            }
+        }
+    }
+
+    private void setDateOfBirthFromString(String dateOfBirth) {
+        try {
+            String[] parts = dateOfBirth.split("/");
+            if (parts.length == 3) {
+                String day = parts[0];
+                String month = parts[1];
+                String year = parts[2];
+
+                dayComboBox.setValue(day);
+                monthComboBox.setValue(month);
+                yearComboBox.setValue(year);
+            }
+        } catch (Exception e) {
+            System.err.println("Error parsing date of birth: " + e.getMessage());
+            //Keep default values if parsing fails
         }
     }
 
@@ -195,10 +320,11 @@ public class SettingsPanelController implements Initializable {
     }
 
     private void updateUserInDatabase(int userId, UserAccount user) throws SQLException {
-        String sql = "UPDATE users SET full_name = ?, email = ? WHERE id = ?";
+        //Update basic user info in users table
+        String userSql = "UPDATE users SET full_name = ?, email = ? WHERE id = ?";
 
         try (Connection conn = DatabaseHelper.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+             PreparedStatement pstmt = conn.prepareStatement(userSql)) {
 
             pstmt.setString(1, user.getFullName());
             pstmt.setString(2, user.getEmail());
@@ -207,6 +333,45 @@ public class SettingsPanelController implements Initializable {
             int rowsAffected = pstmt.executeUpdate();
             System.out.println("Updated " + rowsAffected + " user record(s)");
         }
+
+        //Update extended user info in user_profiles table
+        updateExtendedUserData(userId, user);
+    }
+
+    private void updateExtendedUserData(int userId, UserAccount user) throws SQLException {
+        //Get current form values
+        String phone = phoneField.getText().trim();
+        String dateOfBirth = getDateOfBirthString();
+        String address = addressField.getText().trim();
+        String username = usernameField.getText().trim();
+        String currency = currencyComboBox.getValue();
+
+        String sql = "UPDATE user_profiles SET phone_number = ?, date_of_birth = ?, address = ?, username = ?, preferred_currency = ? WHERE user_id = ?";
+
+        try (Connection conn = DatabaseHelper.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, phone);
+            pstmt.setString(2, dateOfBirth);
+            pstmt.setString(3, address);
+            pstmt.setString(4, username);
+            pstmt.setString(5, currency);
+            pstmt.setInt(6, userId);
+
+            int rowsAffected = pstmt.executeUpdate();
+            System.out.println("Updated " + rowsAffected + " user profile record(s)");
+        }
+    }
+
+    private String getDateOfBirthString() {
+        String day = dayComboBox.getValue();
+        String month = monthComboBox.getValue();
+        String year = yearComboBox.getValue();
+
+        if (day != null && month != null && year != null) {
+            return day + "/" + month + "/" + year;
+        }
+        return "";
     }
 
     private void printAllUsers() throws SQLException {
@@ -232,6 +397,10 @@ public class SettingsPanelController implements Initializable {
         emailField.setText("");
         phoneField.setText("");
         addressField.setText("");
+        dayComboBox.setValue("01");
+        monthComboBox.setValue("Jan");
+        yearComboBox.setValue("2025");
+        currencyComboBox.setValue("USD ($)");
     }
 
     private void setActiveButton(Button activeButton) {
@@ -323,7 +492,7 @@ public class SettingsPanelController implements Initializable {
             user.setFullName(fullName);
             user.setEmail(email);
 
-            //Save to database
+            //Save to database (both basic and extended data)
             updateUserInDatabase(currentUserId, user);
 
             //Show success message
