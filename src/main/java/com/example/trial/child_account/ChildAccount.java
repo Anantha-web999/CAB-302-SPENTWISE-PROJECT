@@ -1,4 +1,4 @@
-package com.example.trial.Child_account;
+package com.example.trial.child_account;
 
 public class ChildAccount {
     private int id;

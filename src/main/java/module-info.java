@@ -15,11 +15,11 @@ module com.example.trial {
     exports com.example.trial.Home_add_account;
     opens com.example.trial.logincontroller to javafx.fxml;
     opens com.example.trial.upcomingpayments to javafx.fxml;
-    opens com.example.trial.Child_account to javafx.fxml;
+    opens com.example.trial.child_account to javafx.fxml;
 
 
     exports com.example.trial.upcomingpayments;
-    exports com.example.trial.Child_account;
+    exports com.example.trial.child_account;
     opens com.example.trial.settings to javafx.fxml;
     exports com.example.trial.settings;
 }

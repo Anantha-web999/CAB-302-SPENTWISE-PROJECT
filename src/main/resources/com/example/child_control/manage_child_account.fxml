@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="600.0" prefWidth="1000.0" styleClass="report_container" stylesheets="@../../../Styles/ClientMenu.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trial.Child_account.manage_child_account_controller">
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" styleClass="report_container" stylesheets="@../../../Styles/ClientMenu.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trial.child_account.manage_child_account_controller">
     <Text layoutX="95.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Child Account Management" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
         <font>
           <Font size="22.0" />

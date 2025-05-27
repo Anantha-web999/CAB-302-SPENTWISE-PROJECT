@@ -1,4 +1,4 @@
-package com.example.trial.Child_account;
+package com.example.trial.child_account;
 
 import com.example.trial.Session;
 import javafx.collections.FXCollections;
