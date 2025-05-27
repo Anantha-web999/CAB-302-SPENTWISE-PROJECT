@@ -18,9 +18,8 @@ import java.util.ResourceBundle;
 
 public class AboutUsPanelController implements Initializable {
 
-    @FXML private Label versionLabel;
+
     @FXML private Label buildDateLabel;
-    @FXML private Label javaVersionLabel;
     @FXML private ImageView logoImage;
     @FXML private ImageView centerLogoImage;
 
@@ -78,8 +77,8 @@ public class AboutUsPanelController implements Initializable {
         //Set about us button as active
         setActiveButton(aboutUsButton);
 
-        //Set system information
-        javaVersionLabel.setText(System.getProperty("java.version"));
+
+
     }
 
     private void setActiveButton(Button activeButton) {
