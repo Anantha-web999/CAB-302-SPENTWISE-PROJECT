@@ -33,7 +33,6 @@ public class SettingsPanelController implements Initializable {
     @FXML private ImageView logoImage;
 
     @FXML private Button accountButton;
-    @FXML private Button appPreferencesButton;
     @FXML private Button helpSupportButton;
     @FXML private Button aboutUsButton;
     @FXML private Button cancelButton;
@@ -373,7 +372,6 @@ public class SettingsPanelController implements Initializable {
     private void setActiveButton(Button activeButton) {
         //Make all buttons look inactive first
         accountButton.setStyle(inactiveStyle);
-        appPreferencesButton.setStyle(inactiveStyle);
         helpSupportButton.setStyle(inactiveStyle);
         aboutUsButton.setStyle(inactiveStyle);
 
@@ -385,20 +383,6 @@ public class SettingsPanelController implements Initializable {
     private void handleAccountButton() {
         setActiveButton(accountButton);
         //This button is already active since we're on the account page
-    }
-
-    @FXML
-    private void handleAppPreferencesButton() {
-        setActiveButton(appPreferencesButton);
-        try {
-            Parent appPreferencesRoot = FXMLLoader.load(getClass().getResource("/com/example/settingspanel/AppPreferencesPanel.fxml"));
-            Stage stage = (Stage) appPreferencesButton.getScene().getWindow();
-            stage.setScene(new Scene(appPreferencesRoot));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.err.println("Couldn't load the app preferences page: " + e.getMessage());
-        }
     }
 
     @FXML

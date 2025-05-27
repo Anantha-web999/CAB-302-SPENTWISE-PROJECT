@@ -25,7 +25,6 @@ public class AboutUsPanelController implements Initializable {
     @FXML private ImageView centerLogoImage;
 
     @FXML private Button accountButton;
-    @FXML private Button appPreferencesButton;
     @FXML private Button helpSupportButton;
     @FXML private Button aboutUsButton;
     @FXML private Button homeButton;
@@ -86,7 +85,6 @@ public class AboutUsPanelController implements Initializable {
     private void setActiveButton(Button activeButton) {
         //Reset all buttons to inactive style
         accountButton.setStyle(inactiveStyle);
-        appPreferencesButton.setStyle(inactiveStyle);
         helpSupportButton.setStyle(inactiveStyle);
         aboutUsButton.setStyle(inactiveStyle);
 
@@ -105,20 +103,6 @@ public class AboutUsPanelController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
             System.err.println("Error loading account panel: " + e.getMessage());
-        }
-    }
-
-    @FXML
-    private void handleAppPreferencesButton() {
-        setActiveButton(appPreferencesButton);
-        try {
-            Parent appPreferencesRoot = FXMLLoader.load(getClass().getResource("/com/example/settingspanel/AppPreferencesPanel.fxml"));
-            Stage stage = (Stage) appPreferencesButton.getScene().getWindow();
-            stage.setScene(new Scene(appPreferencesRoot));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.err.println("Error loading app preferences panel: " + e.getMessage());
         }
     }
 

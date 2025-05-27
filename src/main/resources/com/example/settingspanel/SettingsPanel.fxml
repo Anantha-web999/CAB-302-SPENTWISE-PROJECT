@@ -9,7 +9,7 @@
 
 <BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trial.settings.SettingsPanelController">
     <left>
-        <VBox prefWidth="245" style="-fx-background-color: #1a5276;">
+        <VBox prefWidth="245" spacing="4" style="-fx-background-color: #1a5276;">
             <children>
                 <StackPane alignment="CENTER" prefHeight="200.0">
                     <children>
@@ -27,11 +27,6 @@
                     </children>
                 </StackPane>
                 <Button fx:id="accountButton" alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#handleAccountButton" prefHeight="62.0" style="-fx-background-color: #1a5276; -fx-text-fill: #fbfcfc; -fx-font-family: 'Lato'; -fx-font-weight: bold; -fx-font-size: 14px;" text="Account">
-                    <padding>
-                        <Insets left="20.0" />
-                    </padding>
-                </Button>
-                <Button fx:id="appPreferencesButton" alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#handleAppPreferencesButton" prefHeight="62.0" style="-fx-background-color: #1a5276; -fx-text-fill: #fbfcfc; -fx-font-family: 'Lato'; -fx-font-size: 14px;" text="App Preferences">
                     <padding>
                         <Insets left="20.0" />
                     </padding>
