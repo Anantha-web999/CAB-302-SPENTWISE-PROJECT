@@ -11,9 +11,9 @@ public class ChildAccount {
     private String accountType;
     private String userEmail;
 
-    // Full constructor (used when creating a new account with all fields)
+    // Full constructor (used for adding full account)
     public ChildAccount(int id, String accountName, double budget, String bankName,
-                        String accountNumber, String bsb, String accountType, String userEmail ) {
+                        String accountNumber, String bsb, String accountType, String userEmail) {
         this.id = id;
         this.accountName = accountName;
         this.budget = budget;
@@ -24,17 +24,16 @@ public class ChildAccount {
         this.userEmail = userEmail;
     }
 
-    // Minimal constructor (used for TableView display and DB updates/deletes)
-    public ChildAccount(int id, String accountName, double budget, double balance) {
+    // Display constructor (used in TableView)
+    public ChildAccount(int id, String accountName, double budget, double balance, String bankName) {
         this.id = id;
         this.accountName = accountName;
         this.budget = budget;
         this.balance = balance;
+        this.bankName = bankName;
     }
 
-
-
-    // Getters and Setters
+    // Getters & Setters
     public int getId() {
         return id;
     }
@@ -55,6 +54,13 @@ public class ChildAccount {
         this.budget = budget;
     }
 
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
 
     public String getBankName() {
         return bankName;
@@ -95,14 +101,4 @@ public class ChildAccount {
     public void setUserEmail(String userEmail) {
         this.userEmail = userEmail;
     }
-
-    public double getBalance() {
-        return balance;
-    }
-
-    public void setBalance(double balance) {
-        this.balance = balance;
-    }
-
-
 }

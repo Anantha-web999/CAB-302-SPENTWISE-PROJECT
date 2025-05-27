@@ -43,7 +43,6 @@ public class ChildBankAccountHelper {
         }
     }
 
-
     public static List<ChildAccount> getAllChildAccounts(String email) throws SQLException {
         if (!isTableExist()) {
             DatabaseHelper.initializeDatabase();
@@ -51,8 +50,8 @@ public class ChildBankAccountHelper {
 
         List<ChildAccount> accounts = new ArrayList<>();
         int userId = getUserIdByEmail(email);
-        String sql = "SELECT id, account_name, budget, balance, bank_name, account_number, bsb, account_type FROM child_accounts WHERE user_id = ?";
 
+        String sql = "SELECT id, account_name, budget, balance, bank_name FROM child_accounts WHERE user_id = ?";
 
         try (Connection conn = DatabaseHelper.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -60,19 +59,14 @@ public class ChildBankAccountHelper {
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
+                double balance = rs.getObject("balance") != null ? rs.getDouble("balance") : 0.0;
                 ChildAccount account = new ChildAccount(
                         rs.getInt("id"),
                         rs.getString("account_name"),
                         rs.getDouble("budget"),
-                        rs.getString("bank_name"),
-                        rs.getString("account_number"),
-                        rs.getString("bsb"),
-                        rs.getString("account_type"),
-                        email // Set the current user email
+                        balance,
+                        rs.getString("bank_name")
                 );
-                account.setBalance(rs.getDouble("balance"));
-
-
                 accounts.add(account);
             }
         }
@@ -94,12 +88,8 @@ public class ChildBankAccountHelper {
         }
     }
 
-
-
-
     public static void updateBudget(int childId, double newBudget) throws SQLException {
         String sql = "UPDATE child_accounts SET budget = ? WHERE id = ?";
-
         try (Connection conn = DatabaseHelper.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setDouble(1, newBudget);
@@ -110,13 +100,10 @@ public class ChildBankAccountHelper {
 
     public static void deleteChildAccount(int childId) throws SQLException {
         String sql = "DELETE FROM child_accounts WHERE id = ?";
-
         try (Connection conn = DatabaseHelper.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, childId);
             pstmt.executeUpdate();
         }
     }
-
-
 }
