@@ -44,6 +44,15 @@ public class manage_child_account_controller implements Initializable {
     @FXML
     private TableColumn<ChildAccount, Void> deleteColumn;
 
+    @FXML
+    private TableColumn<ChildAccount, String> bankNameColumn;
+
+    @FXML
+    private TableColumn<ChildAccount, Double> budgetColumn;
+
+    @FXML
+    private TableColumn<ChildAccount, Double> balanceColumn;
+
 
 
 
@@ -52,6 +61,10 @@ public class manage_child_account_controller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         // Load columns from ChildAccount properties
         childName.setCellValueFactory(new PropertyValueFactory<>("accountName"));
+        childName.setCellValueFactory(new PropertyValueFactory<>("accountName"));
+        bankNameColumn.setCellValueFactory(new PropertyValueFactory<>("bankName"));
+        budgetColumn.setCellValueFactory(new PropertyValueFactory<>("budget"));
+        balanceColumn.setCellValueFactory(new PropertyValueFactory<>("balance"));
 
         // Set up "Info" button for details
         detailsColumn.setCellFactory(getButtonCellFactory("Info", (child) -> {
@@ -134,7 +147,8 @@ public class manage_child_account_controller implements Initializable {
             // ✅ This line might throw SQLException – it must be inside try
             int userId = ChildBankAccountHelper.getUserIdByEmail(email);
 
-            String sql = "SELECT id, account_name, budget FROM child_accounts WHERE user_id = ?";
+            String sql = "SELECT id, account_name, budget, balance, bank_name FROM child_accounts WHERE user_id = ?";
+
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, userId);
             ResultSet rs = pstmt.executeQuery();
@@ -143,7 +157,9 @@ public class manage_child_account_controller implements Initializable {
                 accounts.add(new ChildAccount(
                         rs.getInt("id"),
                         rs.getString("account_name"),
-                        rs.getDouble("budget")
+                        rs.getDouble("budget"),
+                        rs.getDouble("balance"),
+                        rs.getString("bank_name")
                 ));
             }
 
