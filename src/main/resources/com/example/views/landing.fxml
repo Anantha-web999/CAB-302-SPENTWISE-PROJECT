@@ -5,37 +5,47 @@
 <?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+<!-- The BorderPane provides a simple layout with a centered content area -->
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.example.trial.logincontroller.LandingController"
             stylesheets="@/style.css">
 
+    <!-- Everything inside here will be centered in the window -->
     <center>
+        <!-- VBox stacks its children vertically, keeping them aligned at the center -->
         <VBox alignment="CENTER" styleClass="vbox-spacing">
 
-            <!-- Logo -->
+            <!-- This ImageView displays our logo at a fixed size but preserves its aspect ratio -->
             <ImageView fitWidth="80" fitHeight="80" preserveRatio="true">
                 <Image url="@/spentwiselogo.png"/>
             </ImageView>
 
-            <!-- Title -->
+            <!-- The main title of the app, styled via CSS -->
             <Text text="SpentWise" styleClass="title"/>
+            <!-- A brief subtitle to explain the app’s purpose -->
             <Text text="Smart finance management" styleClass="subtitle"/>
 
-            <!-- Image Row -->
+            <!-- HBox lines up a row of feature images side by side, all centered -->
             <HBox alignment="CENTER" styleClass="hbox-spacing">
+                <!-- First illustration: a bar graph to represent spending trends -->
                 <ImageView fitWidth="150" fitHeight="120" preserveRatio="true">
                     <Image url="@/BARGRAPH.jpg"/>
                 </ImageView>
+                <!-- Second illustration: coins symbolizing savings -->
                 <ImageView fitWidth="100" fitHeight="100" preserveRatio="true">
                     <Image url="@/coins_spentwise.webp"/>
                 </ImageView>
+                <!-- Third illustration: a pie chart showing budget breakdown -->
                 <ImageView fitWidth="150" fitHeight="120" preserveRatio="true">
                     <Image url="@/piechart_spentwise.jpg"/>
                 </ImageView>
             </HBox>
 
-            <!-- Get Started Button -->
-            <Button text="Get Started" onAction="#navigateToLogin" styleClass="button-primary"/>
+            <!-- This button invites the user to get started and navigates to the login screen -->
+            <Button text="Get Started"
+                    onAction="#navigateToLogin"
+                    styleClass="button-primary"/>
         </VBox>
     </center>
 </BorderPane>
