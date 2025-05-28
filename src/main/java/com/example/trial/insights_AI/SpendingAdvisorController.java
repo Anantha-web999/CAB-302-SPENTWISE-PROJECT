@@ -1,4 +1,4 @@
-package com.example.trial;
+package com.example.trial.insights_AI;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;

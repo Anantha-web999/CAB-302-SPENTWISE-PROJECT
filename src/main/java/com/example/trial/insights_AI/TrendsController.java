@@ -3,7 +3,7 @@
 // (powered by FernFlower decompiler)
 //
 
-package com.example.trial;
+package com.example.trial.insights_AI;
 
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;

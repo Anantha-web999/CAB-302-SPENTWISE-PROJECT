@@ -3,7 +3,7 @@
 // (powered by FernFlower decompiler)
 //
 
-package com.example.trial;
+package com.example.trial.insights_AI;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,10 +24,6 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.io.IOException;
 import javafx.scene.control.Alert;
-
-
-
-import java.io.IOException;
 
 public class InsightsController {
     @FXML

@@ -112,7 +112,7 @@
                     <execution>
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.example.trial.Main</mainClass>
+                            <mainClass>com.example.trial.insights_AI.Main</mainClass>
                         </configuration>
                     </execution>
                 </executions>

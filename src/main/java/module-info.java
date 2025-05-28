@@ -22,4 +22,6 @@ module com.example.trial {
     exports com.example.trial.child_account;
     opens com.example.trial.settings to javafx.fxml;
     exports com.example.trial.settings;
+    exports com.example.trial.insights_AI;
+    opens com.example.trial.insights_AI to javafx.fxml;
 }
