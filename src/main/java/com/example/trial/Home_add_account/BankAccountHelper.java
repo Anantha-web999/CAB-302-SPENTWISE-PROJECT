@@ -1,14 +1,12 @@
 package com.example.trial.Home_add_account;
 
 import com.example.trial.DB.DatabaseHelper;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class BankAccountHelper {
     private static final String DB_URL = "jdbc:sqlite:spentwise.db";
-
 
     public static boolean isTableExist() {
         String sql = "SELECT name FROM sqlite_master WHERE type='table' AND name='bank_accounts';";
@@ -23,8 +21,7 @@ public class BankAccountHelper {
     }
 
     public static void addBankAccount(int userId, String bankName, String accountName,
-                                      String accountNumber, String bsb,
-                                      String accountType) throws SQLException {
+                                      String accountNumber, String bsb, String accountType) throws SQLException {
         String sql = "INSERT INTO bank_accounts(user_id, bank_name, account_name, account_number, bsb, account_type, balance) VALUES(?,?,?,?,?,?,?)";
 
         try (Connection conn = DriverManager.getConnection(DB_URL);
@@ -40,7 +37,6 @@ public class BankAccountHelper {
         }
     }
 
-
     public static List<BankAccount> getAllBankAccounts(String email) throws SQLException {
         if (!isTableExist()) {
             DatabaseHelper.initializeDatabase();
@@ -53,11 +49,10 @@ public class BankAccountHelper {
         try (Connection conn = DriverManager.getConnection(DB_URL);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setInt(1, userId);  // Set the userId here
-
+            pstmt.setInt(1, userId);
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
-                    BankAccount account = new BankAccount(
+                    accounts.add(new BankAccount(
                             rs.getInt("id"),
                             rs.getString("bank_name"),
                             rs.getString("account_name"),
@@ -65,19 +60,16 @@ public class BankAccountHelper {
                             rs.getString("bsb"),
                             rs.getString("account_type"),
                             rs.getDouble("balance")
-                    );
-                    accounts.add(account);
+                    ));
                 }
             }
         }
-
         return accounts;
     }
 
-
     public static int getUserIdByEmail(String email) throws SQLException {
         String sql = "SELECT id FROM users WHERE email = ?";
-        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:spentwise.db");
+        try (Connection conn = DriverManager.getConnection(DB_URL);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, email);
             ResultSet rs = pstmt.executeQuery();
@@ -85,6 +77,20 @@ public class BankAccountHelper {
                 return rs.getInt("id");
             } else {
                 throw new SQLException("User not found for email: " + email);
+            }
+        }
+    }
+
+    public static String getFullNameByEmail(String email) throws SQLException {
+        String sql = "SELECT full_name FROM users WHERE email = ?";
+        try (Connection conn = DriverManager.getConnection(DB_URL);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, email);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getString("full_name");
+            } else {
+                return "User";
             }
         }
     }

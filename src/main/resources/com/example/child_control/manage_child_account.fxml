@@ -8,33 +8,27 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="600.0" prefWidth="1000.0" styleClass="report_container"
-            stylesheets="@../../../Styles/ClientMenu.css" xmlns="http://javafx.com/javafx/23.0.1"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.example.trial.Child_account.manage_child_account_controller">
-    <Text layoutX="95.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Child Account Management"
-          AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" styleClass="report_container" stylesheets="@../../../Styles/ClientMenu.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trial.child_account.manage_child_account_controller">
+    <Text layoutX="95.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Child Account Management" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
         <font>
-          <Font size="22.0"/>
+          <Font size="22.0" />
         </font>
     </Text>
-    <Button fx:id="add_acc_btn" alignment="CENTER" layoutX="646.0" layoutY="30.0" mnemonicParsing="false"
-            onAction="#handleAddChildAccount" styleClass="alt_menu_btn" text="  Add " AnchorPane.rightAnchor="130.0"
-            AnchorPane.topAnchor="20.0">
+    <Button fx:id="add_acc_btn" alignment="CENTER" layoutX="646.0" layoutY="30.0" mnemonicParsing="false" onAction="#handleAddChildAccount" styleClass="alt_menu_btn" text="  Add " AnchorPane.rightAnchor="130.0" AnchorPane.topAnchor="20.0">
         <graphic>
-          <FontAwesomeIconView glyphName="PLUS" size="20"/>
+          <FontAwesomeIconView glyphName="PLUS" size="20" />
         </graphic>
     </Button>
-    <TableView fx:id="tableView" layoutX="20.0" layoutY="108.0" prefHeight="480.0" prefWidth="980.0" styleClass="main_menu_container"
-               AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+    <TableView fx:id="tableView" layoutX="20.0" layoutY="108.0" prefHeight="480.0" prefWidth="980.0" styleClass="main_menu_container" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
       <columns>
-          <TableColumn fx:id="childName" text="Child"/>
-          <TableColumn fx:id="detailsColumn" text="Details"/>
-          <TableColumn fx:id="editColumn" text="Edit"/>
-          <TableColumn fx:id="deleteColumn" text="Delete"/>
+          <TableColumn fx:id="childName" prefWidth="140.0" text="Child Name" />
+          <TableColumn fx:id="bankNameColumn" prefWidth="140.0" text="Bank Name" />
+          <TableColumn fx:id="budgetColumn" prefWidth="140.0" text="Budget" />
+          <TableColumn fx:id="balanceColumn" prefWidth="140.0" text="Balance" />
+          <TableColumn fx:id="detailsColumn" prefWidth="140.0" text="Details" />
+          <TableColumn fx:id="editColumn" prefWidth="140.0" text="Edit" />
+          <TableColumn fx:id="deleteColumn" prefWidth="140.0" text="Delete" />
       </columns>
     </TableView>
-    <Button fx:id="add_child_acc_btn1" alignment="CENTER" layoutX="883.0" layoutY="37.0" mnemonicParsing="false"
-            onAction="#handleBack" styleClass="alt_menu_btn" text="     Back" AnchorPane.rightAnchor="30.0"
-            AnchorPane.topAnchor="20.0"/>
+    <Button fx:id="add_child_acc_btn1" alignment="CENTER" layoutX="883.0" layoutY="37.0" mnemonicParsing="false" onAction="#handleBack" styleClass="alt_menu_btn" text="     Back" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="20.0" />
 </AnchorPane>

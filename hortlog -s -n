@@ -1,0 +1,100 @@
+7a4d179 - M.N.A. Nizaaq - refactored homepage
+a189ffc - M.N.A. Nizaaq - fixed advisor and settings btn
+b60dc3a - M.N.A. Nizaaq - fixed advisor and settings btn
+eb7380c - M.N.A. Nizaaq - Merge remote-tracking branch 'origin/master'
+97ca052 - M.N.A. Nizaaq - added validations for add account
+dc26e81 - M.N.A. Nizaaq - added validations for add account
+6e8a21c - Anantha-web999 - Merge remote-tracking branch 'origin/master'
+f10676e - Anantha-web999 - added clear button in Ai UI to clear the existing text in the field
+2a9990a - Lachlan - finalised all the FAQs in help and support section of the settings page
+6d153e8 - Lachlan - finalised all the FAQs in help and support section of the settings page
+719f5b5 - Lachlan - cleaned up some coding redundancies in help and support
+340c19b - Lachlan - added some addition FAQs to the help and support page
+79fba99 - Lachlan - added some addition FAQs to the help and support page
+466fdb4 - Lachlan - adjusted some of the visual text in the help and support FAQs
+307da57 - Lachlan - added ui elements for app preferences page
+baafddd - Lachlan - added ui elements for help and support page
+e1ef443 - Lachlan - added ui elements for about us page
+33ab76a - Lachlan - initialising backend capability of settings page
+1bdaff3 - Lachlan - removed redundant java file from settings directory
+1138efe - Anantha-web999 - months field enlarged
+4d8533d - Anantha-web999 - ui spacings
+76d0cb4 - Anantha-web999 - screen size fixed
+9351220 - Anantha-web999 - button  changes
+eb081c8 - Anantha-web999 - button  changes
+e50a346 - Anantha-web999 - ADD LOGO FOR AI
+8bc0527 - Anantha-web999 - fixing button in ai fxml
+6cc9a4c - M.N.A. Nizaaq - home code refactor
+2390ca9 - M.N.A. Nizaaq - Merge branch 'master' into Homepage
+6c7887e - Anantha-web999 - fix lama lag and response glitch
+e4c849b - Anantha-web999 - added maven dependencies and info java
+5deabab - Anantha-web999 - connected ai to dashboard
+42ca46e - Anantha-web999 - removed ai button from insights as it was a trial,
+12fe89b - Anantha-web999 - changed budget button to AI advisor
+20071a9 - Anantha-web999 - checking db
+d282799 - Anantha-web999 - new controller and fxml file for AI
+ca3e619 - Anantha-web999 - trying to add ai
+13667cc - M.N.A. Nizaaq - home page date fixed
+59c2cf5 - M.N.A. Nizaaq - home page db
+3c371d6 - M.N.A. Nizaaq - Fixed home page username
+329fd46 - Anantha-web999 - Merge branch 'insightsUI'
+19d2bca - Anantha-web999 - Merge remote-tracking branch 'origin/master'
+c288559 - Anantha-web999 - back button error fixed
+a871194 - Lachlan LA - Merge pull request #2 from Anantha-web999/settingspages
+3b5ed92 - Lachlan - changed back button ui
+2581b30 - Lachlan - allows navigation from the settings page to go back to dashboard
+5c86a4f - Lachlan - allows navigation from the settings page to go back to dashboard
+8e6b391 - Anantha-web999 - settings back button
+99c1d25 - Anantha-web999 - Merge branch 'master' into insightsUI
+0a4a53c - Anantha-web999 - Merge remote-tracking branch 'origin/master'
+641a821 - Anantha-web999 - main error
+ab678e5 - Anantha-web999 - added some styles sheet to .css file and adapted the font
+7a8d580 - Lachlan - fixed a bug when opening the settings page from dashboard
+81fed7b - Anantha-web999 - data can be downloaded and stored as excel sheet now
+c2ce2d9 - Anantha-web999 - export button for compare monthly expenses
+1dbda0b - Anantha-web999 - modules added
+dd64127 - Anantha-web999 - export functionality
+3872edf - Lachlan - Merge branch 'master' into settingspages
+030cf19 - M.N.A. Nizaaq - Implement child account management UI and backend
+0d01c3b - M.N.A. Nizaaq - added recent transaction view
+a164f6b - LachlanLAQUT - made changes to the navigation buttons
+46b834e - M.N.A. Nizaaq - added recent transaction view
+227e7ee - M.N.A. Nizaaq - fixed db errors
+c742e7b - M.N.A. Nizaaq - connected table user and bank accounts
+8589f37 - rawGUAVA - Merge remote-tracking branch 'origin/master'
+4040e4b - rawGUAVA - database done for login
+ca341f4 - Anantha-web999 - Create maven.yml
+6e03897 - rawGUAVA - Merge remote-tracking branch 'origin/master'
+c8d49e9 - M.N.A. Nizaaq - added recent transaction view
+12bf784 - M.N.A. Nizaaq - added recent transaction view
+bb36597 - Lachlan - Merge remote-tracking branch 'origin/settingspages' into settingspages
+4897bb1 - Lachlan - fixed visual issues with the spentwise logo
+0d71175 - M.N.A. Nizaaq - ChildAccount UI and DB
+a7dd76c - rawGUAVA - Merge remote-tracking branch 'origin/master'
+6156c50 - M.N.A. Nizaaq - added recent transaction view
+6c8d225 - M.N.A. Nizaaq - fixed card view and connected payments
+e87b533 - Yonathan Keefe - merged upcoming payments
+6da011a - Yonathan Keefe - added my part to the current code
+932b164 - rawGUAVA - Merge remote-tracking branch 'origin/master'
+5d694ad - M.N.A. Nizaaq - merged insights , login, settings etc
+7489135 - rawGUAVA - Merge remote-tracking branch 'origin/master'
+852145a - Lachlan - Changed settings code from java swing to javafx, still doesnt work ;(
+340ba01 - M.N.A. Nizaaq - Merge branch 'master' of https://github.com/Anantha-web999/CAB-302-SPENTWISE-PROJECT into login
+20dfd94 - Anantha-web999 - Merge branch 'insightsUI'
+7dc4da3 - Anantha-web999 - Merged code and some changes in insights dashboard and insights merged with buttons
+74097fa - Anantha-web999 - TDD
+3210711 - Anantha-web999 - Merge remote-tracking branch 'origin/master'
+e51d48a - Anantha-web999 - Added TDD and test cases
+4327683 - M.N.A. Nizaaq - Merge branch 'Homepage'
+975135b - M.N.A. Nizaaq - merged insights and settings
+116bc56 - rawGUAVA - login changes
+8201c26 - Lachlan - Added styling to the settingspanel
+0a0e410 - Anantha-web999 - Merge remote-tracking branch 'origin/master'
+910cfc7 - Anantha-web999 - pom
+065aa4d - M.N.A. Nizaaq - homepage
+59a24e3 - Lachlan - SettingsPanel and SettingsManager setup
+3ec0093 - Anantha-web999 - new ui changes for buttons
+514ac7f - Anantha-web999 - example
+25e91da - Anantha-web999 - Insights UI Anantha
+b2f850c - Anantha-web999 - INSIGHTS UI
+6bdd1f3 - Anantha-web999 - Added Java

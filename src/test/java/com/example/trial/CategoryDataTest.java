@@ -1,6 +1,8 @@
 package com.example.trial;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import com.example.trial.insights_AI.CategoryData;
 import org.junit.jupiter.api.Test;
 
 class CategoryDataTest {

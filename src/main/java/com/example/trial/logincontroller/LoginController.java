@@ -20,6 +20,10 @@ public class LoginController {
 
     @FXML private TextField emailField;
     @FXML private PasswordField passwordField;
+    @FXML private TextField visiblePasswordField;
+    @FXML private Button togglePasswordButton;
+    private boolean passwordVisible = false;
+
 
     @FXML
     public void handleLogin(ActionEvent event) {
@@ -99,4 +103,29 @@ public class LoginController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
+    @FXML
+    private void togglePasswordVisibility(ActionEvent event) {
+        passwordVisible = !passwordVisible;
+
+        if (passwordVisible) {
+            // copy over the masked text, show the plain-text field
+            visiblePasswordField.setText(passwordField.getText());
+            visiblePasswordField.setVisible(true);
+            visiblePasswordField.setManaged(true);
+            passwordField.setVisible(false);
+            passwordField.setManaged(false);
+            togglePasswordButton.setText("Hide");
+        } else {
+            // copy back into the masked field, hide the plain-text
+            passwordField.setText(visiblePasswordField.getText());
+            passwordField.setVisible(true);
+            passwordField.setManaged(true);
+            visiblePasswordField.setVisible(false);
+            visiblePasswordField.setManaged(false);
+            togglePasswordButton.setText("Show");
+        }
+    }
+
+
 }
