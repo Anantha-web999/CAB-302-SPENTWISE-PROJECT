@@ -8,7 +8,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #e6f0ff;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trial.TrendsController">
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #e6f0ff;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trial.insights_AI.TrendsController">
 
     <!-- Title -->
     <Label layoutX="368.0" layoutY="22.0" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #003366;" text="Weekly / Monthly Trends" />

@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trial.Child_account.Add_Child_Account_Controller">
+<BorderPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trial.child_account.Add_Child_Account_Controller">
     <center>
         <VBox alignment="CENTER" prefHeight="600.0" prefWidth="1000.0" spacing="30" style="-fx-background-color: #e6f0ff;">
             <padding>

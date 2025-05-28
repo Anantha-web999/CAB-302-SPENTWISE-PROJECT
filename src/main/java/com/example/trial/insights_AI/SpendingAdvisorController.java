@@ -1,4 +1,4 @@
-package com.example.trial;
+package com.example.trial.insights_AI;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -31,6 +31,13 @@ public class SpendingAdvisorController {
 
     @FXML
     private TextArea responseArea;
+
+
+    @FXML
+    private void clearChat() {
+        userInput.clear();
+        aiResponse.clear();
+    }
 
     @FXML
     private void handleGetAdvice() {

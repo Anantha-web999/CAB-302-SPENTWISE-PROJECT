@@ -1,4 +1,4 @@
-package com.example.trial.Child_account;
+package com.example.trial.child_account;
 
 import com.example.trial.DB.DatabaseHelper;
 import com.example.trial.Session;
@@ -8,26 +8,18 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class Add_Child_Account_Controller {
 
-    @FXML
-    private TextField bankNameField;
-    @FXML
-    private TextField accountNameField;
-    @FXML
-    private TextField accountNumberField;
-    @FXML
-    private TextField bsbField;
-    @FXML
-    private ComboBox<String> accountTypeCombo;
-
+    @FXML private TextField bankNameField;
+    @FXML private TextField accountNameField;
+    @FXML private TextField accountNumberField;
+    @FXML private TextField bsbField;
+    @FXML private ComboBox<String> accountTypeCombo;
 
     @FXML
     public void initialize() {
@@ -37,23 +29,21 @@ public class Add_Child_Account_Controller {
 
     @FXML
     private void handleSaveAccount() {
-        String bankName = bankNameField.getText();
-        String accountName = accountNameField.getText();
-        String accountNumber = accountNumberField.getText();
-        String bsb = bsbField.getText();
+        String bankName = bankNameField.getText().trim();
+        String accountName = accountNameField.getText().trim();
+        String accountNumber = accountNumberField.getText().trim();
+        String bsb = bsbField.getText().trim();
         String accountType = accountTypeCombo.getValue();
 
-        if (bankName.isEmpty() || accountName.isEmpty() || accountNumber.isEmpty() ||
-                bsb.isEmpty() || accountType == null) {
-            showAlert(Alert.AlertType.ERROR, "Error", "Please fill in all fields.");
+        if (!isValidInput(bankName, accountName, accountNumber, bsb, accountType)) {
+            showAlert(Alert.AlertType.ERROR, "Validation Error", "Please fill in all fields.");
             return;
         }
 
         try {
-            String email = Session.getCurrentUserEmail();
-            ChildBankAccountHelper.addChildAccount(
-                    accountName, 0.0, bankName, accountNumber, bsb, accountType, email
-            );
+            String userEmail = Session.getCurrentUserEmail();
+            ChildBankAccountHelper.addChildAccount(accountName, 0.0, bankName, accountNumber, bsb, accountType, userEmail);
+
             showAlert(Alert.AlertType.INFORMATION, "Success", "Child account saved successfully!");
             clearFields();
         } catch (Exception e) {
@@ -61,8 +51,9 @@ public class Add_Child_Account_Controller {
         }
     }
 
-
-
+    private boolean isValidInput(String bank, String name, String number, String bsb, String type) {
+        return !bank.isEmpty() && !name.isEmpty() && !number.isEmpty() && !bsb.isEmpty() && type != null;
+    }
 
     private void clearFields() {
         bankNameField.clear();
@@ -75,19 +66,16 @@ public class Add_Child_Account_Controller {
     private void showAlert(Alert.AlertType type, String title, String message) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
+        alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
     }
 
-
-
-
-    public void handleBack(ActionEvent event) throws IOException {
-        Parent homeRoot = FXMLLoader.load(getClass().getResource("/com/example/child_control/manage_child_account.fxml"));
+    @FXML
+    private void handleBack(ActionEvent event) throws IOException {
+        Parent view = FXMLLoader.load(getClass().getResource("/com/example/child_control/manage_child_account.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(homeRoot));
+        stage.setScene(new Scene(view));
         stage.show();
     }
-
-
 }
