@@ -20,16 +20,15 @@
         </graphic>
     </Button>
     <TableView fx:id="tableView" layoutX="20.0" layoutY="108.0" prefHeight="480.0" prefWidth="980.0" styleClass="main_menu_container" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
-        <columns>
-            <TableColumn fx:id="childName" prefWidth="140.0" text="Child" />
-            <TableColumn fx:id="bankNameColumn" prefWidth="140.0" text="Bank Name" />
-            <TableColumn fx:id="budgetColumn" prefWidth="140.0" text="Budget" />
-            <TableColumn fx:id="balanceColumn" prefWidth="140.0" text="Balance" />
-            <TableColumn fx:id="detailsColumn" prefWidth="140.0" text="Details" />
-            <TableColumn fx:id="editColumn" prefWidth="140.0" text="Edit" />
-            <TableColumn fx:id="deleteColumn" prefWidth="140.0" text="Delete" />
-        </columns>
+      <columns>
+          <TableColumn fx:id="childName" prefWidth="140.0" text="Child Name" />
+          <TableColumn fx:id="bankNameColumn" prefWidth="140.0" text="Bank Name" />
+          <TableColumn fx:id="budgetColumn" prefWidth="140.0" text="Budget" />
+          <TableColumn fx:id="balanceColumn" prefWidth="140.0" text="Balance" />
+          <TableColumn fx:id="detailsColumn" prefWidth="140.0" text="Details" />
+          <TableColumn fx:id="editColumn" prefWidth="140.0" text="Edit" />
+          <TableColumn fx:id="deleteColumn" prefWidth="140.0" text="Delete" />
+      </columns>
     </TableView>
-
     <Button fx:id="add_child_acc_btn1" alignment="CENTER" layoutX="883.0" layoutY="37.0" mnemonicParsing="false" onAction="#handleBack" styleClass="alt_menu_btn" text="     Back" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="20.0" />
 </AnchorPane>
