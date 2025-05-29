@@ -1,38 +1,43 @@
-@font-face {
-    font-family: "Lato";
-    /*src: url("fonts/Lato-Regular.ttf");*/
-}
+@/* Define custom font faces */
+ @font-face {
+     font-family: "Lato";
+     /* src: url("fonts/Lato-Regular.ttf"); Uncomment and set path if you have the font file */
+ }
 
-@font-face {
-    font-family: "Lato Bold";
-    /*src: url("fonts/Lato-Bold.ttf");*/
-}
+ @font-face {
+     font-family: "Lato Bold";
+     /* src: url("fonts/Lato-Bold.ttf"); Uncomment and set path if you have the font file */
+ }
 
-.root {
-    -fx-font-family: "Lato";
-    -fx-background-color: #e6f0ff; /* Very dark background */
-}
+ /* Base root style for the app */
+ .root {
+     -fx-font-family: "Lato";
+     -fx-background-color: #e6f0ff; /* Soft light blue background */
+ }
 
-.table-view {
-    -fx-background-color: #00B9b3; /* Darker blue for table *//
-    -fx-text-fill: #fbfcfc; /* Almost white text */
-}
+ /* Table view styling */
+ .table-view {
+     -fx-background-color: #00B9b3; /* Darker blue for table */
+     -fx-text-fill: #fbfcfc;        /* Almost white text */
+ }
 
-.table-column {
-    -fx-alignment: CENTER;
-    -fx-font-size: 14px;
-    -fx-text-fill: #fbfcfc;
-}
+ /* Table column headers and cells */
+ .table-column {
+     -fx-alignment: CENTER;
+     -fx-font-size: 14px;
+     -fx-text-fill: #fbfcfc;
+ }
 
-.button {
-    -fx-background-color: #2980b9; /* Strong blue */
-    -fx-text-fill: #fbfcfc;
-    -fx-font-weight: bold;
-    -fx-font-family: "Lato Bold";
-}
+ /* Button styling */
+ .button {
+     -fx-background-color: #2980b9;    /* Strong blue */
+     -fx-text-fill: #fbfcfc;
+     -fx-font-weight: bold;
+     -fx-font-family: "Lato";          /* Use "Lato" and set bold with weight */
+ }
 
-.text-field {
-    -fx-background-color: #fbfcfc; /* Light background */
-    -fx-text-fill: #17202a; /* Dark text */
-}
-
+ /* Input field styling */
+ .text-field {
+     -fx-background-color: #fbfcfc;    /* Light background for inputs */
+     -fx-text-fill: #17202a;           /* Dark text color */
+ }
