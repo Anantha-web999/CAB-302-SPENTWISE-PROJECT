@@ -1,5 +1,6 @@
-package com.example.trial.logincontroller;
+package LOGINsignupLANDING;
 
+import com.example.trial.logincontroller.LoginController;
 import javafx.embed.swing.JFXPanel;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
