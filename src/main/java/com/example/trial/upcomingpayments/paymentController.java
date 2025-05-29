@@ -87,13 +87,26 @@ public class paymentController {
     private void handleDeletePayment() {
         int selectedIndex = paymentTable.getSelectionModel().getSelectedIndex();
         if (selectedIndex >= 0) {
-            // If a payment is selected, remove it
+            payment selectedPayment = paymentTable.getItems().get(selectedIndex);
+
+            String email = Session.getCurrentUserEmail();
+            int userId = PaymentDBHelper.getUserIdByEmail(email);
+
+            // Delete from DB
+            PaymentDBHelper.deletePayment(
+                    selectedPayment.nameProperty().get(),
+                    selectedPayment.amountProperty().get(),
+                    selectedPayment.dueDateProperty().get(),
+                    userId
+            );
+
+            // Remove from TableView
             paymentTable.getItems().remove(selectedIndex);
         } else {
-            // If nothing is selected, warn the user
             showAlert("No Selection", "Please select a payment to delete");
         }
     }
+
 
     /**
      * Clears all the input fields (name, amount, and date).

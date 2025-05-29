@@ -62,4 +62,20 @@ public class PaymentDBHelper {
         }
         return payments;
     }
+
+    // Delete a payment by name, amount, date, and user (to ensure correct record)
+    public static void deletePayment(String name, double amount, LocalDate dueDate, int userId) {
+        String sql = "DELETE FROM upcoming_payments WHERE name = ? AND amount = ? AND due_date = ? AND user_id = ?";
+        try (Connection conn = DatabaseHelper.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, name);
+            pstmt.setDouble(2, amount);
+            pstmt.setString(3, dueDate.toString());
+            pstmt.setInt(4, userId);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println("Error deleting payment: " + e.getMessage());
+        }
+    }
+
 }
