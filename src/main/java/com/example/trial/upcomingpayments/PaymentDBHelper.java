@@ -40,4 +40,26 @@ public class PaymentDBHelper {
         }
     }
 
+    // Fetch all payments for a user
+    public static List<payment> getAllPaymentsForUser(int userId) {
+        List<payment> payments = new ArrayList<>();
+        String sql = "SELECT name, amount, due_date, paid FROM upcoming_payments WHERE user_id = ?";
+        try (Connection conn = DatabaseHelper.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, userId);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                String name = rs.getString("name");
+                double amount = rs.getDouble("amount");
+                LocalDate dueDate = LocalDate.parse(rs.getString("due_date"));
+                boolean paid = rs.getBoolean("paid");
+                payment pay = new payment(name, amount, dueDate);
+                pay.setPaid(paid);
+                payments.add(pay);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error loading payments: " + e.getMessage());
+        }
+        return payments;
+    }
 }
