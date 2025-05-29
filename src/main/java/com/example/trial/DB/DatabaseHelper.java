@@ -62,6 +62,18 @@ public class DatabaseHelper {
 
             stmt.execute(childAccountsSql);
 
+            String upcomingPaymentsSql = "CREATE TABLE IF NOT EXISTS upcoming_payments (" +
+                    "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    "name TEXT NOT NULL, " +
+                    "amount REAL NOT NULL, " +
+                    "due_date TEXT NOT NULL, " +
+                    "paid BOOLEAN DEFAULT 0, " +
+                    "user_id INTEGER NOT NULL, " +
+                    "FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE" +
+                    ");";
+            stmt.execute(upcomingPaymentsSql);
+
+
         } catch (SQLException e) {
             System.err.println("Error initializing database: " + e.getMessage());
         }
