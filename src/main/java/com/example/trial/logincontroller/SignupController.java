@@ -19,26 +19,38 @@ public class SignupController {
 
     @FXML private TextField fullNameField;
     @FXML private TextField emailField;
+
     @FXML private PasswordField passwordField;
+    @FXML private TextField visiblePasswordField;
+    @FXML private Button togglePasswordButton;
+    private boolean passwordVisible = false;
+
     @FXML private PasswordField confirmPasswordField;
-    @FXML private Label signupErrorLabel;  // new
+    @FXML private TextField visibleConfirmPasswordField;
+    @FXML private Button toggleConfirmPasswordButton;
+    private boolean confirmPasswordVisible = false;
+
+    @FXML private Label signupErrorLabel;
 
     private static final Pattern EMAIL_PATTERN = Pattern.compile(
             "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$"
     );
-    // At least one uppercase, one special, min 8 chars
     private static final Pattern PASSWORD_PATTERN = Pattern.compile(
             "^(?=.*[A-Z])(?=.*[^A-Za-z0-9]).{8,}$"
     );
 
     @FXML
     public void handleSignup(ActionEvent event) {
-        signupErrorLabel.setVisible(false); // reset
+        signupErrorLabel.setVisible(false);
 
         String fullName = fullNameField.getText().trim();
-        String email    = emailField.getText().trim();
-        String pw       = passwordField.getText();
-        String cpw      = confirmPasswordField.getText();
+        String email = emailField.getText().trim();
+        String pw = passwordVisible
+                ? visiblePasswordField.getText()
+                : passwordField.getText();
+        String cpw = confirmPasswordVisible
+                ? visibleConfirmPasswordField.getText()
+                : confirmPasswordField.getText();
 
         if (fullName.isEmpty() || email.isEmpty() || pw.isEmpty() || cpw.isEmpty()) {
             showError("All fields are required.");
@@ -75,19 +87,55 @@ public class SignupController {
             pstmt.setString(3, hashed);
             pstmt.executeUpdate();
 
-            // success → go to login
+            // on success, go back to login
             Parent root = FXMLLoader.load(getClass().getResource("/com/example/views/login.fxml"));
             Stage stage = (Stage)((javafx.scene.Node)event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root, 1000, 600));
             stage.setResizable(false);
 
-        } catch (SQLException e) {
-            showError("Database error: " + e.getMessage());
-        } catch (NoSuchAlgorithmException e) {
-            showError("Encryption error: " + e.getMessage());
         } catch (Exception e) {
             showError("Unexpected error.");
             e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void togglePasswordVisibility(ActionEvent event) {
+        passwordVisible = !passwordVisible;
+        if (passwordVisible) {
+            visiblePasswordField.setText(passwordField.getText());
+            visiblePasswordField.setVisible(true);
+            visiblePasswordField.setManaged(true);
+            passwordField.setVisible(false);
+            passwordField.setManaged(false);
+            togglePasswordButton.setText("Hide");
+        } else {
+            passwordField.setText(visiblePasswordField.getText());
+            passwordField.setVisible(true);
+            passwordField.setManaged(true);
+            visiblePasswordField.setVisible(false);
+            visiblePasswordField.setManaged(false);
+            togglePasswordButton.setText("Show");
+        }
+    }
+
+    @FXML
+    private void toggleConfirmPasswordVisibility(ActionEvent event) {
+        confirmPasswordVisible = !confirmPasswordVisible;
+        if (confirmPasswordVisible) {
+            visibleConfirmPasswordField.setText(confirmPasswordField.getText());
+            visibleConfirmPasswordField.setVisible(true);
+            visibleConfirmPasswordField.setManaged(true);
+            confirmPasswordField.setVisible(false);
+            confirmPasswordField.setManaged(false);
+            toggleConfirmPasswordButton.setText("Hide");
+        } else {
+            confirmPasswordField.setText(visibleConfirmPasswordField.getText());
+            confirmPasswordField.setVisible(true);
+            confirmPasswordField.setManaged(true);
+            visibleConfirmPasswordField.setVisible(false);
+            visibleConfirmPasswordField.setManaged(false);
+            toggleConfirmPasswordButton.setText("Show");
         }
     }
 
