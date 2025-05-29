@@ -11,39 +11,46 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane stylesheets="@/style(payment).css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trial.upcomingpayments.paymentController">
-
-    <padding>
-        <Insets topRightBottomLeft="10" />
-    </padding>
-
+<BorderPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trial.upcomingpayments.paymentController">
     <center>
-        <TableView fx:id="paymentTable" BorderPane.alignment="CENTER">
-            <columns>
-                <TableColumn fx:id="nameColumn" prefWidth="150" text="Name" />
-                <TableColumn fx:id="amountColumn" prefWidth="100" text="Amount ($)" />
-                <TableColumn fx:id="dateColumn" prefWidth="150" text="Due Date" />
-                <TableColumn fx:id="paidColumn" prefWidth="100" text="Paid" />
-            </columns>
-        </TableView>
-    </center>
+        <VBox alignment="CENTER" prefWidth="900.0" prefHeight="600.0" spacing="30" style="-fx-background-color: #e6f0ff;">
+            <padding>
+                <Insets top="40" right="80" bottom="40" left="80"/>
+            </padding>
 
-    <bottom>
-        <VBox spacing="10">
-            <HBox spacing="10">
-                <Label text="Name:" />
-                <TextField fx:id="nameField" prefWidth="150" />
-                <Label text="Amount:" />
-                <TextField fx:id="amountField" prefWidth="100" />
-                <Label text="Due Date:" />
-                <DatePicker fx:id="datePicker" prefWidth="150" />
-            </HBox>
+            <!-- Title Label -->
+            <Label text="Upcoming Payments"
+                   style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" />
 
-            <HBox spacing="10">
-                <Button onAction="#handleAddPayment" text="Add Payment" />
-                <Button onAction="#handleDeletePayment" text="Delete Selected" />
-            <Button fx:id="back_btn" mnemonicParsing="false" text="Back" onAction="#handleGoBack" />
-            </HBox>
+            <!-- Table -->
+            <TableView fx:id="paymentTable" prefWidth="700.0" style="-fx-font-size: 15px; -fx-background-radius: 10; -fx-background-color: white;">
+                <columns>
+                    <TableColumn fx:id="nameColumn" prefWidth="200" text="Name" />
+                    <TableColumn fx:id="amountColumn" prefWidth="120" text="Amount ($)" />
+                    <TableColumn fx:id="dateColumn" prefWidth="180" text="Due Date" />
+                    <TableColumn fx:id="paidColumn" prefWidth="100" text="Paid" />
+                </columns>
+            </TableView>
+
+            <!-- Inputs and Buttons -->
+            <VBox spacing="18">
+                <HBox alignment="CENTER" spacing="15">
+                    <Label text="Name:" style="-fx-font-size: 14px;" />
+                    <TextField fx:id="nameField" prefWidth="120" style="-fx-font-size: 14px; -fx-pref-height: 30;" />
+                    <Label text="Amount:" style="-fx-font-size: 14px;" />
+                    <TextField fx:id="amountField" prefWidth="90" style="-fx-font-size: 14px; -fx-pref-height: 30;" />
+                    <Label text="Due Date:" style="-fx-font-size: 14px;" />
+                    <DatePicker fx:id="datePicker" prefWidth="140" style="-fx-font-size: 14px; -fx-pref-height: 30;" />
+                </HBox>
+                <HBox alignment="CENTER" spacing="16">
+                    <Button onAction="#handleAddPayment" text="Add Payment"
+                            style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 16px; -fx-padding: 6 20; -fx-background-radius: 8;" />
+                    <Button onAction="#handleDeletePayment" text="Delete Selected"
+                            style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 16px; -fx-padding: 6 20; -fx-background-radius: 8;" />
+                    <Button fx:id="back_btn" mnemonicParsing="false" text="Back" onAction="#handleGoBack"
+                            style="-fx-background-color: #2980b9; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 16px; -fx-padding: 6 22; -fx-background-radius: 8;" />
+                </HBox>
+            </VBox>
         </VBox>
-    </bottom>
+    </center>
 </BorderPane>
