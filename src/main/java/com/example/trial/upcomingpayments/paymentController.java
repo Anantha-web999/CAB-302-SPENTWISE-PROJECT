@@ -1,5 +1,6 @@
 package com.example.trial.upcomingpayments;
 
+import com.example.trial.Session;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -39,15 +40,17 @@ public class paymentController {
      */
     @FXML
     public void initialize() {
-        // Bind each table column to the relevant property in the payment class
         nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
         amountColumn.setCellValueFactory(cellData -> cellData.getValue().amountProperty());
         dateColumn.setCellValueFactory(cellData -> cellData.getValue().dueDateProperty());
         paidColumn.setCellValueFactory(cellData -> cellData.getValue().paidProperty());
 
-        // Set the table's items to our payments list
+        String email = Session.getCurrentUserEmail();
+        int userId = PaymentDBHelper.getUserIdByEmail(email);
+        payments.addAll(PaymentDBHelper.getAllPaymentsForUser(userId));
         paymentTable.setItems(payments);
     }
+
 
     /**
      * Adds a new payment when the "Add" button is clicked.
@@ -56,21 +59,22 @@ public class paymentController {
     @FXML
     private void handleAddPayment() {
         try {
-            String name = nameField.getText();                     // Get payment name from input
-            double amount = Double.parseDouble(amountField.getText()); // Parse payment amount from input
-            LocalDate date = datePicker.getValue();                // Get due date from input
+            String name = nameField.getText();
+            double amount = Double.parseDouble(amountField.getText());
+            LocalDate date = datePicker.getValue();
 
-            // Simple validation: make sure all fields are filled
             if (name.isEmpty() || date == null) {
                 showAlert("Error", "Please fill all fields");
                 return;
             }
 
-            // Add new payment to the list (and thus to the table)
+            String email = Session.getCurrentUserEmail();
+            int userId = PaymentDBHelper.getUserIdByEmail(email);
+
+            PaymentDBHelper.insertPayment(name, amount, date, false, userId);
             payments.add(new payment(name, amount, date));
-            clearFields();  // Reset input fields for next entry
+            clearFields();
         } catch (NumberFormatException e) {
-            // If amount isn't a valid number, show a warning
             showAlert("Invalid Input", "Please enter a valid amount");
         }
     }
@@ -83,13 +87,26 @@ public class paymentController {
     private void handleDeletePayment() {
         int selectedIndex = paymentTable.getSelectionModel().getSelectedIndex();
         if (selectedIndex >= 0) {
-            // If a payment is selected, remove it
+            payment selectedPayment = paymentTable.getItems().get(selectedIndex);
+
+            String email = Session.getCurrentUserEmail();
+            int userId = PaymentDBHelper.getUserIdByEmail(email);
+
+            // Delete from DB
+            PaymentDBHelper.deletePayment(
+                    selectedPayment.nameProperty().get(),
+                    selectedPayment.amountProperty().get(),
+                    selectedPayment.dueDateProperty().get(),
+                    userId
+            );
+
+            // Remove from TableView
             paymentTable.getItems().remove(selectedIndex);
         } else {
-            // If nothing is selected, warn the user
             showAlert("No Selection", "Please select a payment to delete");
         }
     }
+
 
     /**
      * Clears all the input fields (name, amount, and date).
@@ -132,4 +149,13 @@ public class paymentController {
         stage.setScene(new Scene(homeRoot));
         stage.show();
     }
+
+
+
+
+
+
+
+
+
 }
