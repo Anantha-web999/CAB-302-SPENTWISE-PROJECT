@@ -1,17 +1,30 @@
 package com.example.trial;
 
 public class Session {
-    private static String currentUserEmail;
+    private static Session instance;
+    private String currentUserEmail;
 
-    public static void setCurrentUserEmail(String email) {
-        currentUserEmail = email;
+    // Private constructor prevents instantiation from outside
+    private Session() {}
+
+    // Public method to provide access to the single instance
+    public static Session getInstance() {
+        if (instance == null) {
+            instance = new Session();
+        }
+        return instance;
     }
 
-    public static String getCurrentUserEmail() {
+    // Methods to manage session data
+    public void setCurrentUserEmail(String email) {
+        this.currentUserEmail = email;
+    }
+
+    public String getCurrentUserEmail() {
         return currentUserEmail;
     }
 
-    public static void clearSession() {
+    public void clearSession() {
         currentUserEmail = null;
     }
 }

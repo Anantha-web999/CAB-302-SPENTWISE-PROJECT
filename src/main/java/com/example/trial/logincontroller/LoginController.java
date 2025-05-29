@@ -24,14 +24,13 @@ public class LoginController {
     @FXML private Button togglePasswordButton;
     private boolean passwordVisible = false;
 
-
     @FXML
     public void handleLogin(ActionEvent event) {
         String email = emailField.getText().trim();
-        String password = passwordField.getText();
+        String password = passwordVisible ? visiblePasswordField.getText() : passwordField.getText();
 
         if (email.isEmpty() || password.isEmpty()) {
-            showAlert("Error", "Please enter both email and password");
+            showAlert("Error", "Please enter both email and password.");
             return;
         }
 
@@ -46,7 +45,7 @@ public class LoginController {
                 String inputHashedPassword = hashPassword(password);
 
                 if (storedHashedPassword.equals(inputHashedPassword)) {
-                    Session.setCurrentUserEmail(email);
+                    Session.getInstance().setCurrentUserEmail(email);
                     loadHomePage(event);
                 } else {
                     showAlert("Login Failed", "Incorrect password.");
@@ -56,8 +55,8 @@ public class LoginController {
             }
 
         } catch (SQLException | NoSuchAlgorithmException e) {
-            showAlert("Error", "Database error: " + e.getMessage());
             e.printStackTrace();
+            showAlert("Error", "Database error: " + e.getMessage());
         }
     }
 
@@ -77,9 +76,10 @@ public class LoginController {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root, 1000, 600));
             stage.setResizable(false);
+            stage.show();
         } catch (Exception e) {
             e.printStackTrace();
-            showAlert("Error", "Cannot load homepage");
+            showAlert("Error", "Cannot load homepage.");
         }
     }
 
@@ -90,9 +90,10 @@ public class LoginController {
             Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root, 1000, 600));
             stage.setResizable(false);
+            stage.show();
         } catch (Exception e) {
             e.printStackTrace();
-            showAlert("Error", "Cannot load signup page");
+            showAlert("Error", "Cannot load signup page.");
         }
     }
 
@@ -109,23 +110,23 @@ public class LoginController {
         passwordVisible = !passwordVisible;
 
         if (passwordVisible) {
-            // copy over the masked text, show the plain-text field
             visiblePasswordField.setText(passwordField.getText());
             visiblePasswordField.setVisible(true);
             visiblePasswordField.setManaged(true);
+
             passwordField.setVisible(false);
             passwordField.setManaged(false);
+
             togglePasswordButton.setText("Hide");
         } else {
-            // copy back into the masked field, hide the plain-text
             passwordField.setText(visiblePasswordField.getText());
             passwordField.setVisible(true);
             passwordField.setManaged(true);
+
             visiblePasswordField.setVisible(false);
             visiblePasswordField.setManaged(false);
+
             togglePasswordButton.setText("Show");
         }
     }
-
-
 }

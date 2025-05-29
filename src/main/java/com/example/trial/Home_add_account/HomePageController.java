@@ -50,7 +50,7 @@ public class HomePageController implements Initializable {
     }
 
     private void setupUserInfo() {
-        String email = Session.getCurrentUserEmail();
+        String email = Session.getInstance().getCurrentUserEmail();
         if (email != null) {
             try {
                 String fullName = BankAccountHelper.getFullNameByEmail(email);
@@ -77,7 +77,7 @@ public class HomePageController implements Initializable {
 
     private void loadBankAccounts() {
         try {
-            String email = Session.getCurrentUserEmail();
+            String email = Session.getInstance().getCurrentUserEmail();
             if (email == null) {
                 showAlert(AlertType.ERROR, "Session Error", null, "No user logged in.");
                 return;
@@ -163,7 +163,7 @@ public class HomePageController implements Initializable {
 
     @FXML private void handleLogout(ActionEvent event) {
         try {
-            Session.clearSession();
+            Session.getInstance().clearSession();
             Parent root = FXMLLoader.load(getClass().getResource("/com/example/views/landing.fxml"));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root, 1000, 600));

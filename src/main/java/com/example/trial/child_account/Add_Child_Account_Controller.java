@@ -41,13 +41,19 @@ public class Add_Child_Account_Controller {
         }
 
         try {
-            String userEmail = Session.getCurrentUserEmail();
+            String userEmail = Session.getInstance().getCurrentUserEmail();
+            if (userEmail == null) {
+                showAlert(Alert.AlertType.ERROR, "Session Error", "No logged-in user. Please log in again.");
+                return;
+            }
+
             ChildBankAccountHelper.addChildAccount(accountName, 0.0, bankName, accountNumber, bsb, accountType, userEmail);
 
             showAlert(Alert.AlertType.INFORMATION, "Success", "Child account saved successfully!");
             clearFields();
         } catch (Exception e) {
             showAlert(Alert.AlertType.ERROR, "Database Error", "Failed to save account: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -72,10 +78,15 @@ public class Add_Child_Account_Controller {
     }
 
     @FXML
-    private void handleBack(ActionEvent event) throws IOException {
-        Parent view = FXMLLoader.load(getClass().getResource("/com/example/child_control/manage_child_account.fxml"));
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(view));
-        stage.show();
+    private void handleBack(ActionEvent event) {
+        try {
+            Parent view = FXMLLoader.load(getClass().getResource("/com/example/child_control/manage_child_account.fxml"));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(view));
+            stage.show();
+        } catch (IOException e) {
+            showAlert(Alert.AlertType.ERROR, "Navigation Error", "Failed to load the previous page.");
+            e.printStackTrace();
+        }
     }
 }

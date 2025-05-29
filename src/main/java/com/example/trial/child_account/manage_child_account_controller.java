@@ -35,18 +35,15 @@ public class manage_child_account_controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Configure table columns
         childName.setCellValueFactory(new PropertyValueFactory<>("accountName"));
         bankNameColumn.setCellValueFactory(new PropertyValueFactory<>("bankName"));
         budgetColumn.setCellValueFactory(new PropertyValueFactory<>("budget"));
         balanceColumn.setCellValueFactory(new PropertyValueFactory<>("balance"));
 
-        // Configure action columns
         detailsColumn.setCellFactory(getButtonCellFactory("Info", this::showAccountDetails));
         editColumn.setCellFactory(getButtonCellFactory("Update", this::updateAccountBudget));
         deleteColumn.setCellFactory(getButtonCellFactory("Delete", this::deleteChildAccount));
 
-        // Load data
         loadChildAccounts();
     }
 
@@ -54,7 +51,7 @@ public class manage_child_account_controller implements Initializable {
         ObservableList<ChildAccount> accounts = FXCollections.observableArrayList();
 
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:spentwise.db")) {
-            String email = Session.getCurrentUserEmail();
+            String email = Session.getInstance().getCurrentUserEmail();
             if (email == null) return;
 
             int userId = ChildBankAccountHelper.getUserIdByEmail(email);
@@ -104,8 +101,11 @@ public class manage_child_account_controller implements Initializable {
     private void showAccountDetails(ChildAccount account) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Child Account Details");
-        alert.setHeaderText("Details for: " + account.getAccountName());
-        alert.setContentText("Budget: $" + account.getBudget());
+        alert.setHeaderText(null);
+        alert.setContentText("Account Name: " + account.getAccountName()
+                + "\nBank: " + account.getBankName()
+                + "\nBudget: $" + account.getBudget()
+                + "\nBalance: $" + account.getBalance());
         alert.showAndWait();
     }
 
@@ -166,6 +166,7 @@ public class manage_child_account_controller implements Initializable {
     private void showAlert(Alert.AlertType type, String title, String message) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
+        alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
     }

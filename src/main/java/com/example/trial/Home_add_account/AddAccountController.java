@@ -12,18 +12,27 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.sql.SQLException;
 
 public class AddAccountController {
 
-    @FXML private TextField bankNameField, accountNameField, accountNumberField, bsbField;
+    @FXML private TextField bankNameField;
+    @FXML private TextField accountNameField;
+    @FXML private TextField accountNumberField;
+    @FXML private TextField bsbField;
     @FXML private ComboBox<String> accountTypeCombo;
 
     @FXML
+    public void initialize() {
+        accountTypeCombo.getItems().addAll("Savings", "Checking", "Credit", "Loan");
+    }
+
+    @FXML
     private void handleSaveAccount() {
-        String bankName = bankNameField.getText();
-        String accountName = accountNameField.getText();
+        String bankName = bankNameField.getText().trim();
+        String accountName = accountNameField.getText().trim();
         String accountNumber = accountNumberField.getText().trim();
         String bsb = bsbField.getText().trim();
         String accountType = accountTypeCombo.getValue();
@@ -34,37 +43,46 @@ public class AddAccountController {
             return;
         }
 
-        // Validate account number (must be exactly 8 digits)
         if (!accountNumber.matches("\\d{8}")) {
             showAlert(AlertType.ERROR, "Invalid Input", "Invalid Account Number", "Account number must be exactly 8 digits.");
             return;
         }
 
-        // Validate BSB (must be exactly 6 digits)
         if (!bsb.matches("\\d{6}")) {
             showAlert(AlertType.ERROR, "Invalid Input", "Invalid BSB Number", "BSB must be exactly 6 digits.");
             return;
         }
 
         try {
-            String email = Session.getCurrentUserEmail();
+            String email = Session.getInstance().getCurrentUserEmail();
+            if (email == null) {
+                showAlert(AlertType.ERROR, "Session Error", null, "User is not logged in.");
+                return;
+            }
+
             int userId = BankAccountHelper.getUserIdByEmail(email);
             BankAccountHelper.addBankAccount(userId, bankName, accountName, accountNumber, bsb, accountType);
             showAlert(AlertType.INFORMATION, "Success", "Account Saved", "The bank account has been successfully saved.");
+
             clearFields();
             returnToMainView();
+
         } catch (SQLException | IOException e) {
-            showAlert(AlertType.ERROR, "Error", "Database Error", "An error occurred: " + e.getMessage());
             e.printStackTrace();
+            showAlert(AlertType.ERROR, "Error", "Database Error", "An error occurred: " + e.getMessage());
         }
     }
-
 
     private void returnToMainView() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/hellofx/homepage.fxml"));
         Parent root = loader.load();
-        HomePageController controller = loader.getController();
-        controller.refreshAccounts();
+
+        // Only call refresh if controller was loaded correctly
+        Object controller = loader.getController();
+        if (controller instanceof HomePageController homepageController) {
+            homepageController.refreshAccounts();
+        }
+
         Stage stage = (Stage) bankNameField.getScene().getWindow();
         stage.setScene(new Scene(root));
     }
@@ -85,6 +103,7 @@ public class AddAccountController {
         accountTypeCombo.getSelectionModel().clearSelection();
     }
 
+    @FXML
     public void goToHomePage(ActionEvent event) throws IOException {
         Parent homeRoot = FXMLLoader.load(getClass().getResource("/com/example/hellofx/homepage.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
