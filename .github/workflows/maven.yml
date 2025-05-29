@@ -36,7 +36,7 @@ jobs:
 
       - name: Upload Test Reports
         if: always()
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v2.2.4
         with:
           name: test-reports
           path: target/surefire-reports/
@@ -45,7 +45,7 @@ jobs:
         run: mvn javadoc:javadoc
 
       - name: Upload JavaDoc
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v2.2.4
         with:
           name: javadoc
           path: target/site/apidocs/
