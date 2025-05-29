@@ -7,7 +7,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 
-<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trial.settings.HelpSupportPanelController">
+<BorderPane prefWidth="1000.0" prefHeight="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trial.settings.HelpSupportPanelController">
     <left>
         <VBox prefWidth="245" spacing="4" style="-fx-background-color: #1a5276;">
             <children>

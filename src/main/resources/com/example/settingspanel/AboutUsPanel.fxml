@@ -7,7 +7,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 
-<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trial.settings.AboutUsPanelController">
+<BorderPane prefWidth="1000.0" prefHeight="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trial.settings.AboutUsPanelController">
     <left>
         <VBox prefWidth="245" spacing="4" style="-fx-background-color: #1a5276;">
             <children>
@@ -119,8 +119,8 @@
                         <content>
                             <VBox spacing="15.0">
                                 <children>
-                                    <Label text="SpentWise is developed by a dedicated team of software engineers and financial experts committed to creating the best expense tracking experience." wrapText="true" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
-                                    <Label text="We believe that managing your finances shouldn't be complicated or time-consuming. That's why we've designed SpentWise to be both powerful and user-friendly." wrapText="true" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
+                                    <Label text="SpentWise is developed by our dedicated team of software engineers Anantha Krishnan Shibu Nair, Ahmed Nizaaq Mohamed Nisamudeen, Rohit Rawat, Lachlan Laffey-Ardley, and Yonathan keefe." wrapText="true" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
+                                    <Label text="We believe that managing your finances shouldn't be complicated or time consuming. That's why we've designed an app like SpentWise, that can be both efficient and user friendly." wrapText="true" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
                                 </children>
                             </VBox>
                         </content>
