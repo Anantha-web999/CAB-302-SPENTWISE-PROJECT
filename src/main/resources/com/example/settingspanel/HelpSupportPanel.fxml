@@ -7,9 +7,9 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 
-<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trial.settings.HelpSupportPanelController">
+<BorderPane prefWidth="1000.0" prefHeight="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trial.settings.HelpSupportPanelController">
     <left>
-        <VBox prefWidth="245" style="-fx-background-color: #1a5276;">
+        <VBox prefWidth="245" spacing="4" style="-fx-background-color: #1a5276;">
             <children>
                 <StackPane alignment="CENTER" prefHeight="200.0">
                     <children>
@@ -26,22 +26,17 @@
                         </VBox>
                     </children>
                 </StackPane>
-                <Button fx:id="accountButton" alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#handleAccountButton" prefHeight="50.0" style="-fx-background-color: #1a5276; -fx-text-fill: #fbfcfc; -fx-font-family: 'Lato'; -fx-font-size: 14px;" text="Account">
+                <Button fx:id="accountButton" alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#handleAccountButton" prefHeight="62.0" style="-fx-background-color: #1a5276; -fx-text-fill: #fbfcfc; -fx-font-family: 'Lato'; -fx-font-size: 14px;" text="Account">
                     <padding>
                         <Insets left="20.0" />
                     </padding>
                 </Button>
-                <Button fx:id="appPreferencesButton" alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#handleAppPreferencesButton" prefHeight="50.0" style="-fx-background-color: #1a5276; -fx-text-fill: #fbfcfc; -fx-font-family: 'Lato'; -fx-font-size: 14px;" text="App Preferences">
+                <Button fx:id="helpSupportButton" alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#handleHelpSupportButton" prefHeight="62.0" style="-fx-background-color: #17202a; -fx-text-fill: #fbfcfc; -fx-font-family: 'Lato'; -fx-font-weight: bold; -fx-font-size: 14px;" text="Help &amp; Support">
                     <padding>
                         <Insets left="20.0" />
                     </padding>
                 </Button>
-                <Button fx:id="helpSupportButton" alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#handleHelpSupportButton" prefHeight="50.0" style="-fx-background-color: #17202a; -fx-text-fill: #fbfcfc; -fx-font-family: 'Lato'; -fx-font-weight: bold; -fx-font-size: 14px;" text="Help &amp; Support">
-                    <padding>
-                        <Insets left="20.0" />
-                    </padding>
-                </Button>
-                <Button fx:id="aboutUsButton" alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#handleAboutUsButton" prefHeight="50.0" style="-fx-background-color: #1a5276; -fx-text-fill: #fbfcfc; -fx-font-family: 'Lato'; -fx-font-size: 14px;" text="About Us">
+                <Button fx:id="aboutUsButton" alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#handleAboutUsButton" prefHeight="62.0" style="-fx-background-color: #1a5276; -fx-text-fill: #fbfcfc; -fx-font-family: 'Lato'; -fx-font-size: 14px;" text="About Us">
                     <padding>
                         <Insets left="20.0" />
                     </padding>
@@ -124,7 +119,7 @@
                                         <Label text="1-800-SPENT-WISE" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
                                         <Label text="Hours:" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" GridPane.rowIndex="2" />
-                                        <Label text="Monday - Friday, 9 AM - 5 PM EST" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                        <Label text="Monday - Friday, 9 AM - 5 PM AEST" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                     </children>
                                 </GridPane>
                             </content>

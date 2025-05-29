@@ -7,9 +7,9 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 
-<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trial.settings.AboutUsPanelController">
+<BorderPane prefWidth="1000.0" prefHeight="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trial.settings.AboutUsPanelController">
     <left>
-        <VBox prefWidth="245" style="-fx-background-color: #1a5276;">
+        <VBox prefWidth="245" spacing="4" style="-fx-background-color: #1a5276;">
             <children>
                 <StackPane alignment="CENTER" prefHeight="200.0">
                     <children>
@@ -26,22 +26,17 @@
                         </VBox>
                     </children>
                 </StackPane>
-                <Button fx:id="accountButton" alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#handleAccountButton" prefHeight="50.0" style="-fx-background-color: #1a5276; -fx-text-fill: #fbfcfc; -fx-font-family: 'Lato'; -fx-font-size: 14px;" text="Account">
+                <Button fx:id="accountButton" alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#handleAccountButton" prefHeight="62.0" style="-fx-background-color: #1a5276; -fx-text-fill: #fbfcfc; -fx-font-family: 'Lato'; -fx-font-size: 14px;" text="Account">
                     <padding>
                         <Insets left="20.0" />
                     </padding>
                 </Button>
-                <Button fx:id="appPreferencesButton" alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#handleAppPreferencesButton" prefHeight="50.0" style="-fx-background-color: #1a5276; -fx-text-fill: #fbfcfc; -fx-font-family: 'Lato'; -fx-font-size: 14px;" text="App Preferences">
+                <Button fx:id="helpSupportButton" alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#handleHelpSupportButton" prefHeight="62.0" style="-fx-background-color: #1a5276; -fx-text-fill: #fbfcfc; -fx-font-family: 'Lato'; -fx-font-size: 14px;" text="Help &amp; Support">
                     <padding>
                         <Insets left="20.0" />
                     </padding>
                 </Button>
-                <Button fx:id="helpSupportButton" alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#handleHelpSupportButton" prefHeight="50.0" style="-fx-background-color: #1a5276; -fx-text-fill: #fbfcfc; -fx-font-family: 'Lato'; -fx-font-size: 14px;" text="Help &amp; Support">
-                    <padding>
-                        <Insets left="20.0" />
-                    </padding>
-                </Button>
-                <Button fx:id="aboutUsButton" alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#handleAboutUsButton" prefHeight="50.0" style="-fx-background-color: #17202a; -fx-text-fill: #fbfcfc; -fx-font-family: 'Lato'; -fx-font-weight: bold; -fx-font-size: 14px;" text="About Us">
+                <Button fx:id="aboutUsButton" alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#handleAboutUsButton" prefHeight="62.0" style="-fx-background-color: #17202a; -fx-text-fill: #fbfcfc; -fx-font-family: 'Lato'; -fx-font-weight: bold; -fx-font-size: 14px;" text="About Us">
                     <padding>
                         <Insets left="20.0" />
                     </padding>
@@ -57,15 +52,10 @@
                     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                 </padding>
                 <children>
-                    <VBox alignment="CENTER" spacing="20.0">
+                    <VBox>
                         <children>
-                            <ImageView fx:id="centerLogoImage" fitHeight="80.0" fitWidth="80.0" preserveRatio="true">
-                                <image>
-                                    <Image url="/Logo.png" />
-                                </image>
-                            </ImageView>
-                            <Label text="SpentWise" style="-fx-text-fill: #1f618d; -fx-font-family: 'Lato'; -fx-font-weight: bold; -fx-font-size: 28px;" />
-                            <Label text="Smart Expense Tracking Made Simple" style="-fx-text-fill: #1f618d; -fx-font-family: 'Lato'; -fx-font-size: 16px;" />
+                            <Label text="SpentWise" style="-fx-text-fill: #1f618d; -fx-font-family: 'Lato'; -fx-font-weight: bold; -fx-font-size: 24px;" />
+                            <Label text="Budget Management Made Manageable" style="-fx-text-fill: #1f618d; -fx-font-family: 'Lato'; -fx-font-size: 14px;" />
                         </children>
                     </VBox>
                     <Separator />
@@ -74,8 +64,8 @@
                         <content>
                             <VBox spacing="15.0">
                                 <children>
-                                    <Label text="SpentWise is a comprehensive expense tracking application designed to help individuals and families manage their finances effectively. Our mission is to make financial management accessible, intuitive, and powerful for everyone." wrapText="true" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
-                                    <Label text="Whether you're tracking daily expenses, planning budgets, or analyzing spending trends, SpentWise provides the tools you need to take control of your financial future." wrapText="true" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
+                                    <Label text="SpentWise is an expense tracking and budgeting application, designed to help its users manage their finances more effectively. Our mission is to make financial management accessible, intuitive, and easy for everyone." wrapText="true" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
+                                    <Label text="Whether you're tracking your daily expenses, creating budgets, or analysing spending trends, SpentWise provides the tools you need to take control of your financial future." wrapText="true" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
                                 </children>
                             </VBox>
                         </content>
@@ -101,51 +91,22 @@
                                 </rowConstraints>
                                 <children>
                                     <Label text="•" style="-fx-font-family: 'Lato'; -fx-font-size: 13px; -fx-text-fill: #1f618d;" />
-                                    <Label text="Intuitive expense tracking and categorization" wrapText="true" GridPane.columnIndex="1" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
+                                    <Label text="Intuitive expense tracking and categorisation." wrapText="true" GridPane.columnIndex="1" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
 
                                     <Label text="•" style="-fx-font-family: 'Lato'; -fx-font-size: 13px; -fx-text-fill: #1f618d;" GridPane.rowIndex="1" />
-                                    <Label text="Comprehensive budget planning and monitoring" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
+                                    <Label text="Comprehensive budget planning and monitoring." wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
 
                                     <Label text="•" style="-fx-font-family: 'Lato'; -fx-font-size: 13px; -fx-text-fill: #1f618d;" GridPane.rowIndex="2" />
-                                    <Label text="Visual spending trends and analytics" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
+                                    <Label text="Artificial Intelligence powered financial assistant." wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
 
                                     <Label text="•" style="-fx-font-family: 'Lato'; -fx-font-size: 13px; -fx-text-fill: #1f618d;" GridPane.rowIndex="3" />
-                                    <Label text="Multi-currency support for international users" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
+                                    <Label text="Upcoming bill reminder and tracker." wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
 
                                     <Label text="•" style="-fx-font-family: 'Lato'; -fx-font-size: 13px; -fx-text-fill: #1f618d;" GridPane.rowIndex="4" />
-                                    <Label text="Data export and backup capabilities" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="4" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
+                                    <Label text="Data export and backup capabilities." wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="4" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
 
                                     <Label text="•" style="-fx-font-family: 'Lato'; -fx-font-size: 13px; -fx-text-fill: #1f618d;" GridPane.rowIndex="5" />
-                                    <Label text="Secure and private - your data stays on your device" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="5" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
-                                </children>
-                            </GridPane>
-                        </content>
-                        <padding>
-                            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                        </padding>
-                    </TitledPane>
-
-                    <TitledPane animated="false" collapsible="false" expanded="true" text="Version Information" style="-fx-font-family: 'Lato'; -fx-font-weight: bold;">
-                        <content>
-                            <GridPane hgap="10.0" vgap="15.0">
-                                <columnConstraints>
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="150.0" prefWidth="150.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="400.0" prefWidth="400.0" />
-                                </columnConstraints>
-                                <rowConstraints>
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                </rowConstraints>
-                                <children>
-                                    <Label text="Version:" style="-fx-font-family: 'Lato'; -fx-font-size: 13px; -fx-font-weight: bold;" />
-                                    <Label fx:id="versionLabel" text="1.0.0" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" GridPane.columnIndex="1" />
-
-                                    <Label text="Build Date:" style="-fx-font-family: 'Lato'; -fx-font-size: 13px; -fx-font-weight: bold;" GridPane.rowIndex="1" />
-                                    <Label fx:id="buildDateLabel" text="May 25, 2025" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-
-                                    <Label text="Java Version:" style="-fx-font-family: 'Lato'; -fx-font-size: 13px; -fx-font-weight: bold;" GridPane.rowIndex="2" />
-                                    <Label fx:id="javaVersionLabel" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <Label text="Child account management and assistance" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="5" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
                                 </children>
                             </GridPane>
                         </content>
@@ -158,8 +119,8 @@
                         <content>
                             <VBox spacing="15.0">
                                 <children>
-                                    <Label text="SpentWise is developed by a dedicated team of software engineers and financial experts committed to creating the best expense tracking experience." wrapText="true" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
-                                    <Label text="We believe that managing your finances shouldn't be complicated or time-consuming. That's why we've designed SpentWise to be both powerful and user-friendly." wrapText="true" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
+                                    <Label text="SpentWise is developed by our dedicated team of software engineers Anantha Krishnan Shibu Nair, Ahmed Nizaaq Mohamed Nisamudeen, Rohit Rawat, Lachlan Laffey-Ardley, and Yonathan keefe." wrapText="true" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
+                                    <Label text="We believe that managing your finances shouldn't be complicated or time consuming. That's why we've designed an app like SpentWise, that can be both efficient and user friendly." wrapText="true" style="-fx-font-family: 'Lato'; -fx-font-size: 13px;" />
                                 </children>
                             </VBox>
                         </content>
