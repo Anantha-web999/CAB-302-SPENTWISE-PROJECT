@@ -1,0 +1,32 @@
+[33m4c251f6[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mupcomingpayment[m[33m, [m[1;31morigin/upcomingpayment[m[33m)[m code update for upcoming payment branch
+[33m5facebd[m code for upcoming payment branch
+[33m82a8d52[m updating code for upcoming payment
+[33m9699931[m Tdd finish
+[33m70182d8[m Tdd progress
+[33m040e1fc[m change font colour and style
+[33mc8d49e9[m added recent transaction view
+[33m0d71175[m ChildAccount UI and DB
+[33m6156c50[m added recent transaction view
+[33m6c8d225[m fixed card view and connected payments
+[33me87b533[m merged upcoming payments
+[33m6da011a[m added my part to the current code
+[33m5d694ad[m merged insights , login, settings etc
+[33m340ba01[m Merge branch 'master' of https://github.com/Anantha-web999/CAB-302-SPENTWISE-PROJECT into login
+[33m20dfd94[m Merge branch 'insightsUI'
+[33m7dc4da3[m Merged code and some changes in insights dashboard and insights merged with buttons
+[33m74097fa[m TDD
+[33m3210711[m Merge remote-tracking branch 'origin/master'
+[33me51d48a[m Added TDD and test cases
+[33m4327683[m Merge branch 'Homepage'
+[33m975135b[m merged insights and settings
+[33m116bc56[m login changes
+[33m8201c26[m Added styling to the settingspanel
+[33m0a0e410[m Merge remote-tracking branch 'origin/master'
+[33m910cfc7[m pom
+[33m065aa4d[m homepage
+[33m59a24e3[m SettingsPanel and SettingsManager setup
+[33m3ec0093[m new ui changes for buttons
+[33m514ac7f[m example
+[33m25e91da[m Insights UI Anantha
+[33mb2f850c[m INSIGHTS UI
+[33m6bdd1f3[m Added Java
