@@ -109,7 +109,7 @@ public class LoginController {
         passwordVisible = !passwordVisible;
 
         if (passwordVisible) {
-            // copy over the masked text, show the plain-text field
+            // copies over the masked text, shows the plain-text field
             visiblePasswordField.setText(passwordField.getText());
             visiblePasswordField.setVisible(true);
             visiblePasswordField.setManaged(true);
@@ -117,7 +117,7 @@ public class LoginController {
             passwordField.setManaged(false);
             togglePasswordButton.setText("Hide");
         } else {
-            // copy back into the masked field, hide the plain-text
+            // copies back into the masked field, hides the plain-text
             passwordField.setText(visiblePasswordField.getText());
             passwordField.setVisible(true);
             passwordField.setManaged(true);
