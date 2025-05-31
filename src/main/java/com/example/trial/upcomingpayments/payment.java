@@ -26,9 +26,7 @@ public class payment {
 
     // Property getters - these are used by JavaFX to bind UI elements
 
-    /**
-     * Returns the property for the payment's name
-     */
+
     public StringProperty nameProperty() { return name; }
 
     /**
