@@ -16,7 +16,6 @@ public class payment {
     private final BooleanProperty paid = new SimpleBooleanProperty();
 
 
-     */
     public payment(String name, double amount, LocalDate dueDate) {
         setName(name);           // Set the payment name
         setAmount(amount);       // Set the payment amount
