@@ -6,10 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-/**
- * This is the main entry point for the Payment Reminder JavaFX app.
- * It launches the GUI and loads the initial screen from FXML.
- */
+
 public class MainPayment extends Application {
 
     /**
