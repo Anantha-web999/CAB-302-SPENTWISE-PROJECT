@@ -34,9 +34,7 @@ public class payment {
 
     public ObjectProperty<LocalDate> dueDateProperty() { return dueDate; }
 
-    /**
-     *  Returns the property for whether this payment has been paid
-     */
+
     public BooleanProperty paidProperty() { return paid; }
 
     // Setters to update the properties' values
