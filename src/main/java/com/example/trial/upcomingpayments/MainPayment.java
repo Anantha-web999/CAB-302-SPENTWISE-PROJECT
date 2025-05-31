@@ -22,10 +22,7 @@ public class MainPayment extends Application {
         primaryStage.show();
     }
 
-    /**
-     * The main() method is needed to launch the JavaFX app from the command line or IDE.
-     * @param args any command-line arguments (not used here)
-     */
+
     public static void main(String[] args) {
         // This launches the JavaFX application, which will then call start()
         launch(args);
