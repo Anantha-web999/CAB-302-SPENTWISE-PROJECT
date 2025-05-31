@@ -15,12 +15,7 @@ public class payment {
     // Whether this payment has been paid or not
     private final BooleanProperty paid = new SimpleBooleanProperty();
 
-    /**
-     * Constructor to create a new payment item.
-     *
-     * @param name    What this payment is for (e.g. "Rent")
-     * @param amount  How much to pay
-     * @param dueDate When the payment is due
+
      */
     public payment(String name, double amount, LocalDate dueDate) {
         setName(name);           // Set the payment name
