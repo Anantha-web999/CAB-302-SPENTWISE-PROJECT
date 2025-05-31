@@ -9,10 +9,7 @@ import javafx.stage.Stage;
 
 public class MainPayment extends Application {
 
-    /**
-     * This method is automatically called when the application starts.
-     * It sets up the main window (Stage) and loads the layout from the FXML file.
-     */
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         // Load the payment screen layout from the payment.fxml file
