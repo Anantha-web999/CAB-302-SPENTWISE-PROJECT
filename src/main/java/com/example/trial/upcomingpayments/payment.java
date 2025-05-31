@@ -4,11 +4,7 @@ import javafx.beans.property.*;
 
 import java.time.LocalDate;
 
-/**
- * This class represents a single payment in our upcoming payments app.
- * We use JavaFX properties so that UI elements can automatically update
- * when the values change.
- */
+
 public class payment {
     // Name of the payment (e.g. "Electricity Bill")
     private final StringProperty name = new SimpleStringProperty();
