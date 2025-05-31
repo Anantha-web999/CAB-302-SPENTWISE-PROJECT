@@ -24,7 +24,7 @@ public class payment {
         setPaid(false);          // Payments are unpaid by default
     }
 
-    // Property getters - these are used by JavaFX to bind UI elements
+
 
 
     public StringProperty nameProperty() { return name; }
