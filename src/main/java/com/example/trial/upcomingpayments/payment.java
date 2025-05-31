@@ -39,9 +39,7 @@ public class payment {
 
     // Setters to update the properties' values
 
-    /**
-     * Sets the name for this payment.
-     */
+
     public final void setName(String value) { name.set(value); }
 
     /**
