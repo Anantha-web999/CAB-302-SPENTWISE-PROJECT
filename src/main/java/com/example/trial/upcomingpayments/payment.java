@@ -45,14 +45,10 @@ public class payment {
 
     public final void setAmount(double value) { amount.set(value); }
 
-    /**
-     * Sets the due date for this payment.
-     */
+
     public final void setDueDate(LocalDate value) { dueDate.set(value); }
 
-    /**
-     * Sets whether this payment has been paid.
-     */
+
     public final void setPaid(boolean value) { paid.set(value); }
 }
 
