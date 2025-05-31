@@ -42,9 +42,7 @@ public class payment {
 
     public final void setName(String value) { name.set(value); }
 
-    /**
-     * Sets the amount for this payment.
-     */
+
     public final void setAmount(double value) { amount.set(value); }
 
     /**
