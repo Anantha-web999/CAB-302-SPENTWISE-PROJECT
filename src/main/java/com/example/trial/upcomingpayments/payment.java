@@ -29,9 +29,6 @@ public class payment {
 
     public StringProperty nameProperty() { return name; }
 
-    /**
-     * Returns the property for the payment's amount
-     */
     public DoubleProperty amountProperty() { return amount; }
 
     /**
