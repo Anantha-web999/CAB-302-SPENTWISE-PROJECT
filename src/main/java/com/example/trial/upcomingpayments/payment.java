@@ -31,9 +31,7 @@ public class payment {
 
     public DoubleProperty amountProperty() { return amount; }
 
-    /**
-     * Returns the property for the payment's due date
-     */
+
     public ObjectProperty<LocalDate> dueDateProperty() { return dueDate; }
 
     /**
