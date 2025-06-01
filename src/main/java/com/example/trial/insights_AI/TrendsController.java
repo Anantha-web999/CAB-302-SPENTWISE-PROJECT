@@ -35,7 +35,7 @@ public class TrendsController {
         this.timeRangeCombo.getSelectionModel().selectFirst();
         this.loadTrendData();
     }
-
+    //initialise trend data
     @FXML
     public void loadTrendData() {
         this.trendChart.getData().clear();
