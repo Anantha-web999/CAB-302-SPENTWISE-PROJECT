@@ -120,7 +120,7 @@ public class SpendingAdvisorController {
         stage.setTitle("Insights - SpentWise");
         stage.show();
     }
-
+     //json lib
     private String getAdviceFromOllama(String prompt) throws IOException {
         URL url = new URL("http://localhost:11434/api/generate");
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
