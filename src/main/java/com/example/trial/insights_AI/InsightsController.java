@@ -131,7 +131,7 @@ public class InsightsController {
                     writer.printf("%s,%.2f,%s%n", data.getCategory(), data.getAmount(), data.getPercentage());
                 }
 
-                // ✅ SUCCESS POPUP
+
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Export");
                 alert.setHeaderText(null);
