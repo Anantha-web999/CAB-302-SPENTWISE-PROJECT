@@ -76,7 +76,7 @@ public class CompareExpensesController {
         }
 
     }
-
+//initialise comparison data
     @FXML
     public void loadComparisonData() {
         ObservableList<ComparisonData> data = FXCollections.observableArrayList(new ComparisonData[]{new ComparisonData("Food", (double)4200.0F, (double)3600.0F), new ComparisonData("Transport", (double)1800.0F, (double)2300.0F), new ComparisonData("Shopping", (double)3500.0F, (double)3100.0F), new ComparisonData("Entertainment", (double)1200.0F, (double)1500.0F)});
